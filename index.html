@@ -1624,11 +1624,21 @@ function getReps(code) { return DATA.reports[code]||{}; }
 
 /* ===FEES=== */
 function feesStatus(raw){
-  if(!raw||String(raw).trim()==='')return null;
+  if(raw===null||raw===undefined||String(raw).trim()==='')return null;
   var s=String(raw).trim();
-  if(s.toLowerCase()==='paid'||s==='0')return{type:'paid',label:'Fees Paid'};
+  /* Normalise: strip currency symbols and commas, then parse */
+  var clean=s.replace(/[\u20A6\u0024\u00A3,]/g,'').trim(); /* strip ₦ $ £ , */
+  var num=parseFloat(clean);
+  /* Zero balance = paid */
+  if(s.toLowerCase()==='paid'||s==='0'||s==='0.00'||s==='₦0.00'||s==='₦0'||(!isNaN(num)&&num<=0))
+    return{type:'paid',label:'Fees Paid'};
   if(s.toLowerCase()==='pending')return{type:'pending',label:'Payment Pending'};
-  return{type:'owed',label:'Fees Outstanding',amount:s};
+  /* Format nicely: if it's a number, show with ₦ and commas */
+  var display=s;
+  if(!isNaN(num)&&num>0){
+    display='₦'+num.toLocaleString('en-NG',{minimumFractionDigits:0,maximumFractionDigits:0});
+  }
+  return{type:'owed',label:'Fees Outstanding',amount:display};
 }
 function feesChip(bal){
   var fs=feesStatus(bal);if(!fs)return'';
