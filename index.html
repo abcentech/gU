@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0A0F22">
+<title>goDs University · Parent Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+/* ── THEME VARS ── */
+[data-theme="dark"]{
+  --bg:#0A0F22;--bg2:#101828;--card:#161F35;--card2:#1E2A42;
+  --border:rgba(255,255,255,.12);--text:#F0F4FF;--text2:#94A3B8;--text3:#5A7090;
+  --inv-bg:#F8FAFF;--shadow:rgba(0,0,0,.5);
+}
+[data-theme="light"]{
+  --bg:#F0F4FF;--bg2:#E2E8F8;--card:#FFFFFF;--card2:#EEF2FF;
+  --border:rgba(0,0,50,.12);--text:#0D1428;--text2:#334155;--text3:#64748B;
+  --inv-bg:#0A0F22;--shadow:rgba(0,0,80,.12);
+}
+:root{
+  --gold:#E8C443;--gold2:#F6DC74;--gold-d:#8A6F1A;
+  --green:#10B981;--green-bg:rgba(16,185,129,.13);
+  --amber:#F59E0B;--amber-bg:rgba(245,158,11,.13);
+  --red:#EF4444;--red-bg:rgba(239,68,68,.11);
+  --blue:#3B82F6;--blue-bg:rgba(59,130,246,.11);
+  --teal:#14B8A6;--teal-bg:rgba(20,184,166,.11);
+  --purple:#A855F7;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
+[data-theme="light"] canvas#sky{opacity:.15;}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s,visibility .5s;}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-crown{font-size:54px;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 12px rgba(232,196,67,.4));}50%{transform:scale(1.07);filter:drop-shadow(0 0 28px rgba(232,196,67,.8));}}
+.ld-t{font-family:'Cinzel',serif;font-size:22px;font-weight:700;letter-spacing:4px;color:var(--gold);}
+.ld-s{font-size:11px;letter-spacing:3.5px;color:var(--text3);text-transform:uppercase;}
+.ld-bar{width:160px;height:3px;background:rgba(128,128,128,.15);border-radius:3px;overflow:hidden;}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));animation:ldf 1.4s ease-out forwards;}
+@keyframes ldf{from{width:0}to{width:100%}}
+
+/* ── ONBOARDING ── */
+#onboard{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(12px);}
+#onboard.show{display:flex;}
+.ob-card{background:var(--card);border:2px solid rgba(232,196,67,.35);border-radius:24px;max-width:400px;width:100%;overflow:hidden;}
+.ob-top{height:4px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.ob-body{padding:32px 28px 24px;text-align:center;}
+.ob-icon{font-size:52px;margin-bottom:14px;display:block;}
+.ob-title{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--gold);margin-bottom:10px;}
+.ob-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:22px;}
+.ob-dots{display:flex;justify-content:center;gap:7px;margin-bottom:20px;}
+.ob-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .25s;}
+.ob-dot.on{background:var(--gold);}
+.ob-btn{width:100%;padding:14px;background:linear-gradient(135deg,#6B5010,var(--gold),var(--gold2));border:none;border-radius:12px;color:#0D1428;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:2.5px;cursor:pointer;}
+.ob-skip{display:block;margin-top:12px;font-size:12px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+
+/* ── LOGIN ── */
+#login{position:relative;z-index:1;min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.lw{width:100%;max-width:440px;}
+.lb{text-align:center;margin-bottom:24px;}
+.lb-crown{font-size:58px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.5));animation:pulse 3s ease-in-out infinite;margin-bottom:10px;}
+.lb-name{font-family:'Cinzel',serif;font-size:32px;font-weight:900;letter-spacing:5px;color:var(--gold);display:block;margin-bottom:4px;}
+.lb-line2{font-size:11px;letter-spacing:4px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:7px;}
+.lb-mission{font-family:'Lora',serif;font-style:italic;font-size:14px;color:var(--text2);}
+.lc{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:32px;box-shadow:0 24px 64px var(--shadow);}
+.lc-top{height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:-32px -32px 28px;border-radius:22px 22px 0 0;}
+.fl{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:7px;}
+.fw{margin-bottom:16px;}
+.fw input{width:100%;padding:14px 16px;background:var(--bg2);border:2px solid var(--border);border-radius:12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:600;outline:none;transition:all .25s;}
+.fw input::placeholder{color:var(--text3);}
+.fw input:focus{border-color:var(--gold);background:rgba(232,196,67,.03);box-shadow:0 0 0 4px rgba(232,196,67,.08);}
+.lbtn{width:100%;padding:15px;background:linear-gradient(135deg,#6B5010,var(--gold),var(--gold2));border:none;border-radius:12px;color:#0D1428;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:3px;cursor:pointer;transition:all .28s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;}
+.lbtn:hover{box-shadow:0 10px 36px rgba(232,196,67,.38);transform:translateY(-2px);}
+.lbtn:disabled{opacity:.7;cursor:wait;transform:none;}
+.lbtn-spinner{width:18px;height:18px;border:2px solid rgba(13,20,40,.3);border-top-color:#0D1428;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lerr{margin-top:12px;padding:12px 15px;background:var(--red-bg);border:1.5px solid rgba(239,68,68,.28);border-radius:10px;font-size:14px;color:var(--red);text-align:center;display:none;font-weight:700;}
+.lfp{margin-top:10px;font-size:13px;color:var(--text3);text-align:center;line-height:1.8;}
+.lfp a{color:var(--gold);text-decoration:none;}
+
+/* GS PANEL */
+.gs-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:14px;}
+.gs-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;}
+.gs-hdr-l{display:flex;align-items:center;gap:10px;}
+.gs-icon{font-size:20px;}
+.gs-title{font-size:14px;font-weight:700;color:var(--text);}
+.gs-st{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:800;}
+.gst-ok{background:var(--green-bg);color:var(--green);}
+.gst-off{background:var(--red-bg);color:var(--red);}
+.gst-sync{background:var(--amber-bg);color:var(--amber);}
+.gs-chev{color:var(--text3);transition:transform .25s;font-size:13px;}
+.gs-chev.open{transform:rotate(180deg);}
+.gs-body{display:none;padding:0 18px 18px;border-top:1px solid var(--border);}
+.gs-body.open{display:block;}
+.gs-desc{font-size:13px;color:var(--text2);line-height:1.75;margin:12px 0 10px;}
+.gs-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.gs-inp{flex:1;min-width:200px;padding:11px 14px;background:var(--bg2);border:2px solid var(--border);border-radius:10px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;outline:none;transition:border-color .25s;}
+.gs-inp:focus{border-color:var(--gold);}
+.gs-inp::placeholder{color:var(--text3);}
+.gs-btn{padding:11px 16px;background:var(--green);color:white;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.gs-btn:hover{background:#059669;}
+.gs-btn:disabled{background:var(--text3);cursor:not-allowed;}
+.gs-msg{font-size:13px;color:var(--text3);margin-top:7px;min-height:18px;font-weight:600;}
+.gs-msg.ok{color:var(--green);}
+.gs-msg.err{color:var(--red);}
+.gs-msg.warn{color:var(--amber);}
+.gs-sheet-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.gs-ss{padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;}
+.gss-ok{background:var(--green-bg);color:var(--green);}
+.gss-err{background:var(--red-bg);color:var(--red);}
+.gss-wait{background:rgba(128,128,128,.08);color:var(--text3);}
+.gs-steps{margin-top:10px;background:var(--bg2);border-radius:10px;padding:12px 14px;}
+.gs-step{font-size:13px;color:var(--text2);margin-bottom:7px;display:flex;gap:9px;line-height:1.55;}
+.gs-step:last-child{margin-bottom:0;}
+.gs-sn{color:var(--gold);font-weight:800;flex-shrink:0;}
+.gs-cfg{margin-top:12px;padding:12px;background:var(--amber-bg);border:1px solid rgba(245,158,11,.25);border-radius:10px;}
+.gs-cfg-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.gs-cfg-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.gs-cfg-row:last-child{margin-bottom:0;}
+.gs-cfg-label{font-size:13px;color:var(--text2);min-width:140px;}
+.gs-cfg-inp{flex:1;min-width:80px;padding:7px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s;}
+.gs-cfg-inp:focus{border-color:var(--amber);}
+
+/* PAY BANNER */
+.pay-banner{display:flex;align-items:center;gap:12px;background:var(--green-bg);border:1.5px solid rgba(16,185,129,.28);border-radius:13px;padding:13px 16px;margin-top:14px;text-decoration:none;transition:all .22s;}
+.pay-banner:hover{background:rgba(16,185,129,.2);}
+.pb-ic{font-size:24px;flex-shrink:0;}
+.pb-txt{flex:1;font-size:13px;color:var(--text2);line-height:1.5;}
+.pb-txt strong{color:var(--green);font-size:14px;}
+.pb-pill{background:var(--green);color:white;border-radius:9px;padding:7px 14px;font-size:12px;font-weight:800;white-space:nowrap;}
+
+/* ── DASHBOARD ── */
+#dash{display:none;position:relative;z-index:1;min-height:100vh;padding-bottom:76px;}
+.topbar{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:rgba(10,15,34,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);gap:8px;}
+[data-theme="light"] .topbar{background:rgba(240,244,255,.97);}
+.tb-l{display:flex;align-items:center;gap:8px;flex-shrink:0;overflow:hidden;}
+.tb-logo{font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--gold);white-space:nowrap;}
+.tbb{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:18px;font-size:11px;font-weight:700;white-space:nowrap;}
+.tbb-wk{background:rgba(232,196,67,.12);border:1px solid rgba(232,196,67,.3);color:var(--gold);}
+.tbb-live{background:var(--green-bg);border:1px solid rgba(16,185,129,.3);color:var(--green);}
+.tbb-offline{background:var(--amber-bg);border:1px solid rgba(245,158,11,.3);color:var(--amber);display:none;}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:ld 1.5s infinite;}
+@keyframes ld{0%,100%{opacity:1}50%{opacity:.2}}
+.tb-r{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.tb-btn{display:flex;align-items:center;gap:4px;padding:5px 10px;background:var(--card2);border:1.5px solid var(--border);border-radius:9px;color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;}
+.tb-btn:hover{border-color:var(--gold);color:var(--gold);}
+.tb-btn.syncing{border-color:var(--amber);color:var(--amber);}
+.theme-btn{padding:5px 9px;background:var(--card2);border:1.5px solid var(--border);border-radius:9px;cursor:pointer;font-size:14px;transition:all .2s;}
+.theme-btn:hover{border-color:var(--gold);}
+.xbtn{padding:5px 10px;background:transparent;border:1.5px solid var(--border);border-radius:9px;color:var(--text2);font-size:12px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;font-weight:700;}
+.xbtn:hover{border-color:var(--red);color:var(--red);}
+
+/* ALERT BANNER */
+.alert-banner{background:var(--red-bg);border-bottom:1px solid rgba(239,68,68,.25);padding:10px 16px;display:none;align-items:center;gap:10px;}
+.alert-banner.show{display:flex;}
+.ab-icon{font-size:18px;flex-shrink:0;}
+.ab-text{font-size:13px;color:var(--red);font-weight:700;flex:1;}
+.ab-close{font-size:16px;cursor:pointer;color:var(--text3);padding:2px 6px;}
+
+/* TERM PROGRESS */
+.term-bar{background:var(--card2);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:10px;}
+.term-label{font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;white-space:nowrap;}
+.term-track{flex:1;height:6px;background:rgba(128,128,128,.15);border-radius:6px;overflow:hidden;}
+.term-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:6px;transition:width .8s ease;}
+.term-pct{font-size:12px;font-weight:800;color:var(--gold);white-space:nowrap;}
+
+/* CHILD SWITCHER */
+.child-switcher{background:rgba(232,196,67,.06);border-bottom:1px solid rgba(232,196,67,.14);padding:8px 16px;display:none;align-items:center;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.child-switcher::-webkit-scrollbar{display:none;}
+.child-switcher.show{display:flex;}
+.cs-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);flex-shrink:0;}
+.cs-chip{padding:5px 14px;border-radius:18px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text2);background:transparent;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;}
+.cs-chip.on{background:var(--gold);border-color:var(--gold);color:#0D1428;box-shadow:0 2px 10px rgba(232,196,67,.35);}
+.cs-chip:hover:not(.on){border-color:var(--gold);color:var(--gold);}
+
+.tkr{overflow:hidden;background:rgba(232,196,67,.04);border-bottom:1px solid rgba(232,196,67,.08);padding:8px 0;}
+.tkr-in{display:flex;gap:64px;animation:tk 42s linear infinite;white-space:nowrap;}
+.tkr-in span{font-size:12px;color:rgba(232,196,67,.45);letter-spacing:.5px;font-style:italic;}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.main{max-width:1080px;margin:0 auto;padding:18px 14px;}
+.sec{display:none;}.sec.on{display:block;animation:fu .35s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px 24px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,196,67,.06),transparent 70%);pointer-events:none;}
+.h-ava{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold-d),var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:32px;font-weight:900;color:#0D1428;flex-shrink:0;box-shadow:0 0 0 4px rgba(232,196,67,.2),0 8px 24px rgba(232,196,67,.25);}
+.h-body{flex:1;min-width:0;}
+.h-name{font-family:'Cinzel',serif;font-size:clamp(17px,3.5vw,24px);font-weight:700;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.h-id{font-size:11px;letter-spacing:2.5px;color:var(--gold);margin-bottom:10px;font-weight:700;text-transform:uppercase;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{padding:4px 12px;border-radius:18px;font-size:12px;font-weight:700;}
+.ch-g{background:rgba(232,196,67,.12);border:1.5px solid rgba(232,196,67,.32);color:var(--gold);}
+.ch-gr{background:var(--green-bg);border:1.5px solid rgba(16,185,129,.3);color:var(--green);}
+.ch-am{background:var(--amber-bg);border:1.5px solid rgba(245,158,11,.3);color:var(--amber);}
+.ch-re{background:var(--red-bg);border:1.5px solid rgba(239,68,68,.28);color:var(--red);}
+.ch-p{background:rgba(168,85,247,.1);border:1.5px solid rgba(168,85,247,.28);color:var(--purple);}
+.ch-t{background:var(--teal-bg);border:1.5px solid rgba(20,184,166,.28);color:var(--teal);}
+@media(max-width:520px){.hero{flex-direction:column;text-align:center;}.hero::before{display:none;}.chips{justify-content:center;}.h-name{white-space:normal;}}
+
+.sh{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.sh::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(232,196,67,.3),transparent);}
+
+/* GRID */
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+@media(max-width:680px){.g2{grid-template-columns:1fr;}.g4{grid-template-columns:1fr 1fr;}}
+@media(max-width:340px){.g4{grid-template-columns:1fr;}}
+
+/* STAT */
+.stat{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:18px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .25s;}
+.stat:hover{transform:translateY(-3px);}
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--sb,linear-gradient(90deg,transparent,rgba(232,196,67,.65),transparent));}
+.s-ic{font-size:22px;margin-bottom:8px;}
+.s-val{font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:var(--sc,var(--gold));line-height:1.1;}
+.s-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:4px;}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;position:relative;overflow:hidden;}
+.mb20{margin-bottom:20px;}
+
+/* TERM SUMMARY */
+.term-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+@media(max-width:600px){.term-summary{grid-template-columns:1fr 1fr;}}
+.ts-item{background:var(--card2);border:1.5px solid var(--border);border-radius:13px;padding:14px 12px;text-align:center;}
+.ts-val{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.ts-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
+.ts-sub{font-size:11px;color:var(--text2);margin-top:3px;}
+
+/* DONUT */
+.donut-svg{width:148px;height:148px;}
+.dv{font-family:'Cinzel',serif;font-size:30px;font-weight:700;fill:var(--text);}
+.dl{font-size:11px;fill:var(--text3);letter-spacing:1.2px;}
+.da{font-size:9px;fill:var(--text3);}
+
+/* GRADE */
+.grade-b{display:inline-block;padding:6px 18px;border-radius:18px;font-size:13px;font-weight:800;margin-top:10px;border:2px solid;}
+.gb-ex{background:var(--green-bg);border-color:rgba(16,185,129,.35);color:var(--green);}
+.gb-gd{background:var(--amber-bg);border-color:rgba(245,158,11,.35);color:var(--amber);}
+.gb-fa{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3);color:#F97316;}
+.gb-nf{background:var(--red-bg);border-color:rgba(239,68,68,.28);color:var(--red);}
+.gb-nd{background:rgba(128,128,128,.06);border-color:var(--border);color:var(--text3);}
+
+/* CLASS AVG COMPARE */
+.cavg-row{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 12px;background:var(--bg2);border-radius:10px;}
+.cavg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.cavg-txt{font-size:12px;color:var(--text2);font-weight:600;}
+
+/* LINE CHART */
+.lc-wrap{position:relative;}
+.lc-tt{position:absolute;background:var(--card2);border:2px solid var(--gold);border-radius:11px;padding:9px 13px;pointer-events:none;display:none;z-index:20;min-width:110px;box-shadow:0 8px 24px var(--shadow);}
+.lc-ttw{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:3px;font-weight:700;}
+.lc-ttv{font-family:'Cinzel',serif;font-size:20px;font-weight:700;color:var(--text);}
+.lc-tts{font-size:12px;color:var(--text2);margin-top:2px;font-weight:600;}
+
+/* HEATMAP */
+.hm{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;}
+.hm-c{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.hm-b{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:12px;font-weight:700;cursor:pointer;transition:transform .15s;}
+.hm-b:hover{transform:scale(1.12);}
+.hm-b.hf{background:var(--green);color:white;box-shadow:0 4px 12px rgba(16,185,129,.35);}
+.hm-b.hg{background:var(--amber);color:#0D1428;box-shadow:0 4px 12px rgba(245,158,11,.32);}
+.hm-b.hp{background:#F97316;color:white;}
+.hm-b.hn{background:var(--card2);color:var(--text3);border:1.5px solid var(--border);}
+.hm-l{font-size:10px;color:var(--text3);font-weight:600;}
+
+/* PROGRESS */
+.pr{margin-bottom:14px;}
+.pr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.pr-nm{font-size:14px;color:var(--text);font-weight:700;}
+.pr-rt{display:flex;align-items:center;gap:8px;}
+.pr-pct{font-size:14px;font-weight:800;}
+.spl{display:inline-flex;align-items:center;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:800;}
+.sp1{background:var(--green-bg);color:var(--green);border:1.5px solid rgba(16,185,129,.25);}
+.sp05{background:var(--amber-bg);color:var(--amber);border:1.5px solid rgba(245,158,11,.25);}
+.sp0{background:var(--red-bg);color:var(--red);border:1.5px solid rgba(239,68,68,.2);}
+.pr-tr{height:10px;background:rgba(128,128,128,.1);border-radius:10px;overflow:hidden;}
+.pr-fl{height:100%;border-radius:10px;transition:width 1.2s cubic-bezier(.34,1.56,.64,1);width:0;}
+
+/* MINS */
+.mt-tabs{display:flex;gap:6px;margin-bottom:14px;}
+.mt-btn{padding:7px 16px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text2);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;}
+.mt-btn.on{background:var(--teal);border-color:var(--teal);color:white;}
+.mt-btn:hover:not(.on){border-color:var(--teal);color:var(--teal);}
+.mt-panel{display:none;}.mt-panel.on{display:block;animation:fu .3s ease;}
+
+/* BADGES */
+.bg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+.bg-item{background:var(--card2);border:2px solid var(--border);border-radius:14px;padding:16px 10px;text-align:center;transition:all .28s;}
+.bg-item.e{background:var(--_bg,var(--green-bg));border-color:var(--_bc,rgba(16,185,129,.3));box-shadow:0 4px 18px var(--_gl,rgba(16,185,129,.1));}
+.bg-item.e:hover{transform:translateY(-3px);}
+.bi{font-size:28px;margin-bottom:7px;filter:grayscale(1) opacity(.22);}
+.bg-item.e .bi{filter:none;}
+.bn_{font-size:12px;font-weight:800;color:var(--text3);}
+.bg-item.e .bn_{color:var(--_c,var(--green));}
+.bd_{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4;}
+@media(max-width:500px){.bg-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* AI SUMMARY */
+.ai-card{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(168,85,247,.03));border:2px solid rgba(168,85,247,.22);border-radius:18px;padding:22px;margin-bottom:20px;}
+.ai-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.ai-title{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple);}
+.ai-body{font-family:'Lora',serif;font-style:italic;font-size:15px;line-height:1.85;color:var(--text2);}
+.ai-body.loading{color:var(--text3);animation:shimmer 1.5s ease-in-out infinite;}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
+.ai-gen-btn{margin-top:14px;padding:9px 20px;background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(168,85,247,.1));border:1.5px solid rgba(168,85,247,.3);border-radius:10px;color:var(--purple);font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.ai-gen-btn:hover{background:linear-gradient(135deg,rgba(168,85,247,.3),rgba(168,85,247,.15));}
+.ai-key-note{font-size:12px;color:var(--text3);margin-top:8px;}
+
+/* WEEK GROUPS */
+.wg-strip{display:flex;gap:6px;margin-bottom:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;}
+.wg-strip::-webkit-scrollbar{display:none;}
+.wg-btn{padding:5px 14px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
+.wg-btn.on{background:var(--card2);border-color:var(--gold);color:var(--gold);}
+.wg-btn:hover:not(.on){border-color:rgba(232,196,67,.3);color:var(--text2);}
+.wg-btn.has{border-color:rgba(232,196,67,.25);color:var(--text2);}
+.wt-strip{display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:6px;margin-bottom:16px;}
+.wt-strip::-webkit-scrollbar{display:none;}
+.wt{padding:6px 13px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
+.wt.on{background:var(--gold);border-color:var(--gold);color:#0D1428;box-shadow:0 3px 10px rgba(232,196,67,.35);}
+.wt.latest{border-color:var(--gold);color:var(--gold);font-weight:800;}
+.wt.has-data{border-color:rgba(232,196,67,.28);color:var(--text2);}
+.wt:hover:not(.on){border-color:var(--gold);color:var(--gold);}
+.rp{display:none;}.rp.on{display:block;animation:fu .3s ease;}
+
+/* NEXT WEEK PREVIEW */
+.nwp{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.03));border:2px solid rgba(59,130,246,.2);border-radius:14px;padding:16px 18px;margin-bottom:18px;}
+.nwp-hdr{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.nwp-body{font-size:14px;color:var(--text2);line-height:1.7;}
+.nwp-body strong{color:var(--text);}
+
+/* TREND */
+.trend{border-radius:15px;padding:16px 18px;margin-bottom:18px;display:flex;align-items:center;gap:13px;}
+.tr-up{background:var(--green-bg);border:2px solid rgba(16,185,129,.22);}
+.tr-flat{background:var(--amber-bg);border:2px solid rgba(245,158,11,.22);}
+.tr-down{background:var(--red-bg);border:2px solid rgba(239,68,68,.2);}
+.tr-new{background:var(--blue-bg);border:2px solid rgba(59,130,246,.2);}
+.tr-pat{background:rgba(239,68,68,.06);border:2px solid rgba(239,68,68,.18);}
+.trend-icon{font-size:30px;flex-shrink:0;}
+.trend-body{flex:1;min-width:0;}
+.trend-title{font-size:15px;font-weight:800;margin-bottom:3px;}
+.tr-up .trend-title{color:var(--green);}
+.tr-flat .trend-title{color:var(--amber);}
+.tr-down .trend-title{color:var(--red);}
+.tr-new .trend-title{color:var(--blue);}
+.tr-pat .trend-title{color:var(--red);}
+.trend-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.spark{display:flex;align-items:flex-end;gap:3px;height:26px;flex-shrink:0;}
+.sp-b{width:8px;border-radius:3px 3px 0 0;}
+
+.rsc-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;}
+.rsc-pill{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:10px;font-size:12px;font-weight:800;}
+.rp1{background:var(--green-bg);border:1.5px solid rgba(16,185,129,.25);color:var(--green);}
+.rp05{background:var(--amber-bg);border:1.5px solid rgba(245,158,11,.25);color:var(--amber);}
+.rp0{background:var(--red-bg);border:1.5px solid rgba(239,68,68,.2);color:var(--red);}
+.rpna{background:rgba(128,128,128,.06);border:1.5px solid var(--border);color:var(--text3);}
+
+.inst-note{background:var(--card2);border:1px solid var(--border);border-radius:13px;padding:18px 20px;margin-bottom:18px;}
+.inst-hdr{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+.inst-hdr::after{content:'';flex:1;height:1px;background:rgba(232,196,67,.15);}
+.inst-txt{font-family:'Lora',serif;font-style:italic;font-size:15px;line-height:1.85;color:var(--text);}
+
+.sugg-hdr{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.sugg-hdr::after{content:'';flex:1;height:1px;background:rgba(16,185,129,.18);}
+.sugg{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:13px;margin-bottom:10px;}
+.s-hi{background:rgba(239,68,68,.07);border:2px solid rgba(239,68,68,.2);}
+.s-me{background:rgba(245,158,11,.06);border:2px solid rgba(245,158,11,.18);}
+.s-go{background:var(--green-bg);border:2px solid rgba(16,185,129,.2);}
+.s-in{background:var(--blue-bg);border:2px solid rgba(59,130,246,.18);}
+.sugg-ic{font-size:20px;flex-shrink:0;margin-top:1px;}
+.sugg-body{font-size:14px;color:var(--text2);line-height:1.75;}
+.sugg-body strong{color:var(--text);}
+
+/* SHARE */
+.share-row{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+.share-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
+.share-tg{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25);color:var(--blue);}
+.share-copy{background:rgba(232,196,67,.08);border-color:rgba(232,196,67,.25);color:var(--gold);}
+.share-print{background:rgba(128,128,128,.06);border-color:var(--border);color:var(--text2);}
+
+/* MESSAGE FORM */
+.msg-form{background:var(--card2);border:1.5px solid rgba(59,130,246,.2);border-radius:14px;padding:18px;margin-top:18px;}
+.msg-hdr{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:800;margin-bottom:12px;}
+.msg-ta{width:100%;padding:12px 14px;background:var(--bg2);border:2px solid var(--border);border-radius:11px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;min-height:80px;resize:vertical;outline:none;transition:border-color .25s;line-height:1.6;}
+.msg-ta:focus{border-color:var(--blue);}
+.msg-ta::placeholder{color:var(--text3);}
+.msg-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;flex-wrap:wrap;}
+.msg-send{padding:10px 20px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;}
+.msg-send:hover{background:#2563EB;transform:translateY(-1px);}
+.msg-sent-note{font-size:12px;color:var(--green);font-weight:700;display:none;}
+
+/* SCHEDULE */
+.sched-next{background:linear-gradient(135deg,rgba(20,184,166,.1),rgba(20,184,166,.04));border:2px solid rgba(20,184,166,.25);border-radius:13px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.sched-ic{font-size:28px;flex-shrink:0;}
+.sched-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);font-weight:800;margin-bottom:3px;}
+.sched-date{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--text);}
+.sched-sub{font-size:13px;color:var(--text2);margin-top:2px;}
+.sched-list{display:flex;flex-direction:column;gap:8px;}
+.sched-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card2);border-radius:10px;border:1px solid var(--border);}
+.si-wk{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);min-width:38px;}
+.si-info{flex:1;}
+.si-date{font-size:13px;font-weight:700;color:var(--text);}
+.si-note{font-size:12px;color:var(--text3);margin-top:1px;}
+.si-past{opacity:.38;}
+
+/* TESTIMONY */
+.tc{background:var(--card2);border:1.5px solid rgba(20,184,166,.2);border-radius:15px;padding:20px;margin-bottom:14px;position:relative;}
+.tc::before{content:'\201C';position:absolute;top:-4px;left:14px;font-size:48px;color:rgba(20,184,166,.17);font-family:Georgia,serif;line-height:1;}
+.tc-body{font-family:'Lora',serif;font-style:italic;font-size:15px;line-height:1.85;color:var(--text);}
+.tc-meta{font-size:12px;color:var(--text3);margin-top:10px;font-weight:700;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.tc-date{background:rgba(128,128,128,.08);border:1px solid var(--border);border-radius:6px;padding:2px 8px;font-size:11px;}
+
+/* PROFILE */
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.pf{background:var(--card2);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;}
+.pf-l{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:4px;font-weight:800;}
+.pf-v{font-size:15px;font-weight:700;color:var(--text);}
+@media(max-width:400px){.pf-grid{grid-template-columns:1fr;}}
+
+/* GPA HOW */
+.gpa-how{background:var(--card);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;}
+.gpa-hdr{background:linear-gradient(135deg,rgba(232,196,67,.09),rgba(232,196,67,.03));padding:20px 24px;border-bottom:1px solid var(--border);}
+.gpa-title{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:5px;}
+.gpa-sub{font-size:14px;color:var(--text2);line-height:1.7;}
+.gpa-row{display:flex;gap:14px;align-items:flex-start;padding:16px 24px;border-bottom:1px solid rgba(128,128,128,.07);}
+.gpa-row:last-of-type{border-bottom:none;}
+.gpa-ri{font-size:22px;flex-shrink:0;width:32px;text-align:center;margin-top:2px;}
+.gpa-rn{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.gpa-rd{font-size:13px;color:var(--text2);line-height:1.65;}
+.gpa-score{padding:18px 24px;background:rgba(232,196,67,.04);border-top:1px solid rgba(232,196,67,.1);}
+.gpa-sg-t{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-d);font-weight:800;margin-bottom:11px;}
+.sg-pills{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:12px;}
+.sgp{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:700;}
+.sgp-1{background:var(--green-bg);border:1.5px solid rgba(16,185,129,.25);color:var(--green);}
+.sgp-05{background:var(--amber-bg);border:1.5px solid rgba(245,158,11,.25);color:var(--amber);}
+.sgp-0{background:var(--red-bg);border:1.5px solid rgba(239,68,68,.2);color:var(--red);}
+.sgp-m{background:var(--teal-bg);border:1.5px solid rgba(20,184,166,.25);color:var(--teal);}
+.sg-dot{width:9px;height:9px;border-radius:50%;background:currentColor;}
+.gpa-note{font-size:14px;color:var(--text2);line-height:1.75;}
+
+/* CTA */
+.cta{display:block;text-align:center;border-radius:18px;padding:24px;margin-bottom:18px;text-decoration:none;transition:all .28s;border:2px solid;}
+.cta-tg{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.2);}
+.cta-tg:hover{background:rgba(59,130,246,.15);transform:translateY(-3px);}
+.cta-pay{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.2);}
+.cta-pay:hover{background:rgba(16,185,129,.15);transform:translateY(-3px);}
+.cta-ic{font-size:34px;margin-bottom:10px;display:block;}
+.cta-title{font-family:'Cinzel',serif;font-size:16px;color:var(--text);margin-bottom:6px;}
+.cta-desc{font-size:13px;color:var(--text2);margin-bottom:15px;line-height:1.6;}
+.cta-pill-b{display:inline-block;background:var(--blue);color:white;border-radius:18px;padding:9px 24px;font-size:13px;font-weight:800;}
+.cta-pill-g{display:inline-block;background:var(--green);color:white;border-radius:18px;padding:9px 24px;font-size:13px;font-weight:800;}
+
+.ins{background:var(--card2);border:2px solid rgba(168,85,247,.2);border-radius:13px;padding:14px 16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;}
+.ins-i{font-size:20px;flex-shrink:0;margin-top:1px;}
+.ins-b{font-size:14px;color:var(--text2);line-height:1.7;}
+.ins-b strong{color:var(--text);}
+
+/* BOT NAV */
+.bot-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,15,34,.97);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:9px 0 max(9px,env(safe-area-inset-bottom));z-index:200;backdrop-filter:blur(20px);}
+[data-theme="light"] .bot-nav{background:rgba(240,244,255,.97);}
+.bn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 14px;border-radius:10px;transition:all .18s;}
+.bn.on{background:rgba(232,196,67,.09);}
+.bn-i{font-size:22px;filter:grayscale(1) opacity(.38);transition:filter .18s;}
+.bn-l{font-size:11px;font-weight:700;color:var(--text3);transition:color .18s;}
+.bn.on .bn-i,.bn:hover .bn-i{filter:none;}
+.bn.on .bn-l,.bn:hover .bn-l{color:var(--gold);}
+
+/* DATA VALIDATION */
+.validation-banner{background:var(--amber-bg);border:1.5px solid rgba(245,158,11,.28);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:none;}
+.validation-banner.show{display:block;}
+.vb-title{font-size:13px;font-weight:800;color:var(--amber);margin-bottom:6px;}
+.vb-list{font-size:12px;color:var(--text2);line-height:1.7;}
+
+.no-data{text-align:center;padding:36px;color:var(--text3);font-size:14px;font-style:italic;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:rgba(128,128,128,.04);}::-webkit-scrollbar-thumb{background:rgba(128,128,128,.15);border-radius:3px;}
+
+@media print{
+  canvas,nav,.topbar,.tkr,.share-row,.msg-form,.cta,.ai-gen-btn,.term-bar,.child-switcher,.alert-banner,#onboard,.tb-r,.xbtn,.sync-btn,.theme-btn{display:none!important;}
+  body{background:white!important;color:#000!important;}
+  .card,.inst-note,.sugg,.trend{border:1px solid #ddd!important;background:white!important;box-shadow:none!important;}
+  .inst-txt,.tc-body{color:#333!important;}
+  #dash{padding-bottom:0!important;}
+}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="loader">
+  <div class="ld-crown">&#x1F451;</div>
+  <div class="ld-t">goDs University</div>
+  <div class="ld-s">Parent Portal &middot; 2026</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<div id="onboard">
+  <div class="ob-card">
+    <div class="ob-top"></div>
+    <div class="ob-body" id="ob-body"></div>
+  </div>
+</div>
+
+<div id="login">
+  <div class="lw">
+    <div class="lb">
+      <span class="lb-crown">&#x1F451;</span>
+      <span class="lb-name">goDs University</span>
+      <span class="lb-line2">Kids Inspiring Nation &middot; Parent Portal</span>
+      <span class="lb-mission">&ldquo;In Spirit &middot; By Skills &middot; For Service&rdquo;</span>
+    </div>
+    <div class="lc">
+      <div class="lc-top"></div>
+      <div class="fl">goD Code</div>
+      <div class="fw"><input type="text" id="cinp" placeholder="e.g. gTAA" autocomplete="off" autocapitalize="none" spellcheck="false"/></div>
+      <div class="fl">Password &mdash; Child&rsquo;s Middle Name</div>
+      <div class="fw"><input type="password" id="pinp" placeholder="Enter middle name"/></div>
+      <button class="lbtn" id="lbtn" onclick="doLogin()">
+        <span id="lbtn-txt">&#x2736; &nbsp;Enter Portal&nbsp; &#x2736;</span>
+        <span class="lbtn-spinner" id="lbtn-spin"></span>
+      </button>
+      <div class="lerr" id="lerr">&#x274C; &nbsp;Incorrect code or password. Please try again.</div>
+      <div class="lfp">Forgot password? <a href="https://t.me/KIN_gU" target="_blank">Contact us on Telegram &rarr;</a></div>
+      <a class="pay-banner" href="https://bit.ly/KINpro" target="_blank">
+        <span class="pb-ic">&#x1F4B3;</span>
+        <div class="pb-txt"><strong>Pay Fees</strong> &mdash; secure your child&rsquo;s place in goDs University</div>
+        <span class="pb-pill">Pay Now &rarr;</span>
+      </a>
+    </div>
+
+    <div class="gs-panel">
+      <div class="gs-hdr" onclick="toggleGS()">
+        <div class="gs-hdr-l"><span class="gs-icon">&#x1F4CA;</span><span class="gs-title">Connect to Google Sheets (Live Data)</span></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="gs-st gst-off" id="gs-badge">Disconnected</span>
+          <span class="gs-chev" id="gs-chev">&#x25BC;</span>
+        </div>
+      </div>
+      <div class="gs-body" id="gs-body">
+        <div class="gs-desc">Connect your workbook to always show live data. Sync anytime from inside the dashboard.</div>
+        <div class="gs-row">
+          <input class="gs-inp" id="gs-id" placeholder="Paste Google Sheet ID&hellip;" autocomplete="off"/>
+          <button class="gs-btn" id="gs-btn" onclick="syncSheets()">&#x27F3; Sync</button>
+        </div>
+        <div class="gs-msg" id="gs-msg"></div>
+        <div class="gs-sheet-status" id="gs-sheet-status"></div>
+        <div class="gs-cfg">
+          <div class="gs-cfg-title">Programme Configuration</div>
+          <div class="gs-cfg-row">
+            <span class="gs-cfg-label">Programme start date</span>
+            <input class="gs-cfg-inp" id="cfg-start" type="date" value="2026-01-05"/>
+          </div>
+          <div class="gs-cfg-row">
+            <span class="gs-cfg-label">Total weeks</span>
+            <input class="gs-cfg-inp" id="cfg-weeks" type="number" value="44" min="1" max="100" style="max-width:80px;"/>
+          </div>
+          <div class="gs-cfg-row">
+            <span class="gs-cfg-label">Minutes target / week</span>
+            <input class="gs-cfg-inp" id="cfg-mintgt" type="number" value="300" min="60" max="1000" style="max-width:90px;"/>
+          </div>
+          <div class="gs-cfg-row">
+            <span class="gs-cfg-label">Anthropic API key</span>
+            <input class="gs-cfg-inp" id="cfg-apikey" type="password" placeholder="sk-ant-&hellip; (optional)"/>
+          </div>
+          <button onclick="saveCfg()" style="margin-top:10px;padding:8px 18px;background:var(--amber);color:#0D1428;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Save Settings</button>
+          <span id="cfg-saved" style="margin-left:10px;font-size:12px;color:var(--green);display:none;">Saved!</span>
+        </div>
+        <div class="gs-steps" style="margin-top:10px;">
+          <div class="gs-step"><span class="gs-sn">1.</span>Google Sheet &rarr; File &rarr; Share &rarr; Publish to web &rarr; Entire Document &rarr; Web page &rarr; Publish</div>
+          <div class="gs-step"><span class="gs-sn">2.</span>Copy Sheet ID from URL: docs.google.com/spreadsheets/d/<strong style="color:var(--gold)">SHEET-ID</strong>/edit</div>
+          <div class="gs-step"><span class="gs-sn">3.</span>Paste above and click Sync.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="dash">
+  <div class="topbar">
+    <div class="tb-l">
+      <div class="tb-logo">gU &middot; Portal</div>
+      <div class="tbb tbb-wk" id="wk-badge">Wk &mdash; &middot; 2026</div>
+      <div class="tbb tbb-live"><span class="ldot"></span>Live</div>
+      <div class="tbb tbb-offline" id="offline-chip">&#x1F4F4; Cached</div>
+    </div>
+    <div class="tb-r">
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">&#x1F311;</button>
+      <button class="tb-btn" id="tb-sync" onclick="quickSync()">&#x27F3; Sync</button>
+      <button class="xbtn" onclick="doLogout()">Exit</button>
+    </div>
+  </div>
+
+  <div class="alert-banner" id="alert-banner">
+    <span class="ab-icon">&#x26A0;&#xFE0F;</span>
+    <span class="ab-text" id="alert-text"></span>
+    <span class="ab-close" onclick="document.getElementById('alert-banner').classList.remove('show')">&#x2715;</span>
+  </div>
+
+  <div class="term-bar" id="term-bar">
+    <span class="term-label">Term Progress</span>
+    <div class="term-track"><div class="term-fill" id="term-fill" style="width:0%"></div></div>
+    <span class="term-pct" id="term-pct">Week 0 of 44</span>
+  </div>
+
+  <div class="child-switcher" id="child-switcher">
+    <span class="cs-label">Family:</span>
+    <div id="cs-chips"></div>
+  </div>
+
+  <div class="tkr"><div class="tkr-in">
+    <span>&#x2736; In Spirit &middot; By Skills &middot; For Service</span>
+    <span>&middot; &ldquo;Train up a child in the way he should go&rdquo; &mdash; Proverbs 22:6</span>
+    <span>&middot; goDs University &mdash; Raising Nation Builders for God&rsquo;s Kingdom</span>
+    <span>&middot; &ldquo;I can do all things through Christ who strengthens me&rdquo; &mdash; Phil 4:13</span>
+    <span>&middot; t.me/KIN_gU &middot;</span>
+    <span>&#x2736; In Spirit &middot; By Skills &middot; For Service</span>
+    <span>&middot; &ldquo;Train up a child in the way he should go&rdquo; &mdash; Proverbs 22:6</span>
+    <span>&middot; goDs University &mdash; Raising Nation Builders for God&rsquo;s Kingdom</span>
+    <span>&middot; &ldquo;I can do all things through Christ who strengthens me&rdquo; &mdash; Phil 4:13</span>
+    <span>&middot; t.me/KIN_gU &middot;</span>
+  </div></div>
+
+  <div class="main">
+    <div class="sec on" id="sec-home">
+      <div class="hero">
+        <div class="h-ava" id="h-ava">T</div>
+        <div class="h-body">
+          <div class="h-name" id="h-name">&mdash;</div>
+          <div class="h-id" id="h-id">&mdash;</div>
+          <div class="chips" id="h-chips"></div>
+        </div>
+      </div>
+      <div class="validation-banner" id="val-banner"><div class="vb-title">&#x26A0; Data Warnings</div><div class="vb-list" id="val-list"></div></div>
+      <div class="sh">&#x2736; Term at a Glance</div>
+      <div class="term-summary" id="term-summary"></div>
+      <div id="ins-panel" style="margin-bottom:20px;"></div>
+      <div class="sh">&#x2736; This Week</div>
+      <div class="g4 mb20" id="stats-row"></div>
+      <div class="g2">
+        <div class="card">
+          <div class="sh" style="margin-bottom:18px;">Latest Week Score</div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <svg class="donut-svg" viewBox="0 0 148 148">
+              <circle cx="74" cy="74" r="58" fill="none" stroke="rgba(128,128,128,.1)" stroke-width="14"/>
+              <circle cx="74" cy="74" r="58" fill="none" stroke="url(#dg)" stroke-width="14"
+                stroke-dasharray="364.4" stroke-dashoffset="364.4"
+                stroke-linecap="round" transform="rotate(-90 74 74)" id="d-arc"
+                style="transition:stroke-dashoffset 1.5s cubic-bezier(.34,1.56,.64,1)"/>
+              <defs><linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8A6F1A"/><stop offset="50%" stop-color="#E8C443"/><stop offset="100%" stop-color="#F6DC74"/>
+              </linearGradient></defs>
+              <text x="74" y="70" text-anchor="middle" class="dv" id="d-val">&mdash;</text>
+              <text x="74" y="85" text-anchor="middle" class="dl">WEEK SCORE</text>
+            </svg>
+            <div id="grade-b" class="grade-b gb-nd">No data yet</div>
+            <div id="cavg-row" class="cavg-row" style="display:none;">
+              <div class="cavg-dot" id="cavg-dot"></div>
+              <span class="cavg-txt" id="cavg-txt"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sh" style="margin-bottom:6px;">Progress Across Weeks</div>
+          <div class="lc-wrap">
+            <svg id="lc-svg" style="width:100%;overflow:visible;" viewBox="0 0 270 110" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="lc-tt" id="lc-tt"><div class="lc-ttw" id="lc-ttw"></div><div class="lc-ttv" id="lc-ttv"></div><div class="lc-tts" id="lc-tts"></div></div>
+          </div>
+          <div id="hm-wrap"></div>
+        </div>
+      </div>
+      <div class="card mb20">
+        <div class="sh" style="margin-bottom:18px;">Category Breakdown &middot; Latest Week</div>
+        <div id="cat-bars"></div>
+      </div>
+      <div class="sh">&#x231A; Minutes in The Word</div>
+      <div class="card mb20">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+          <div style="font-size:14px;color:var(--text2);">Target: <strong id="mins-target-lbl" style="color:var(--teal);">300 min/week</strong></div>
+          <div id="goal-row"></div>
+        </div>
+        <div class="mt-tabs">
+          <button class="mt-btn on" onclick="swMins('weekly',this)">Weekly</button>
+          <button class="mt-btn" onclick="swMins('cumul',this)">Cumulative</button>
+        </div>
+        <div class="mt-panel on" id="mt-weekly"><div id="mins-bars"></div></div>
+        <div class="mt-panel" id="mt-cumul"><div id="cumul-view"></div></div>
+      </div>
+      <div class="card mb20">
+        <div class="sh" style="margin-bottom:13px;">Achievement Badges</div>
+        <div class="bg-grid" id="bg-grid"></div>
+      </div>
+      <div class="ai-card mb20" id="ai-section">
+        <div class="ai-hdr"><span style="font-size:20px">&#x1F916;</span><span class="ai-title">AI Term Summary</span></div>
+        <div class="ai-body" id="ai-body">Click Generate Summary to get an AI-powered analysis of your child&rsquo;s term progress so far.</div>
+        <button class="ai-gen-btn" id="ai-gen-btn" onclick="generateAI()">&#x2736; Generate Summary</button>
+        <div class="ai-key-note" id="ai-key-note" style="display:none;">No API key configured. Add one in the Connect to Google Sheets panel above.</div>
+      </div>
+      <a class="cta cta-tg" href="https://t.me/KIN_gU" target="_blank">
+        <span class="cta-ic">&#x2708;&#xFE0F;</span>
+        <div class="cta-title">More About Your goD Child</div>
+        <div class="cta-desc">Join our Telegram community for deeper insights, testimonies &amp; resources</div>
+        <span class="cta-pill-b">Join t.me/KIN_gU &rarr;</span>
+      </a>
+      <a class="cta cta-pay" href="https://bit.ly/KINpro" target="_blank">
+        <span class="cta-ic">&#x1F4B3;</span>
+        <div class="cta-title">Pay goDs University Fees</div>
+        <div class="cta-desc">Secure your child&rsquo;s place &mdash; pay now at bit.ly/KINpro</div>
+        <span class="cta-pill-g">&#x1F4B3; Pay Now &rarr;</span>
+      </a>
+    </div>
+
+    <div class="sec" id="sec-reports">
+      <div class="sh">&#x2736; Weekly Reports &amp; Parent Guide</div>
+      <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:18px;">
+        <p style="font-size:14px;color:var(--text2);line-height:1.75;">Each week combines your instructor&rsquo;s observations with a personalised <strong style="color:var(--text);">Parent Action Guide</strong>. Weeks with data are highlighted. The programme runs for <strong style="color:var(--gold);" id="total-wks-lbl">44 weeks</strong> &mdash; tabs auto-update as new weeks are added.</p>
+      </div>
+      <div class="wg-strip" id="wg-strip"></div>
+      <div class="wt-strip" id="rp-tabs"></div>
+      <div id="rp-panels"></div>
+    </div>
+
+    <div class="sec" id="sec-testy">
+      <div class="sh">&#x2736; Testimonies &amp; Parent Feedback</div>
+      <div id="testy-list"></div>
+      <div class="card" style="text-align:center;padding:28px;margin-top:16px;">
+        <div style="font-size:30px;margin-bottom:10px;">&#x1F64C;</div>
+        <div style="font-family:'Cinzel',serif;font-size:16px;color:var(--text);margin-bottom:7px;">Share a Testimony</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:17px;line-height:1.7;">Has your child shown growth this week?</div>
+        <a href="https://t.me/KIN_gU" target="_blank" style="display:inline-block;background:var(--green);color:white;border-radius:18px;padding:10px 26px;font-size:14px;font-weight:800;text-decoration:none;">Share on Telegram &rarr;</a>
+      </div>
+    </div>
+
+    <div class="sec" id="sec-profile">
+      <div class="sh">&#x2736; goD Child Profile</div>
+      <div class="card mb20">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+          <div class="h-ava" id="pa-ava" style="width:68px;height:68px;font-size:26px;flex-shrink:0;"></div>
+          <div>
+            <div style="font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--text);" id="pa-name">&mdash;</div>
+            <div style="font-size:11px;letter-spacing:2.5px;color:var(--gold);margin-top:4px;font-weight:700;" id="pa-kin">&mdash;</div>
+          </div>
+        </div>
+        <div class="pf-grid" id="pf-grid"></div>
+      </div>
+      <a class="cta cta-pay" href="https://bit.ly/KINpro" target="_blank" style="margin-bottom:20px;">
+        <span class="cta-ic">&#x1F4B3;</span><div class="cta-title">Pay Fees</div>
+        <div class="cta-desc">bit.ly/KINpro &mdash; click to pay</div>
+        <span class="cta-pill-g">Pay Now &rarr;</span>
+      </a>
+      <div class="sh">&#x2736; Understanding the gPA System</div>
+      <div class="gpa-how">
+        <div class="gpa-hdr">
+          <div class="gpa-title">What is the gPA?</div>
+          <div class="gpa-sub">The <strong>goD Points Average</strong> tracks how consistently your child engages with their spiritual curriculum each week. Not a test score &mdash; it measures <em>habit, commitment and presence</em> in God&rsquo;s Word across <span id="profile-wks-lbl">44</span> weeks.</div>
+        </div>
+        <div class="gpa-row"><div class="gpa-ri">&#x1F4CB;</div><div><div class="gpa-rn">Weekly Report</div><div class="gpa-rd">A written reflection each week on what was studied. Builds documentation and accountability habits every nation-builder needs.</div></div></div>
+        <div class="gpa-row"><div class="gpa-ri">&#x23F1;&#xFE0F;</div><div><div class="gpa-rn">Time Sheet</div><div class="gpa-rd">Daily log of reading sessions. If you cannot measure it, you cannot grow it.</div></div></div>
+        <div class="gpa-row"><div class="gpa-ri">&#x1F4D6;</div><div><div class="gpa-rn">Pathway (Word Challenge)</div><div class="gpa-rd">Completion of assigned Bible chapters &mdash; OT, NT, or Psalms &amp; Proverbs. The core spiritual curriculum.</div></div></div>
+        <div class="gpa-row"><div class="gpa-ri">&#x1F3AF;</div><div><div class="gpa-rn">Activity</div><div class="gpa-rd">Class discussions, parables, memory work and exercises. Active participation shows genuine engagement.</div></div></div>
+        <div class="gpa-row"><div class="gpa-ri">&#x1F4E1;</div><div><div class="gpa-rn">Attendance</div><div class="gpa-rd">Showing up on time, fully present, camera on. The foundation &mdash; everything else builds on it.</div></div></div>
+        <div class="gpa-row"><div class="gpa-ri">&#x231A;</div><div><div class="gpa-rn">Invested Minutes <span style="font-size:12px;color:var(--text3);font-weight:400;">(tracked separately &mdash; not scored)</span></div><div class="gpa-rd">Total minutes in God&rsquo;s Word each week. Target: <strong style="color:var(--teal);" id="profile-mintgt">300+ min/week</strong>. Shown alongside the gPA but not included in the % calculation.</div></div></div>
+        <div class="gpa-score">
+          <div class="gpa-sg-t">Scoring Key</div>
+          <div class="sg-pills">
+            <div class="sgp sgp-1"><span class="sg-dot"></span><strong>1.0</strong> = Fully Done</div>
+            <div class="sgp sgp-05"><span class="sg-dot"></span><strong>0.5</strong> = Partially Done</div>
+            <div class="sgp sgp-0"><span class="sg-dot"></span><strong>0</strong> = Not Done</div>
+            <div class="sgp sgp-m"><span class="sg-dot"></span><strong>Minutes</strong> = Raw time (not scored)</div>
+          </div>
+          <div class="gpa-note">gPA % = average of 5 scored categories.<br>
+          <strong style="color:var(--green);">80%+</strong> = Excellent &nbsp;&middot;&nbsp; <strong style="color:var(--amber);">60&ndash;79%</strong> = Good &nbsp;&middot;&nbsp; <strong style="color:#F97316;">40&ndash;59%</strong> = Fair &nbsp;&middot;&nbsp; <strong style="color:var(--red);">&lt;40%</strong> = Needs Attention</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bot-nav">
+    <div class="bn on" onclick="navTo('home',this)"><div class="bn-i">&#x1F3E0;</div><div class="bn-l">Home</div></div>
+    <div class="bn" onclick="navTo('reports',this)"><div class="bn-i">&#x1F4DD;</div><div class="bn-l">Reports</div></div>
+    <div class="bn" onclick="navTo('testy',this)"><div class="bn-i">&#x1F64C;</div><div class="bn-l">Testimony</div></div>
+    <div class="bn" onclick="navTo('profile',this)"><div class="bn-i">&#x1F464;</div><div class="bn-l">Profile</div></div>
+  </nav>
+</div>
+<script>
+/* ═══ DATA INJECTED BY BUILD SCRIPT ═══ */
+var DATA = {"students":{"gRLE":{"kin_no":"KIN2024/gU/002","code":"gRLE","code_full":"gRLE - Rejoice","first_name":"Rejoice","middle_name":"LeeraBari","last_name":"Ehimen","dob":"2010-11-28","age":15,"pathway":"","whatsapp":"+2348032930572"},"gSIE":{"kin_no":"KIN2024/gU/003","code":"gSIE","code_full":"gSIE - Sharon","first_name":"Sharon","middle_name":"Izehi","last_name":"Ehimen","dob":"2012-08-02","age":13,"pathway":"","whatsapp":"+2348032930572"},"gJOE":{"kin_no":"KIN2024/gU/004","code":"gJOE","code_full":"gJOE - Judith","first_name":"Judith","middle_name":"Otihbo","last_name":"Ehimen","dob":"2015-04-22","age":10,"pathway":"","whatsapp":"+2348032930572"},"gTAA":{"kin_no":"KIN2024/gU/005","code":"gTAA","code_full":"gTAA - Talia","first_name":"Talia","middle_name":"Ahmanosi","last_name":"Atsekhameh","dob":"2015-07-07","age":10,"pathway":"","whatsapp":"+2347034267470"},"gTYA":{"kin_no":"KIN2024/gU/006","code":"gTYA","code_full":"gTYA - Tyshawn","first_name":"Tyshawn","middle_name":"Ainoghena","last_name":"Atsekhameh","dob":"2018-06-03","age":7,"pathway":"","whatsapp":"+2347034267470"},"gIIO":{"kin_no":"KIN2024/gU/007","code":"gIIO","code_full":"gIIO - Imisioluwa","first_name":"Imisioluwa","middle_name":"Isaiah","last_name":"Ogundipe","dob":"2012-08-15","age":13,"pathway":"","whatsapp":"+18259759980"},"gIDO":{"kin_no":"KIN2024/gU/008","code":"gIDO","code_full":"gIDO - Ireoluwa","first_name":"Ireoluwa","middle_name":"Dorcas","last_name":"Ogundipe","dob":"2014-12-07","age":11,"pathway":"","whatsapp":"+18259759980"},"gOFA":{"kin_no":"KIN2024/gU/009","code":"gOFA","code_full":"gOFA - Faith","first_name":"Oluwanifemi","middle_name":"Faith","last_name":"Asade","dob":"2016-06-04","age":9,"pathway":"","whatsapp":"+2348034942968"},"gOOB":{"kin_no":"KIN2024/gU/010","code":"gOOB","code_full":"gOOB - Omomurewa","first_name":"Omomurewa","middle_name":"Olamide","last_name":"Babatunde-Idowu","dob":"2011-07-27","age":14,"pathway":"","whatsapp":"+17096935577"},"gHOB":{"kin_no":"KIN2024/gU/011","code":"gHOB","code_full":"gHOB - Hephzibah","first_name":"Hephzibah","middle_name":"Omobolade","last_name":"Bolujo","dob":"2011-09-26","age":14,"pathway":"","whatsapp":"=2348060775380"},"gNBB":{"kin_no":"KIN2024/gU/012","code":"gNBB","code_full":"gNBB - Nathaniella","first_name":"Nathaniella","middle_name":"Omobusola","last_name":"Bolujo","dob":"2014-03-31","age":11,"pathway":"","whatsapp":"=2348060775380"},"gIBB":{"kin_no":"KIN2024/gU/013","code":"gIBB","code_full":"gIBB - Israel","first_name":"Israel","middle_name":"Boluwatife","last_name":"Bolujo","dob":"2010-06-30","age":15,"pathway":"","whatsapp":"=2348060775380"},"gOJO":{"kin_no":"KIN2024/gU/014","code":"gOJO","code_full":"gOJO - Obaloluwa","first_name":"Obaloluwa","middle_name":"Joseph","last_name":"Oladipo","dob":"2011-06-06","age":14,"pathway":"","whatsapp":"2348028479654.0"},"gGCU":{"kin_no":"KIN2024/gU/015","code":"gGCU","code_full":"gGCU - Great","first_name":"Great","middle_name":"Chinemerem","last_name":"Ugbor","dob":"2012-05-15","age":13,"pathway":"","whatsapp":"=2348035999976"},"gANI":{"kin_no":"KIN2024/gU/016","code":"gANI","code_full":"gANI - Akondu","first_name":"Akondu","middle_name":"Nathan","last_name":"Iyoko","dob":"2007-08-18","age":18,"pathway":"","whatsapp":"+447915120724"},"gOEI":{"kin_no":"KIN2024/gU/017","code":"gOEI","code_full":"gOEI - Olohi","first_name":"Olohi","middle_name":"Emmanuella","last_name":"Iyoko","dob":"2012-02-29","age":14,"pathway":"","whatsapp":"+447846608671"},"gTAN":{"kin_no":"KIN2024/gU/018","code":"gTAN","code_full":"gTAN - Timilehin","first_name":"Timilehin","middle_name":"Abraham","last_name":"Nathaniel","dob":"2014-06-24","age":11,"pathway":"","whatsapp":"+2348037613792"},"gTDN":{"kin_no":"KIN2024/gU/019","code":"gTDN","code_full":"gTDN - Todimu","first_name":"Todimu","middle_name":"Daniel","last_name":"Nathaniel","dob":"2016-02-23","age":10,"pathway":"","whatsapp":"+2348037613792"},"gTTO":{"kin_no":"KIN2024/gU/020","code":"gTTO","code_full":"gTTO - Testimony","first_name":"Testimony","middle_name":"Toluwani","last_name":"Oyesomi","dob":"2011-01-13","age":15,"pathway":"","whatsapp":"+2348034628510"},"gDUN":{"kin_no":"KIN2025/gU/021","code":"gDUN","code_full":"gDUN - Divine","first_name":"Divine","middle_name":"Uchechukwu","last_name":"Nnaemeka","dob":"2011-11-21","age":14,"pathway":"","whatsapp":"+2348033970225"},"gKDO":{"kin_no":"KIN2025/gU/022","code":"gKDO","code_full":"gKDO - Kosisochukwu","first_name":"Kosisochukwu","middle_name":"David","last_name":"Okunno","dob":"2012-11-24","age":13,"pathway":"","whatsapp":"+2348039695892"},"gFOO":{"kin_no":"KIN2025/gU/023","code":"gFOO","code_full":"gFOO - Favour","first_name":"Favour","middle_name":"Olamide","last_name":"Olaoye","dob":"2011-07-03","age":14,"pathway":"","whatsapp":"+2348038308055"},"gDAI":{"kin_no":"KIN2025/gU/024","code":"gDAI","code_full":"gDAI - Destiny","first_name":"Destiny","middle_name":"Abraham","last_name":"Inyila","dob":"2010-10-01","age":15,"pathway":"","whatsapp":"+2347066886187"},"gSDO":{"kin_no":"KIN2025/gU/025","code":"gSDO","code_full":"gSDO - Samuel","first_name":"Samuel","middle_name":"Damilare","last_name":"Olabode","dob":"2011-12-12","age":14,"pathway":"","whatsapp":"+2347038476333"},"gEDA":{"kin_no":"KIN2025/gU/026","code":"gEDA","code_full":"gEDA - Emmanuel","first_name":"Emmanuel","middle_name":"Damilare","last_name":"Aderemi","dob":"2010-09-04","age":15,"pathway":"","whatsapp":"+2349036574760"},"gAJW":{"kin_no":"KIN2025/gU/027","code":"gAJW","code_full":"gAJW - Akilahyel","first_name":"Akilahyel","middle_name":"Jason","last_name":"Wakshama","dob":"2011-06-25","age":14,"pathway":"","whatsapp":"+2348028376242"},"gJOB":{"kin_no":"KIN2025/gU/028","code":"gJOB","code_full":"gJOB - Joshua","first_name":"Joshua","middle_name":"Oluwalanafunmi","last_name":"Betiku","dob":"2016-02-21","age":10,"pathway":"","whatsapp":"+2347060456530"},"gAEM":{"kin_no":"KIN2026/gU/029","code":"gAEM","code_full":"gAEM - Adebowale","first_name":"Adebowale","middle_name":"Emmanuel","last_name":"Moshood","dob":"2013-07-04","age":12,"pathway":"","whatsapp":"+447901537144"},"gASM":{"kin_no":"KIN2026/gU/030","code":"gASM","code_full":"gASM - Ayoade","first_name":"Ayoade","middle_name":"Samuel","last_name":"Moshood","dob":"2016-03-22","age":9,"pathway":"","whatsapp":"+447901537144"},"gJOO":{"kin_no":"KIN2026/gU/031","code":"gJOO","code_full":"gJOO - Jonie","first_name":"Jonie","middle_name":"Oseakuemhen Oyindamola","last_name":"Obiyan","dob":"2015-10-18","age":10,"pathway":"","whatsapp":"+2348038161303"},"gASW":{"kin_no":"KIN2026/gU/032","code":"gASW","code_full":"gASW - Adiel","first_name":"Adiel","middle_name":"Samuel","last_name":"Wakshama","dob":"2014-03-19","age":11,"pathway":"","whatsapp":"+2348028376242"},"gVMO":{"kin_no":"KIN2026/gU/033","code":"gVMO","code_full":"gVMO - Virtue","first_name":"Virtue","middle_name":"Mojolaoluwa","last_name":"Oluwatobi","dob":"2018-02-23","age":8,"pathway":"","whatsapp":"+2348038497092"},"gVIO":{"kin_no":"KIN2026/gU/034","code":"gVIO","code_full":"gVIO - Victor","first_name":"Victor","middle_name":"Mojubaoluwa","last_name":"Oluwatobi","dob":"2013-07-11","age":12,"pathway":"","whatsapp":"+2348038497092"},"gWOO":{"kin_no":"KIN2026/gU/035","code":"gWOO","code_full":"gWOO - Wisdom","first_name":"Wisdom","middle_name":"Oluwajomiloju","last_name":"Oluwatobi","dob":"2011-08-06","age":14,"pathway":"","whatsapp":"+2348038497092"}},"gpa":{"gAEM":{"1":{},"2":{},"3":{},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gASM":{"1":{},"2":{},"3":{"Pathway":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gJOB":{"1":{},"2":{},"3":{"Pathway":1.0,"Activity":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gJOO":{"1":{},"2":{},"3":{"Pathway":1.0,"Activity":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"5":{}},"gTYA":{"1":{},"2":{},"3":{"Pathway":1.0,"Activity":0.5,"Attendance":0.5},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gTAA":{"1":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":400.0},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"5":{}},"gGCU":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"2":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.0,"Attendance":0.0,"Invested Minutes":131.0},"3":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.0,"Attendance":0.5,"Invested Minutes":155.0},"4":{"Weekly report":0.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":241.0},"5":{}},"gEDA":{"1":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.0,"Attendance":0.0,"Invested Minutes":302.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":303.0},"3":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":302.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"5":{}},"gTDN":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gTAN":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{}},"gOEI":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":410.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":410.0},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"5":{}},"gOFA":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":166.0},"2":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":77.0},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":98.0},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":97.0},"5":{}},"gAJW":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300.0},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300.0},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":230.0},"5":{"Invested Minutes":300.0}},"gSDO":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":315.0},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":305.0},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300.0},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300.0},"5":{}}},"reports":{"gAEM":{"1":"Participated in the class. didn't have the time to read. But otherwise enjoyed. ","2":"Was a tad bit late, had a dark background, initial response to affirmation but was a little less active on. ","3":"Came in to class early. Had a grasp of the parable and participated well in respondig to questions, however he needs to avoid distractions especially with his brother during class"},"gASM":{"1":"Participated. Didn't have time to read the parable. ","2":"Was late, not as active, however he needs to be more responsive.","3":"Came in to class early. Had a grasp pf the parable and participated well in respondig to questions, however he needs to avoid distractions and be audible when answering questions especially during class."},"gJOB":{"1":"Joined again after some hiatus, he was excited in the class, seems to have above average intelligence","2":"Came in late. Birthday boy, was quite interactive, fully present and active ","3":"Came in a bit late. Was a little active and quite unresponsive in class"},"gJOO":{"1":"First time in class, and at the gU, she asked interesting questions, was looking tired, and at the end of the class wanted us to do more games","2":"Came in late, was present interactive, and sometimes very inquisitve, showed her project (making a heart)","3":"Could not make it to class.Took an excuse "},"gTYA":{"2":"Came in late, was partially active, could do more to respond to the class, ","3":"Came in early to class. Was active and participated well in responding to questions. Was a little distracted should avoid that in subsequent classes."},"gTAA":{"1":"She came in early, participated and was very involved. Noticed mum had not signed time sheet and also had intermittent internet disconnections","2":"She came in early, participated and was very involved. Although, she missed about 2 to 3 days this week & no reports sent. She needs to be more intentional about prioritizing God's Word.","3":"Showed up late, could not participate nor show video until finally cut out"},"gGCU":{"1":"Was completely absent. Parents need to prioritse the class time as he quickly mentioned that he was outisde and could not speak nor show video ","2":"Absent again. Mum apologized on his behalf, stating that it was due to unforeseen circumstances. We look forward to tangible imrpovements as promised ","3":"Showed up on time. still struggling to read in the morning. Weekly average is still below required. Otherwise was active in class"},"gEDA":{"1":"Showed up late, and was cut out ","2":"Showed up late, participated briefly and was cut out. Although sent in his reports.","3":"Was completely absent. Parents need to prioritse getting an alternative to his internet connection, as he sent a message stating that his telegram is constantly unresponsive"},"gTDN":{"1":"showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class","2":"Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites, also was able to show an understanding of the taught concepts","4":"very active, shows up early and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters. "},"gTAN":{"1":"showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class","2":"Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites","4":"quire active and measured, shows up late because of laptop issues (seems he powers it late) and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters. "},"gOEI":{"1":"showed up late, couldnt participate till later time, but was at the final stretch fully immersed","2":"Absent - no apologies sent practice. Misssing a lot in her abscence. ","3":"clashes with rehearsal and class make her show up unprepared or tired, but still pulling her wait, need to reach out to parent as reports are pending ","4":"showed up late, otherwise was very participatory all through"},"gOFA":{"1":"didnt send in weekly report, needs to pay more attention to instructions, seemed lost towards the end","2":"Showed up a bit late, but participated when asked questions, could be slow to understand and reply. ","3":"time class makes her join the class in the car which could be distracting sometimes, brings her contribution to the class but can seem lost sometimes","4":"missed her reading plan, was a little out of place in the class, needs to follow up with parent for schedule "},"gAJW":{"1":"fully immersed, had internet issues, asked studious questions","2":"Background is quite noisy, could barely keep a 1 min convo without muting, otherwise avtivley participating","3":"shows up well prepared, asks curious questions that show understanding ","4":"Showed up right, participated and was quite respinsive, internet dropped off a few times"},"gSDO":{"1":"internet issues, was in at  the initial few minutes, but got lost in the internet challenge, couldnt partitipate fully. ","2":"Background is quite noisy, could barely keep a 1 min convo without muting , dropped off a coupleof times, but participated when he had the time. ","3":"has a grasp of the reading and returns very dutirfyl answers, internet still poses a big threat to maximisng class","4":"Showed up early but missed a large part of the class as the internet kept cutting off. "}},"feedback":{"gTYA":[{"date":"Apr 2024","testimony":"4.0","comment":"https://drive.google.com/open?id=1tmw2nwJD5oeLofLyLQFw6IwW_MR30YdX"},{"date":"Jul 2024","testimony":"4.0","comment":"https://drive.google.com/open?id=1A0ssZVrE9xHW8ZmEK6cIC3IGSUaU5ZeR"}],"gTAA":[{"date":"Apr 2024","testimony":"5.0","comment":"https://drive.google.com/open?id=13d8cpfl2yj2AAybPTQqOOjaxBJaSBmpI"},{"date":"Jul 2024","testimony":"4.0","comment":"https://drive.google.com/open?id=1C3NjvjBha3vRJsM_ADtIY8fiM6KGvqvP"}],"gIBB":[{"date":"Jul 2024","testimony":"3.0","comment":"https://drive.google.com/open?id=18vWSTxJFsOyk2Qm91kczsKZJmdD-ghds"}]}};
+var FAMILIES = {"gRLE":["gSIE","gJOE"],"gSIE":["gRLE","gJOE"],"gJOE":["gRLE","gSIE"],"gTAA":["gTYA"],"gTYA":["gTAA"],"gIIO":["gIDO"],"gIDO":["gIIO"],"gHOB":["gNBB","gIBB"],"gNBB":["gHOB","gIBB"],"gIBB":["gHOB","gNBB"],"gTAN":["gTDN"],"gTDN":["gTAN"],"gAJW":["gASW"],"gASW":["gAJW"],"gAEM":["gASM"],"gASM":["gAEM"],"gVMO":["gVIO","gWOO"],"gVIO":["gVMO","gWOO"],"gWOO":["gVMO","gVIO"]};
+var CLASS_AVGS = {"1":49,"2":60,"3":66,"4":46};
+
+/* ═══ CONFIG ═══ */
+var CFG = {
+  startDate: '2026-01-05',
+  totalWeeks: 44,
+  minTarget: 300,
+  apiKey: ''
+};
+function loadCfg() {
+  try {
+    var s = localStorage.getItem('gU_cfg');
+    if (s) { var c = JSON.parse(s); CFG.startDate = c.startDate||CFG.startDate; CFG.totalWeeks = c.totalWeeks||CFG.totalWeeks; CFG.minTarget = c.minTarget||CFG.minTarget; CFG.apiKey = c.apiKey||CFG.apiKey; }
+  } catch(e) {}
+  try {
+    var id = document.getElementById('cfg-start'); if(id) id.value = CFG.startDate;
+    id = document.getElementById('cfg-weeks'); if(id) id.value = CFG.totalWeeks;
+    id = document.getElementById('cfg-mintgt'); if(id) id.value = CFG.minTarget;
+    id = document.getElementById('cfg-apikey'); if(id) id.value = CFG.apiKey;
+  } catch(e) {}
+}
+function saveCfg() {
+  CFG.startDate = document.getElementById('cfg-start').value || CFG.startDate;
+  CFG.totalWeeks = parseInt(document.getElementById('cfg-weeks').value) || CFG.totalWeeks;
+  CFG.minTarget = parseInt(document.getElementById('cfg-mintgt').value) || CFG.minTarget;
+  CFG.apiKey = document.getElementById('cfg-apikey').value.trim();
+  try { localStorage.setItem('gU_cfg', JSON.stringify(CFG)); } catch(e) {}
+  var s = document.getElementById('cfg-saved');
+  if (s) { s.style.display='inline'; setTimeout(function(){ s.style.display='none'; }, 2000); }
+  updateCfgUI();
+}
+function updateCfgUI() {
+  var mtLbl = document.getElementById('mins-target-lbl');
+  if (mtLbl) mtLbl.textContent = CFG.minTarget + ' min/week';
+  var twLbl = document.getElementById('total-wks-lbl');
+  if (twLbl) twLbl.textContent = CFG.totalWeeks + ' weeks';
+  var pwLbl = document.getElementById('profile-wks-lbl');
+  if (pwLbl) pwLbl.textContent = CFG.totalWeeks;
+  var pmLbl = document.getElementById('profile-mintgt');
+  if (pmLbl) pmLbl.textContent = CFG.minTarget + '+ min/week';
+}
+
+/* ═══ COSMOS ═══ */
+(function() {
+  var cv = document.getElementById('sky'), ctx = cv.getContext('2d');
+  var stars = [];
+  function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for (var i = 0; i < 180; i++) stars.push({ x: Math.random(), y: Math.random(), r: .3 + Math.random() * 1.6, spd: .003 + Math.random() * .005, ph: Math.random() * Math.PI * 2, c: Math.random() < .15 ? '232,196,67' : Math.random() < .1 ? '20,184,166' : '255,255,255' });
+  var nebs = [{x:.1,y:.1,r:300,c:'232,196,67,.04'},{x:.85,y:.7,r:350,c:'20,184,166,.03'},{x:.5,y:.9,r:260,c:'168,85,247,.03'}];
+  var t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    nebs.forEach(function(n) { var g = ctx.createRadialGradient(n.x*cv.width,n.y*cv.height,0,n.x*cv.width,n.y*cv.height,n.r); g.addColorStop(0,'rgba('+n.c+')'); g.addColorStop(1,'transparent'); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(n.x*cv.width,n.y*cv.height,n.r,0,Math.PI*2); ctx.fill(); });
+    stars.forEach(function(s) { var a = .15 + .85 * (Math.sin(t * s.spd * 60 + s.ph) + 1) / 2; ctx.beginPath(); ctx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2); ctx.fillStyle='rgba('+s.c+','+a.toFixed(2)+')'; ctx.fill(); });
+    t += .01; requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ═══ THEME ═══ */
+var currentTheme = 'dark';
+function initTheme() {
+  try { currentTheme = localStorage.getItem('gU_theme') || 'dark'; } catch(e) {}
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  updateThemeBtn();
+}
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  try { localStorage.setItem('gU_theme', currentTheme); } catch(e) {}
+  updateThemeBtn();
+}
+function updateThemeBtn() {
+  var b = document.getElementById('theme-btn');
+  if (b) b.textContent = currentTheme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF11';
+}
+
+/* ═══ OFFLINE ═══ */
+var isOffline = false;
+window.addEventListener('online', function() { isOffline = false; document.getElementById('offline-chip').style.display = 'none'; });
+window.addEventListener('offline', function() { isOffline = true; document.getElementById('offline-chip').style.display = 'flex'; });
+if (!navigator.onLine) isOffline = true;
+
+function cacheData() { try { localStorage.setItem('gU_data_cache', JSON.stringify(DATA)); localStorage.setItem('gU_cache_time', Date.now()); } catch(e) {} }
+function loadCache() { try { var c = localStorage.getItem('gU_data_cache'); if (c) { DATA = JSON.parse(c); return true; } } catch(e) {} return false; }
+
+/* ═══ SERVICE WORKER ═══ */
+if ('serviceWorker' in navigator) {
+  var sw = "const CACHE='gU-v2';self.addEventListener('install',function(e){e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(['./']);}));});self.addEventListener('fetch',function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(res){return caches.open(CACHE).then(function(c){c.put(e.request,res.clone());return res;});})||caches.match('./');}))}); ";
+  var blob = new Blob([sw], {type: 'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(function(){});
+}
+
+/* ═══ ONBOARDING ═══ */
+var OB_SLIDES = [
+  {ic:'\uD83D\uDC51', t:'Welcome to goDs University', d:'This portal tracks your child\'s spiritual growth - scores, reading time, instructor reports and personalised guidance - all in one place.'},
+  {ic:'\uD83D\uDCCA', t:'Understanding the gPA', d:'Your child is scored weekly across 5 areas: Report, Timesheet, Pathway, Activity and Attendance. Invested Minutes are tracked separately as a volume metric.'},
+  {ic:'\uD83C\uDFAF', t:'Your Role as a Parent', d:'Each week includes a Parent Action Guide with specific steps. Your engagement at home multiplies what happens in class.'}
+];
+var obSlide = 0;
+function showOnboard() { document.getElementById('onboard').classList.add('show'); renderOb(); }
+function renderOb() {
+  var s = OB_SLIDES[obSlide];
+  var dots = OB_SLIDES.map(function(_,i) { return '<div class="ob-dot'+(i===obSlide?' on':'')+'"></div>'; }).join('');
+  var isLast = obSlide === OB_SLIDES.length - 1;
+  document.getElementById('ob-body').innerHTML = '<span class="ob-icon">'+s.ic+'</span><div class="ob-title">'+s.t+'</div><div class="ob-desc">'+s.d+'</div><div class="ob-dots">'+dots+'</div><button class="ob-btn" onclick="obNext()">'+(isLast ? '\u2736 Get Started \u2736' : 'Next \u2192')+'</button>'+(isLast ? '' : '<span class="ob-skip" onclick="obDone()">Skip</span>');
+}
+function obNext() { if (obSlide < OB_SLIDES.length-1) { obSlide++; renderOb(); } else obDone(); }
+function obDone() { document.getElementById('onboard').classList.remove('show'); try { localStorage.setItem('gU_onboarded','1'); } catch(e) {} }
+
+/* ═══ INIT ═══ */
+window.addEventListener('load', function() {
+  initTheme();
+  var savedSheetId = '';
+  try { savedSheetId = localStorage.getItem('gU_sheetId') || ''; } catch(e) {}
+  if (isOffline) { loadCache(); document.getElementById('offline-chip').style.display = 'flex'; }
+  loadCfg();
+  setTimeout(function() {
+    document.getElementById('loader').classList.add('gone');
+    document.getElementById('login').style.display = 'flex';
+    if (savedSheetId) { document.getElementById('gs-id').value = savedSheetId; setGSBadge('ok','Connected'); }
+  }, 1400);
+  document.getElementById('pinp').addEventListener('keydown', function(e) { if(e.key==='Enter') doLogin(); });
+  document.getElementById('cinp').addEventListener('keydown', function(e) { if(e.key==='Enter') document.getElementById('pinp').focus(); });
+});
+
+/* ═══ GS PANEL ═══ */
+function toggleGS() { var b=document.getElementById('gs-body'),ch=document.getElementById('gs-chev'); var op=b.classList.toggle('open'); ch.classList.toggle('open',op); }
+function setGSBadge(s,t) { var b=document.getElementById('gs-badge'); b.className='gs-st '+(s==='ok'?'gst-ok':s==='sync'?'gst-sync':'gst-off'); b.textContent=t; }
+function setGSMsg(m,c) { var e=document.getElementById('gs-msg'); if(e){e.textContent=m;e.className='gs-msg '+(c||'');} }
+function setGSBtnState(loading) { var b=document.getElementById('gs-btn'),tb=document.getElementById('tb-sync'); if(b){b.disabled=loading;b.textContent=loading?'Syncing\u2026':'\u27F3 Sync';}if(tb){tb.textContent=loading?'\u27F3 Syncing\u2026':'\u27F3 Sync';tb.classList.toggle('syncing',loading);} }
+function updateSheetStatus(statuses) { var el=document.getElementById('gs-sheet-status'); if(!el)return; el.innerHTML=statuses.map(function(s){return'<span class="gs-ss '+(s.ok?'gss-ok':s.loading?'gss-wait':'gss-err')+'">'+(s.ok?'\u2713':s.loading?'\u2026':'\u2717')+' '+s.name+'</span>';}).join(''); }
+
+/* ═══ CSV PARSER ═══ */
+function parseCSV(txt) {
+  var rows=[],row=[],cell='',inQ=false;
+  for (var i=0; i<txt.length; i++) {
+    var cc=txt.charCodeAt(i), ch=txt[i];
+    if (inQ) { if(cc===34&&txt.charCodeAt(i+1)===34){cell+=ch;i++;}else if(cc===34)inQ=false;else cell+=ch; }
+    else if (cc===34) inQ=true;
+    else if (cc===44) { row.push(cell); cell=''; }
+    else if (cc===10||cc===13) { if(cc===13&&txt.charCodeAt(i+1)===10)i++; row.push(cell); if(row.some(function(v){return v.trim();}))rows.push(row); row=[]; cell=''; }
+    else cell+=ch;
+  }
+  if (row.length) { row.push(cell); if(row.some(function(v){return v.trim();}))rows.push(row); }
+  return rows;
+}
+
+/* ═══ SHEET PARSERS ═══ */
+function parseStu(rows) {
+  var s={};
+  for (var i=1; i<rows.length; i++) {
+    var r=rows[i]; if(!r[1])continue;
+    var cf=r[1].trim(), code=cf.split(' ')[0].trim();
+    if (!code.startsWith('g'))continue;
+    var age='';
+    if (r[6]) { try { var d=new Date(r[6]); if(!isNaN(d)){var now=new Date(2026,2,8);age=now.getFullYear()-d.getFullYear()-((now.getMonth()<d.getMonth()||(now.getMonth()===d.getMonth()&&now.getDate()<d.getDate()))?1:0);}}catch(e){}}
+    s[code]={kin_no:r[0]||'',code:code,code_full:cf,first_name:(r[3]||'').trim(),middle_name:(r[4]||'').trim(),last_name:(r[5]||'').trim(),dob:r[6]||'',age:age,pathway:r[7]||'',whatsapp:r[2]||''};
+  }
+  return s;
+}
+
+function parseGPA(rows, students) {
+  var n2c={};
+  Object.values(students).forEach(function(s){ n2c[s.first_name.toLowerCase()]=s.code; });
+  if (!rows.length)return{};
+  var hdrs=rows[0];
+  var sCols=hdrs.slice(4).map(function(h,i){return{name:(h||'').trim(),col:i+4};}).filter(function(c){return c.name&&c.name!=='Column 4';});
+  var gpa={};
+  var METRICS=['Weekly report','Time Sheet','Pathway','Activity','Attendance','Invested Minutes'];
+  for (var i=1; i<rows.length; i++) {
+    var r=rows[i], metric=(r[0]||'').trim();
+    if (!METRICS.includes(metric))continue;
+    var wkRaw=parseFloat(r[1]); if(!wkRaw||isNaN(wkRaw))continue;
+    var week=Math.round(wkRaw);
+    sCols.forEach(function(sc) {
+      var nm=sc.name.toLowerCase(), code=null;
+      for (var fn in n2c) { if(nm.includes(fn)||fn.includes(nm)){code=n2c[fn];break;} }
+      if (!code)return;
+      var raw=(r[sc.col]||'').trim(); if(raw==='')return;
+      var val=parseFloat(raw); if(isNaN(val))return;
+      if(!gpa[code])gpa[code]={};if(!gpa[code][week])gpa[code][week]={};
+      gpa[code][week][metric]=metric==='Invested Minutes'?(val>1?val:0):val;
+    });
+  }
+  return gpa;
+}
+
+function parseRep(rows, students) {
+  /* FIX #1: Match by goD Code directly from column A (index 0) or column B (index 1) */
+  var res={};
+  var codeSet={};
+  Object.values(students).forEach(function(s){ codeSet[s.code]=true; });
+  /* Try to find code column: look for a row with a goD code like gXXX */
+  for (var i=1; i<rows.length; i++) {
+    var r=rows[i];
+    /* Check col A for KIN no, col B for code, col C for name, col D for name */
+    var code=null;
+    /* Try each column for a goD code pattern */
+    for (var ci=0; ci<Math.min(6,r.length); ci++) {
+      var v=(r[ci]||'').trim();
+      if (v.startsWith('g') && v.length>=4 && v.length<=6 && codeSet[v]) { code=v; break; }
+    }
+    /* Fallback: match by first name */
+    if (!code) {
+      var nm=((r[3]||'').trim()).toLowerCase().replace(/\s*\(.*?\)/g,'');
+      Object.values(students).forEach(function(s) {
+        var fn=s.first_name.toLowerCase();
+        if (nm.includes(fn)||fn.includes(nm)) code=s.code;
+      });
+    }
+    if (!code)continue;
+    if (!res[code])res[code]={};
+    /* Week columns: typically H=8,I=9,J=10,K=11 but can vary */
+    [[1,8],[2,9],[3,10],[4,11]].forEach(function(pair) {
+      var txt=(r[pair[1]]||'').trim();
+      if (txt&&txt!=='NA'&&txt!=='N/A'&&txt!=='n/a')res[code][pair[0]]=txt;
+    });
+  }
+  return res;
+}
+
+function parseFB(rows) {
+  var fb={};
+  for (var i=1; i<rows.length; i++) {
+    var r=rows[i]; if(!r[2])continue;
+    var code=r[2].trim(); if(!fb[code])fb[code]=[];
+    var e={};
+    if (r[0]) { var d=new Date(r[0]); e.date=isNaN(d)?r[0].split(' ')[0]:d.toLocaleDateString('en-GB',{month:'short',year:'numeric'}); }
+    if (r[14]&&r[14].trim())e.testimony=r[14].trim().substring(0,400);
+    if (r[17]&&r[17].trim())e.comment=r[17].trim().substring(0,400);
+    if (e.testimony||e.comment) fb[code].push(e);
+  }
+  return fb;
+}
+
+/* ═══ DATA VALIDATION ═══ */
+function validateData(students, gpa, reports) {
+  var warnings=[];
+  /* Check for students with gPA data but no report */
+  var gpaCodes=Object.keys(gpa);
+  gpaCodes.forEach(function(code) {
+    if (!reports[code]) warnings.push('No instructor reports found for ' + (students[code]&&students[code].first_name||code));
+  });
+  /* Check for duplicate first names */
+  var firstNames={};
+  Object.values(students).forEach(function(s) {
+    if (!firstNames[s.first_name]) firstNames[s.first_name]=[];
+    firstNames[s.first_name].push(s.code);
+  });
+  Object.entries(firstNames).forEach(function(pair) {
+    var fn=pair[0],codes=pair[1];
+    if (codes.length>1) warnings.push('Duplicate first name "'+fn+'" ('+codes.join(', ')+') - report matching may be unreliable');
+  });
+  /* Check total students */
+  var n=Object.keys(students).length;
+  if (n===0) warnings.push('No students loaded - check godsInfo sheet');
+  /* Check gPA data freshness */
+  var maxWk=0;
+  Object.values(gpa).forEach(function(wks) { Object.keys(wks).forEach(function(w){maxWk=Math.max(maxWk,parseInt(w));}); });
+  if (maxWk===0) warnings.push('No gPA data found - check gPA sheet structure');
+  return warnings;
+}
+
+/* ═══ COMPUTE CLASS AVERAGES ═══ */
+function computeClassAvgs(gpa) {
+  var avgs={};
+  var allWeeks=new Set();
+  Object.values(gpa).forEach(function(wks){Object.keys(wks).forEach(function(w){allWeeks.add(parseInt(w));});});
+  allWeeks.forEach(function(w) {
+    var scores=[];
+    Object.values(gpa).forEach(function(wks) {
+      var wd=wks[w]||wks[String(w)];
+      if(wd){var sc=wkSc(wd);if(sc!=null)scores.push(sc*100);}
+    });
+    if(scores.length) avgs[w]=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
+  });
+  return avgs;
+}
+
+/* ═══ FETCH + SYNC ═══ */
+function fetchCSV(sheetId, sheet) {
+  var url='https://docs.google.com/spreadsheets/d/'+sheetId+'/gviz/tq?tqx=out:csv&sheet='+encodeURIComponent(sheet);
+  return fetch(url).then(function(res) { if(!res.ok)throw new Error('HTTP '+res.status); return res.text(); });
+}
+
+var savedSheetId='';
+function doSync(sheetId) {
+  if (!sheetId.trim()) { setGSMsg('Please enter your Sheet ID.','err'); return Promise.resolve(false); }
+  setGSBadge('sync','Syncing\u2026'); setGSBtnState(true);
+  var sheets=['godsInfo','gPA','gs report','gUFeedback'];
+  var statuses=sheets.map(function(n){return{name:n,ok:false,loading:true};});
+  updateSheetStatus(statuses);
+  var results={};
+  var promises=sheets.map(function(name,idx) {
+    return fetchCSV(sheetId, name).then(function(csv) {
+      results[name]=csv; statuses[idx]={name:name,ok:true,loading:false};
+    }).catch(function(err) {
+      statuses[idx]={name:name,ok:false,loading:false,err:err.message};
+    }).then(function(){ updateSheetStatus(statuses); });
+  });
+  return Promise.all(promises).then(function() {
+    if (!results['godsInfo']) { setGSBadge('off','Error'); setGSMsg('\u2717 Could not load godsInfo sheet. Check Sheet ID and publishing.','err'); setGSBtnState(false); return false; }
+    var students=parseStu(parseCSV(results['godsInfo']));
+    if (!Object.keys(students).length) { setGSBadge('off','Error'); setGSMsg('\u2717 No students found.','err'); setGSBtnState(false); return false; }
+    var gpa=results['gPA']?parseGPA(parseCSV(results['gPA']),students):{};
+    var reports=results['gs report']?parseRep(parseCSV(results['gs report']),students):{};
+    var feedback=results['gUFeedback']?parseFB(parseCSV(results['gUFeedback'])):{};
+    var warnings=validateData(students,gpa,reports);
+    DATA={students:students,gpa:gpa,reports:reports,feedback:feedback};
+    CLASS_AVGS=computeClassAvgs(gpa);
+    cacheData();
+    try { localStorage.setItem('gU_sheetId',sheetId); } catch(e) {}
+    savedSheetId=sheetId;
+    var allOk=statuses.every(function(s){return s.ok;});
+    var t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    setGSBadge('ok',allOk?'Connected':'Partial');
+    setGSMsg((allOk?'\u2713':'\u26A0')+' Synced at '+t+' \u2014 '+Object.keys(students).length+' students'+(warnings.length?' ('+warnings.length+' warnings)':''),allOk?'ok':'warn');
+    setGSBtnState(false);
+    if (warnings.length) {
+      var vb=document.getElementById('val-banner'),vl=document.getElementById('val-list');
+      if(vb&&vl){vl.innerHTML=warnings.map(function(w){return'\u2022 '+w;}).join('<br>');vb.classList.add('show');}
+    }
+    return true;
+  }).catch(function(err) {
+    setGSBadge('off','Error'); setGSMsg('\u2717 '+err.message,'err'); setGSBtnState(false); return false;
+  });
+}
+function syncSheets() { doSync(document.getElementById('gs-id').value.trim()); }
+function quickSync() {
+  try { savedSheetId=localStorage.getItem('gU_sheetId')||savedSheetId; } catch(e) {}
+  if (!savedSheetId) { alert('No Google Sheet connected. Open the Connect to Google Sheets panel on the login screen first.'); return; }
+  doSync(savedSheetId).then(function(ok) {
+    if (ok&&currentStudent) { var s=Object.values(DATA.students).find(function(s){return s.code===currentStudent.code;}); if(s){currentStudent=s;buildDash(s);} }
+  });
+}
+
+/* ═══ AUTH ═══ */
+var currentStudent=null;
+function doLogin() {
+  var code=document.getElementById('cinp').value.trim();
+  var pass=document.getElementById('pinp').value.trim();
+  var err=document.getElementById('lerr');
+  var btn=document.getElementById('lbtn');
+  var btntxt=document.getElementById('lbtn-txt');
+  var btnspin=document.getElementById('lbtn-spin');
+  /* show spinner */
+  btn.disabled=true; btntxt.style.display='none'; btnspin.style.display='block';
+  setTimeout(function() {
+    var s=Object.values(DATA.students).find(function(s){return s.code.toLowerCase()===code.toLowerCase();});
+    if (!s||pass.toLowerCase()!==s.middle_name.toLowerCase()) {
+      err.style.display='block'; btn.disabled=false; btntxt.style.display='block'; btnspin.style.display='none'; return;
+    }
+    err.style.display='none'; currentStudent=s;
+    document.getElementById('login').style.display='none';
+    document.getElementById('dash').style.display='block';
+    buildDash(s);
+    try { var ob=localStorage.getItem('gU_onboarded'); if(!ob)setTimeout(showOnboard,600); } catch(e) {}
+    btn.disabled=false; btntxt.style.display='block'; btnspin.style.display='none';
+  }, 400);
+}
+function doLogout() {
+  document.getElementById('dash').style.display='none';
+  document.getElementById('login').style.display='flex';
+  document.getElementById('cinp').value=''; document.getElementById('pinp').value='';
+  currentStudent=null;
+  navTo('home',document.querySelector('.bn'));
+}
+
+/* ═══ NAV ═══ */
+function navTo(n,btn) {
+  document.querySelectorAll('.bn').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});
+  btn.classList.add('on'); document.getElementById('sec-'+n).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function swMins(t,btn) {
+  document.querySelectorAll('.mt-btn').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.mt-panel').forEach(function(p){p.classList.remove('on');});
+  btn.classList.add('on'); document.getElementById('mt-'+t).classList.add('on');
+}
+
+/* ═══ CORE HELPERS ═══ */
+var CATS=['Weekly report','Time Sheet','Pathway','Activity','Attendance'];
+var CCAT={'Weekly report':'linear-gradient(90deg,#6B5010,#E8C443)','Time Sheet':'linear-gradient(90deg,#065F46,#10B981)','Pathway':'linear-gradient(90deg,#4C1D95,#A855F7)','Activity':'linear-gradient(90deg,#7C2D12,#F97316)','Attendance':'linear-gradient(90deg,#7F1D1D,#EF4444)'};
+
+function wkSc(wd) {
+  if (!wd)return null;
+  var vals=CATS.map(function(m){return wd[m];}).filter(function(v){return v!=null&&typeof v==='number';});
+  return vals.length?vals.reduce(function(a,b){return a+b;},0)/vals.length:null;
+}
+function wkScForCode(gpa,w) {
+  var wd=gpa[w]||gpa[String(w)]; return wkSc(wd);
+}
+function gradeOf(p) {
+  if(p==null)return{txt:'No data',cls:'gb-nd',col:'var(--text3)',ch:'ch-g'};
+  if(p>=80)return{txt:'Excellent \u2736',cls:'gb-ex',col:'var(--green)',ch:'ch-gr'};
+  if(p>=60)return{txt:'Good \u25C8',cls:'gb-gd',col:'var(--amber)',ch:'ch-g'};
+  if(p>=40)return{txt:'Fair \u25C7',cls:'gb-fa',col:'#F97316',ch:'ch-am'};
+  return{txt:'Needs Focus \u25C9',cls:'gb-nf',col:'var(--red)',ch:'ch-re'};
+}
+function getGPA(code) { return DATA.gpa[code]||{}; }
+function getReps(code) { return DATA.reports[code]||{}; }
+
+/* ═══ BUILD DASHBOARD ═══ */
+function buildDash(s) {
+  var code=s.code, gpa=getGPA(code), reps=getReps(code), fb=(DATA.feedback[code]||[]);
+  /* Collect all data weeks */
+  var dataWeekSet=new Set();
+  Object.keys(gpa).forEach(function(w){if(Object.keys(gpa[w]||gpa[String(w)]||{}).length>0)dataWeekSet.add(parseInt(w));});
+  Object.keys(reps).forEach(function(w){dataWeekSet.add(parseInt(w));});
+  var weeks=[...dataWeekSet].sort(function(a,b){return a-b;});
+  var lw=weeks.length?weeks[weeks.length-1]:null;
+  var lwData=lw!=null?(gpa[lw]||gpa[String(lw)]):null;
+  var pct=lwData!=null?Math.round((wkSc(lwData)||0)*100):null;
+  var allSc=weeks.map(function(w){return wkScForCode(gpa,w);}).filter(function(v){return v!=null;});
+  var avgPct=allSc.length?Math.round(allSc.reduce(function(a,b){return a+b;},0)/allSc.length*100):null;
+  /* FIX #12: streak requires >40% threshold */
+  var streak=0;
+  for(var i=weeks.length-1;i>=0;i--){var sc=wkScForCode(gpa,weeks[i]);if(sc!=null&&sc*100>=40)streak++;else break;}
+  var totalMins=Object.values(gpa).reduce(function(s,w){return s+(w['Invested Minutes']||0);},0);
+  var latestMins=lwData?lwData['Invested Minutes']||0:0;
+  var g=gradeOf(pct);
+  /* Alert for sharp drop FIX #13 */
+  if(weeks.length>=2){
+    var prev=wkScForCode(gpa,weeks[weeks.length-2]);
+    var curr=wkScForCode(gpa,weeks[weeks.length-1]);
+    if(prev!=null&&curr!=null&&(prev-curr)*100>25){
+      var ab=document.getElementById('alert-banner'),at=document.getElementById('alert-text');
+      if(ab&&at){at.textContent='\u26A0 '+s.first_name+' dropped '+Math.round((prev-curr)*100)+'% this week (from '+Math.round(prev*100)+'% to '+Math.round(curr*100)+'%). See the Reports tab for the Parent Guide.';ab.classList.add('show');}
+    }
+  }
+  /* Term progress FIX #11 */
+  var startDate=new Date(CFG.startDate);
+  var now=new Date();
+  var msPerWk=7*24*60*60*1000;
+  var currentWkNum=Math.max(1,Math.min(CFG.totalWeeks,Math.floor((now-startDate)/msPerWk)+1));
+  var termPct=Math.round((currentWkNum/CFG.totalWeeks)*100);
+  var tf=document.getElementById('term-fill'),tp=document.getElementById('term-pct');
+  if(tf)tf.style.width=termPct+'%';
+  if(tp)tp.textContent='Week '+currentWkNum+' of '+CFG.totalWeeks;
+  document.getElementById('wk-badge').textContent='Wk '+(lw||'\u2014')+' \u00B7 2026';
+  /* Hero */
+  ['h-ava','pa-ava'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=s.first_name[0];});
+  document.getElementById('h-name').textContent=s.first_name+' '+s.last_name;
+  document.getElementById('h-id').textContent=code+' \u00B7 '+s.kin_no;
+  document.getElementById('pa-name').textContent=[s.first_name,s.middle_name,s.last_name].filter(Boolean).join(' ');
+  document.getElementById('pa-kin').textContent=s.kin_no+' \u00B7 '+code;
+  document.getElementById('h-chips').innerHTML='<span class="chip ch-g">\u2736 Active</span>'+(s.age?'<span class="chip ch-t">Age '+s.age+'</span>':'')+'<span class="chip ch-p">'+(s.pathway||'Word Challenge')+'</span>'+(pct!=null?'<span class="chip '+g.ch+'">'+g.txt+'</span>':'');
+  /* Child switcher */
+  var siblings=FAMILIES[code]||[];
+  var sw=document.getElementById('child-switcher'),chips=document.getElementById('cs-chips');
+  if(siblings.length>0){
+    sw.classList.add('show');
+    var allCodes=[code].concat(siblings);
+    chips.innerHTML=allCodes.map(function(c){var st=DATA.students[c];if(!st)return'';return'<button class="cs-chip'+(c===code?' on':'')+'" onclick="switchChild(\''+c+'\')">'+(c===code?'\u2714 ':'')+st.first_name+'</button>';}).join('');
+  } else sw.classList.remove('show');
+  /* Stats */
+  document.getElementById('stats-row').innerHTML=[
+    {i:'\u2736',l:'Latest Score',v:pct!=null?pct+'%':'\u2014',c:'var(--gold)',sb:'linear-gradient(90deg,transparent,rgba(232,196,67,.65),transparent)'},
+    {i:'\uD83D\uDCCA',l:'Avg Score',v:avgPct!=null?avgPct+'%':'\u2014',c:'var(--purple)',sb:'linear-gradient(90deg,transparent,rgba(168,85,247,.55),transparent)'},
+    {i:'\uD83D\uDD25',l:'Active Streak',v:streak>0?streak+'w':'\u2014',c:'#F97316',sb:'linear-gradient(90deg,transparent,rgba(249,115,22,.55),transparent)'},
+    {i:'\u231A',l:'Total Mins',v:totalMins>0?totalMins+'m':'\u2014',c:'var(--teal)',sb:'linear-gradient(90deg,transparent,rgba(20,184,166,.55),transparent)'},
+  ].map(function(m){return'<div class="stat" style="--sc:'+m.c+';--sb:'+m.sb+'"><div class="s-ic">'+m.i+'</div><div class="s-val">'+m.v+'</div><div class="s-lbl">'+m.l+'</div></div>';}).join('');
+  /* Donut */
+  var arc=document.getElementById('d-arc'),dv=document.getElementById('d-val'),gb=document.getElementById('grade-b');
+  if(pct!=null){setTimeout(function(){arc.style.strokeDashoffset=364.4-(364.4*pct/100);},350);dv.textContent=pct+'%';}else dv.textContent='N/A';
+  gb.textContent=g.txt; gb.className='grade-b '+g.cls;
+  /* Class avg compare FIX #9 */
+  var cavgRow=document.getElementById('cavg-row'),cavgTxt=document.getElementById('cavg-txt'),cavgDot=document.getElementById('cavg-dot');
+  if(lw&&CLASS_AVGS[lw]!=null&&pct!=null){
+    var classAvg=CLASS_AVGS[lw];
+    var diff=pct-classAvg;
+    cavgDot.style.background=diff>=0?'var(--green)':'var(--red)';
+    cavgTxt.textContent='Class avg this week: '+classAvg+'% '+(diff>=0?'(+'+diff+'% above avg)':'('+diff+'% below avg)');
+    cavgRow.style.display='flex';
+  } else if(cavgRow) cavgRow.style.display='none';
+  /* Term summary FIX #15 */
+  buildTermSummary(code,gpa,weeks,avgPct,totalMins,streak);
+  buildLC(gpa,weeks,code);
+  buildHM(gpa,weeks);
+  buildCatBars(gpa,lw);
+  buildMT(gpa,weeks,code);
+  buildBG(gpa,weeks,streak,totalMins);
+  buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins);
+  buildRep(s,gpa,reps,weeks,currentWkNum);
+  buildTesty(fb);
+  buildProfile(s);
+  buildSchedule(currentWkNum);
+  updateCfgUI();
+  loadAI(code);
+}
+
+function switchChild(code) { var s=DATA.students[code]; if(!s)return; currentStudent=s; buildDash(s); window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* ═══ TERM SUMMARY FIX #15 ═══ */
+function buildTermSummary(code,gpa,weeks,avgPct,totalMins,streak) {
+  var el=document.getElementById('term-summary');
+  var topCat=null,topScore=0;
+  CATS.forEach(function(cat){var scores=weeks.map(function(w){var wd=gpa[w]||gpa[String(w)];return wd?wd[cat]:null;}).filter(function(v){return v!=null;});var avg=scores.length?scores.reduce(function(a,b){return a+b;},0)/scores.length:0;if(avg>topScore){topScore=avg;topCat=cat;}});
+  var items=[
+    {v:avgPct!=null?avgPct+'%':'N/A',l:'Term Avg',s:avgPct!=null?gradeOf(avgPct).txt:''},
+    {v:weeks.length,l:'Weeks Active',s:'of '+CFG.totalWeeks},
+    {v:totalMins>0?totalMins+'m':'0',l:'Total Minutes',s:totalMins>0?'~'+(totalMins/60).toFixed(1)+'hrs':'target: '+CFG.minTarget+'/wk'},
+    {v:topCat?topCat.split(' ')[0]:'N/A',l:'Top Category',s:topCat&&topScore>0?Math.round(topScore*100)+'% avg':''},
+  ];
+  el.innerHTML=items.map(function(it){return'<div class="ts-item"><div class="ts-val">'+it.v+'</div><div class="ts-lbl">'+it.l+'</div><div class="ts-sub">'+it.s+'</div></div>';}).join('');
+}
+
+/* ═══ LINE CHART ═══ */
+function buildLC(gpa,weeks,code) {
+  var svg=document.getElementById('lc-svg');
+  if(!weeks.length){svg.innerHTML='<text x="135" y="55" text-anchor="middle" fill="rgba(128,128,128,.3)" font-size="12">No data yet</text>';return;}
+  var W=270,H=110,P={t:8,b:22,l:24,r:8},cW=W-P.l-P.r,cH=H-P.t-P.b;
+  var xP=function(i){return P.l+i*(cW/Math.max(weeks.length-1,1));};
+  var yP=function(v){return P.t+cH-(v/100)*cH;};
+  var vals=weeks.map(function(w){var sc=wkScForCode(gpa,w);return sc!=null?Math.round(sc*100):null;});
+  var h='';
+  [0,25,50,75,100].forEach(function(v){var y=yP(v);h+='<line x1="'+P.l+'" y1="'+y+'" x2="'+(W-P.r)+'" y2="'+y+'" stroke="rgba(128,128,128,.07)"/><text x="'+(P.l-3)+'" y="'+(y+3.5)+'" text-anchor="end" font-size="8" fill="rgba(128,128,128,.4)">'+v+'</text>';});
+  weeks.forEach(function(w,i){h+='<text x="'+xP(i)+'" y="'+(H-P.b+13)+'" text-anchor="middle" font-size="8.5" fill="rgba(128,128,128,.45)" font-weight="600">W'+w+'</text>';});
+  /* Class avg line */
+  var cavgPts=weeks.map(function(w,i){var a=CLASS_AVGS[w];return a!=null?[xP(i),yP(a)]:null;}).filter(Boolean);
+  if(cavgPts.length>1) h+='<polyline points="'+cavgPts.map(function(p){return p.join(',');}).join(' ')+'" fill="none" stroke="rgba(168,85,247,.35)" stroke-width="1.5" stroke-dasharray="4,3" stroke-linecap="round"/>';
+  var pts=vals.map(function(v,i){return v!=null?[xP(i),yP(v)]:null;}).filter(Boolean);
+  if(pts.length>1){
+    h+='<defs><linearGradient id="ag" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#E8C443" stop-opacity=".2"/><stop offset="100%" stop-color="#E8C443" stop-opacity="0"/></linearGradient></defs>';
+    var ap='M '+pts.map(function(p){return p.join(',');}).join(' L ')+' L '+pts[pts.length-1][0]+','+yP(0)+' L '+pts[0][0]+','+yP(0)+' Z';
+    h+='<path d="'+ap+'" fill="url(#ag)"/>';
+    h+='<polyline points="'+pts.map(function(p){return p.join(',');}).join(' ')+'" fill="none" stroke="#E8C443" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+  vals.forEach(function(v,i){if(v!=null){var c=v>=80?'#10B981':v>=60?'#F59E0B':v>=40?'#F97316':'#EF4444';h+='<circle cx="'+xP(i)+'" cy="'+yP(v)+'" r="5" fill="'+c+'" stroke="var(--bg)" stroke-width="2.5" style="cursor:pointer" onmouseenter="showTip(event,'+weeks[i]+','+v+')" onmouseleave="hideTip()"/>';}});
+  /* Legend */
+  if(cavgPts.length>1) h+='<line x1="'+(W-70)+'" y1="8" x2="'+(W-60)+'" y2="8" stroke="rgba(168,85,247,.45)" stroke-width="1.5" stroke-dasharray="3,2"/><text x="'+(W-57)+'" y="11" font-size="7" fill="rgba(168,85,247,.6)">class avg</text>';
+  svg.innerHTML=h;
+}
+function showTip(e,w,v){var tt=document.getElementById('lc-tt'),g=gradeOf(v);document.getElementById('lc-ttw').textContent='WEEK '+w;document.getElementById('lc-ttv').textContent=v+'%';document.getElementById('lc-tts').textContent=g.txt;document.getElementById('lc-tts').style.color=g.col;tt.style.display='block';var r=e.target.closest('.lc-wrap').getBoundingClientRect();tt.style.left=Math.max(0,Math.min(e.clientX-r.left-55,r.width-120))+'px';tt.style.top=(e.clientY-r.top-62)+'px';}
+function hideTip(){document.getElementById('lc-tt').style.display='none';}
+
+/* ═══ HEATMAP ═══ */
+function buildHM(gpa,weeks) {
+  var el=document.getElementById('hm-wrap');if(!weeks.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="font-size:11px;letter-spacing:2px;font-weight:700;color:var(--text3);text-transform:uppercase;margin:13px 0 8px;">Week Summary</div><div class="hm">'+weeks.map(function(w){var sc=wkScForCode(gpa,w),pc=sc!=null?Math.round(sc*100):null;var cls='hn',tip='No data';if(pc!=null&&pc>=80){cls='hf';tip=pc+'% \u2014 Excellent';}else if(pc!=null&&pc>=60){cls='hg';tip=pc+'% \u2014 Good';}else if(pc!=null&&pc>0){cls='hp';tip=pc+'% \u2014 Fair';}return'<div class="hm-c"><div class="hm-b '+cls+'" title="'+tip+'">'+w+'</div><div class="hm-l">WK</div></div>';}).join('')+'</div>';
+}
+
+/* ═══ CAT BARS ═══ */
+function buildCatBars(gpa,lw) {
+  var el=document.getElementById('cat-bars');
+  if(!lw){el.innerHTML='<div class="no-data">No data yet</div>';return;}
+  var wd=gpa[lw]||gpa[String(lw)];
+  if(!wd){el.innerHTML='<div class="no-data">No data for this week yet</div>';return;}
+  el.innerHTML=CATS.map(function(m){var v=wd[m],pct=v!=null&&typeof v==='number'?v*100:null;var spl='',sc='var(--text3)';if(pct===100){spl='<span class="spl sp1">\u2713 Done</span>';sc='var(--green)';}else if(pct===50){spl='<span class="spl sp05">\u25D1 Partial</span>';sc='var(--amber)';}else if(pct===0){spl='<span class="spl sp0">\u25CB Not done</span>';sc='var(--red)';}return'<div class="pr"><div class="pr-top"><span class="pr-nm">'+m+'</span><span class="pr-rt">'+spl+'<span class="pr-pct" style="color:'+sc+'">'+(pct!=null?pct+'%':'\u2014')+'</span></span></div><div class="pr-tr"><div class="pr-fl" style="background:'+CCAT[m]+';width:0" data-t="'+(pct||0)+'"></div></div></div>';}).join('');
+  var mins=wd['Invested Minutes'];
+  if(mins!=null){var mp=Math.min(100,Math.round((mins/CFG.minTarget)*100));var mc=mins>=CFG.minTarget?'var(--green)':mins>=CFG.minTarget/2?'var(--amber)':'var(--red)';var ml=mins>=CFG.minTarget?'<span class="spl sp1">\u2713 On target</span>':mins>0?'<span class="spl sp05">\u25D1 '+mins+' min</span>':'<span class="spl sp0">\u25CB Not logged</span>';el.innerHTML+='<div class="pr" style="margin-top:11px;padding-top:11px;border-top:1px solid rgba(128,128,128,.1)"><div class="pr-top"><span class="pr-nm">\u231A Invested Minutes <span style="font-size:12px;color:var(--text3);font-weight:500">(target: '+CFG.minTarget+' min)</span></span><span class="pr-rt">'+ml+'<span class="pr-pct" style="color:'+mc+';margin-left:8px">'+(mins>0?mins+' min':'\u2014')+'</span></span></div><div class="pr-tr"><div class="pr-fl" style="background:linear-gradient(90deg,#065F46,#14B8A6);width:0" data-t="'+mp+'"></div></div></div>';}
+  setTimeout(function(){document.querySelectorAll('.pr-fl').forEach(function(f){f.style.width=f.dataset.t+'%';});},300);
+}
+
+/* ═══ MINUTES ═══ */
+function buildMT(gpa,weeks,code) {
+  var md=weeks.map(function(w){var wd=gpa[w]||gpa[String(w)];return{w:w,m:wd?wd['Invested Minutes']||0:0};});
+  var el=document.getElementById('mins-bars');
+  var maxM=Math.max.apply(null,md.map(function(d){return d.m;}).concat([CFG.minTarget,1]));
+  var H=100;
+  if(!weeks.length){el.innerHTML='<div class="no-data">No minutes data yet</div>';return;}
+  el.innerHTML='<div style="position:relative;margin-bottom:8px;"><div style="display:flex;align-items:flex-end;gap:8px;height:'+H+'px;padding:0 4px;position:relative;"><div style="position:absolute;left:0;right:0;bottom:'+((CFG.minTarget/maxM)*H)+'px;border-top:2px dashed rgba(20,184,166,.4);z-index:2;pointer-events:none;"><span style="position:absolute;right:0;top:-17px;font-size:10px;color:var(--teal);font-weight:800;background:var(--card);padding:0 4px;border-radius:3px;">'+CFG.minTarget+' min</span></div>'+md.map(function(d){var h=d.m>0?Math.max(6,Math.round((d.m/maxM)*H)):6;var c=d.m>=CFG.minTarget?'linear-gradient(to top,#065F46,#10B981)':d.m>=CFG.minTarget/2?'linear-gradient(to top,#92400E,#F59E0B)':'linear-gradient(to top,#7F1D1D,#EF4444)';return'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;"><div style="font-size:11px;font-weight:800;color:'+(d.m>=CFG.minTarget?'var(--green)':d.m>=CFG.minTarget/2?'var(--amber)':'var(--red)')+';">'+(d.m>0?d.m:'\u2014')+'</div><div style="width:100%;min-width:20px;height:0;background:'+c+';border-radius:5px 5px 0 0;opacity:'+(d.m>0?1:.22)+';transition:height 1s cubic-bezier(.34,1.56,.64,1)" data-h="'+h+'"></div></div>';}).join('')+'</div><div style="display:flex;gap:8px;padding:0 4px;margin-top:7px;">'+md.map(function(d){return'<div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--text3);">W'+d.w+'</div>';}).join('')+'</div></div>';
+  setTimeout(function(){el.querySelectorAll('[data-h]').forEach(function(b){b.style.height=b.dataset.h+'px';});},150);
+  /* Goal setting FIX #14 */
+  var goalRow=document.getElementById('goal-row');
+  if(goalRow){
+    var userGoal=CFG.minTarget;
+    try{var saved=localStorage.getItem('gU_goal_'+code);if(saved)userGoal=parseInt(saved)||userGoal;}catch(e){}
+    goalRow.innerHTML='<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--text3);font-weight:700;">My Goal:</span><select onchange="setGoal(\''+code+'\',this.value)" style="background:var(--card2);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:4px 10px;outline:none;font-family:\'Plus Jakarta Sans\',sans-serif;">'+ [CFG.minTarget,CFG.minTarget*1.4,CFG.minTarget*2].map(function(g){g=Math.round(g);return'<option value="'+g+'"'+(g===userGoal?' selected':'')+'>'+g+' min/wk</option>';}).join('')+'</select></div>';
+  }
+  var totalMins=md.reduce(function(s,d){return s+d.m;},0);
+  var running=0;
+  var milestones=[{n:CFG.minTarget,l:'Month 1'},{n:CFG.minTarget*2,l:'Month 2'},{n:CFG.minTarget*4,l:'Champion'},{n:CFG.minTarget*8,l:'Term Hero'}];
+  document.getElementById('cumul-view').innerHTML='<div style="text-align:center;padding:18px 0 12px;"><div style="font-family:\'Cinzel\',serif;font-size:40px;font-weight:700;color:var(--teal);line-height:1;">'+totalMins+'<span style="font-size:18px;color:var(--text2);font-weight:500;margin-left:4px;">min</span></div><div style="font-size:14px;color:var(--text2);margin-top:6px;">Total across '+weeks.length+' week'+(weeks.length!==1?'s':'')+' of '+CFG.totalWeeks+'</div><div style="font-size:15px;color:var(--text);margin-top:4px;font-weight:700;">\u2248 '+(totalMins/60).toFixed(1)+' hours in God\'s Word</div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;">'+md.map(function(d){running+=d.m;return'<div style="flex:1;min-width:52px;background:var(--card2);border:1.5px solid var(--border);border-radius:11px;padding:10px 7px;text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;margin-bottom:4px;">WK '+d.w+'</div><div style="font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;color:'+(running>0?'var(--teal)':'var(--text3)')+';">'+running+'m</div></div>';}).join('')+'</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'+milestones.map(function(m){var ok=totalMins>=m.n;return'<div style="background:'+(ok?'var(--teal-bg)':'var(--card2)')+';border:2px solid '+(ok?'rgba(20,184,166,.3)':'var(--border)')+';border-radius:12px;padding:13px 8px;text-align:center;"><div style="font-family:\'Cinzel\',serif;font-size:15px;font-weight:700;color:'+(ok?'var(--teal)':'var(--text3)')+';">'+m.n+'m</div><div style="font-size:11px;color:'+(ok?'var(--teal)':'var(--text3)')+';margin-top:3px;font-weight:700;">'+m.l+' '+(ok?'\u2713':'')+'</div></div>';}).join('')+'</div>';
+}
+function setGoal(code,val) { try{localStorage.setItem('gU_goal_'+code,val);}catch(e){} buildMT(getGPA(code),Object.keys(getGPA(code)).map(Number).filter(function(w){return Object.keys(getGPA(code)[w]||{}).length>0;}).sort(function(a,b){return a-b;}),code); }
+
+/* ═══ BADGES ═══ */
+function buildBG(gpa,weeks,streak,totalMins) {
+  var allSc=weeks.map(function(w){return wkScForCode(gpa,w);}).filter(function(v){return v!=null;});
+  var avg=allSc.length?allSc.reduce(function(a,b){return a+b;},0)/allSc.length:0;
+  var defs=[
+    {i:'\uD83C\uDF1F',n:'First Step',d:'Joined the journey',e:weeks.length>0,_bg:'rgba(232,196,67,.1)',_bc:'rgba(232,196,67,.32)',_gl:'rgba(232,196,67,.1)',_c:'var(--gold)'},
+    {i:'\uD83D\uDD25',n:'On Fire',d:'3+ active weeks (40%+)',e:streak>=3,_bg:'rgba(249,115,22,.1)',_bc:'rgba(249,115,22,.3)',_gl:'rgba(249,115,22,.1)',_c:'#F97316'},
+    {i:'\uD83D\uDC8E',n:'Excellent',d:'80%+ in a week',e:weeks.some(function(w){return(wkScForCode(gpa,w)||0)>=.8;}),_bg:'var(--teal-bg)',_bc:'rgba(20,184,166,.3)',_gl:'rgba(20,184,166,.1)',_c:'var(--teal)'},
+    {i:'\uD83D\uDCD6',n:'Word Warrior',d:CFG.minTarget+'+ mins/week',e:weeks.some(function(w){var wd=gpa[w]||gpa[String(w)];return(wd&&wd['Invested Minutes']||0)>=CFG.minTarget;}),_bg:'rgba(168,85,247,.1)',_bc:'rgba(168,85,247,.3)',_gl:'rgba(168,85,247,.1)',_c:'var(--purple)'},
+    {i:'\uD83D\uDCE1',n:'Full Attend.',d:'2+ weeks fully present',e:weeks.filter(function(w){var wd=gpa[w]||gpa[String(w)];return wd&&wd['Attendance']===1;}).length>=2,_bg:'var(--blue-bg)',_bc:'rgba(59,130,246,.3)',_gl:'rgba(59,130,246,.1)',_c:'var(--blue)'},
+    {i:'\uD83D\uDC51',n:'goD Builder',d:'Avg 60%+ overall',e:avg>=.6,_bg:'rgba(232,196,67,.12)',_bc:'rgba(232,196,67,.4)',_gl:'rgba(232,196,67,.15)',_c:'var(--gold2)'},
+  ];
+  document.getElementById('bg-grid').innerHTML=defs.map(function(b){return'<div class="bg-item'+(b.e?' e':'')+'"'+(b.e?' style="--_bg:'+b._bg+';--_bc:'+b._bc+';--_gl:'+b._gl+';--_c:'+b._c+'"':'')+' title="'+(b.e?'\u2713 Earned':'Not yet earned')+'"><div class="bi">'+b.i+'</div><div class="bn_">'+b.n+'</div><div class="bd_">'+(b.e?'\u2713 Earned':b.d)+'</div></div>';}).join('');
+}
+
+/* ═══ INSIGHTS ═══ */
+function buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins) {
+  var el=document.getElementById('ins-panel');var ins=[];
+  var lw=weeks.length?weeks[weeks.length-1]:null;var prev=weeks.length>1?weeks[weeks.length-2]:null;
+  if(lw&&prev){var cur=Math.round((wkScForCode(gpa,lw)||0)*100);var prv=Math.round((wkScForCode(gpa,prev)||0)*100);if(cur-prv>10)ins.push({i:'\uD83D\uDCC8',t:'Performance <strong>improved by '+(cur-prv)+'%</strong> from last week \u2014 great momentum!'});else if(prv-cur>15)ins.push({i:'\uD83D\uDCC9',t:'Score <strong>dropped '+(prv-cur)+'%</strong> from last week. Gently check in with '+s.first_name+'.'});}
+  if(pct!=null&&pct>=80)ins.push({i:'\uD83C\uDF1F',t:'<strong>Outstanding week!</strong> '+s.first_name+' scored <strong>'+pct+'%</strong>.'});
+  if(streak>=3)ins.push({i:'\uD83D\uDD25',t:'<strong>'+streak+'-week active streak!</strong> Tell '+s.first_name+' how proud you are.'});
+  if(latestMins>=CFG.minTarget)ins.push({i:'\uD83D\uDCD6',t:'<strong>'+latestMins+' minutes</strong> in God\'s Word this week \u2014 above target!'});
+  el.innerHTML=ins.slice(0,2).map(function(i){return'<div class="ins"><div class="ins-i">'+i.i+'</div><div class="ins-b">'+i.t+'</div></div>';}).join('');
+}
+
+/* ═══ SCHEDULE ═══ */
+function buildSchedule(currentWkNum) {
+  var el=document.getElementById('sched-card');if(!el)return;
+  var startDate=new Date(CFG.startDate);
+  function wkDate(n){var d=new Date(startDate);d.setDate(d.getDate()+(n-1)*7);return d;}
+  var fmt=function(d){return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});};
+  var upcoming=[];
+  for(var w=currentWkNum;w<=Math.min(currentWkNum+3,CFG.totalWeeks);w++) upcoming.push({w:w,d:wkDate(w)});
+  el.innerHTML='<div class="sh" style="margin-bottom:14px;">\uD83D\uDCC5 Class Schedule</div>'+(upcoming.length?'<div class="sched-next"><span class="sched-ic">\uD83D\uDCE1</span><div><div class="sched-lbl">Next Class</div><div class="sched-date">'+fmt(upcoming[0].d)+'</div><div class="sched-sub">Week '+upcoming[0].w+' of '+CFG.totalWeeks+' \u2014 goDs University</div></div></div>':'<div style="font-size:14px;color:var(--text3);margin-bottom:14px;">Programme complete!</div>')+'<div class="sched-list">'+upcoming.map(function(u,idx){return'<div class="sched-item"><span class="si-wk">Wk '+u.w+'</span><div class="si-info"><div class="si-date">'+fmt(u.d)+'</div><div class="si-note">goDs University Session</div></div></div>';}).join('')+'</div>';
+}
+
+/* ═══ REPORTS (44 WEEKS, GROUPED) FIX #6 ═══ */
+function buildRep(s,gpa,reps,weeks,currentWkNum) {
+  var tabs=document.getElementById('rp-tabs');
+  var panels=document.getElementById('rp-panels');
+  var wgStrip=document.getElementById('wg-strip');
+  var totalWks=CFG.totalWeeks;
+  var dataWeeks=new Set(weeks);
+  /* FIX #6: Group into blocks of 4 */
+  var GROUP_SIZE=4;
+  var numGroups=Math.ceil(totalWks/GROUP_SIZE);
+  var currentGroup=Math.ceil(currentWkNum/GROUP_SIZE)-1;
+  var activeGroup=currentGroup;
+  /* Also find group containing latest data week */
+  if(weeks.length){var latestDataWk=weeks[weeks.length-1];var ldg=Math.floor((latestDataWk-1)/GROUP_SIZE);if(ldg>=0&&ldg<numGroups)activeGroup=ldg;}
+  function renderGroup(gIdx) {
+    var start=gIdx*GROUP_SIZE+1;var end=Math.min(start+GROUP_SIZE-1,totalWks);
+    var groupHasData=[...dataWeeks].some(function(w){return w>=start&&w<=end;});
+    /* Update group buttons */
+    document.querySelectorAll('.wg-btn').forEach(function(b,i){b.classList.toggle('on',i===gIdx);});
+    /* Build week tabs for this group */
+    var groupWeeks=[];for(var w=start;w<=end;w++)groupWeeks.push(w);
+    tabs.innerHTML=groupWeeks.map(function(w){
+      var has=dataWeeks.has(w);
+      var isLatest=weeks.length&&w===weeks[weeks.length-1];
+      return'<button class="wt'+(has?' has-data':'')+(isLatest?' latest':'')+'" onclick="swRep('+w+',this)">Wk '+w+(isLatest?' \u25CF':'')+'</button>';
+    }).join('');
+    /* Build panels */
+    panels.innerHTML=groupWeeks.map(function(w,idx){return buildRepPanel(s,gpa,reps,weeks,w,idx);}).join('');
+    /* Auto-select latest week in this group */
+    var latestInGroup=null;
+    groupWeeks.forEach(function(w){if(dataWeeks.has(w))latestInGroup=w;});
+    var toSelect=latestInGroup||start;
+    setTimeout(function(){
+      var btn=tabs.querySelector('.wt.latest')||tabs.querySelector('.wt.has-data:last-of-type')||tabs.querySelector('.wt');
+      if(btn)btn.click();
+    },100);
+  }
+  /* Group buttons */
+  wgStrip.innerHTML=Array.from({length:numGroups},function(_,i){
+    var start=i*GROUP_SIZE+1,end=Math.min(start+GROUP_SIZE-1,totalWks);
+    var has=[...dataWeeks].some(function(w){return w>=start&&w<=end;});
+    return'<button class="wg-btn'+(has?' has':'')+'" onclick="window._selectGroup('+i+')">Wk '+start+(start!==end?'\u2013'+end:'')+'</button>';
+  }).join('');
+  window._selectGroup=renderGroup;
+  renderGroup(activeGroup);
+  /* Update labels */
+  var twl=document.getElementById('total-wks-lbl');if(twl)twl.textContent=totalWks+' weeks';
+}
+
+function buildRepPanel(s,gpa,reps,weeks,w,idx) {
+  var txt=reps[w]||'';
+  var wd=gpa[w]||gpa[String(w)]||{};
+  var sc=wkScForCode(gpa,w);var prevSc=w>1?wkScForCode(gpa,w-1):null;
+  var pct=sc!=null?Math.round(sc*100):null;var prevPct=prevSc!=null?Math.round(prevSc*100):null;
+  var mins=wd['Invested Minutes']||0;
+  var dataWeeks=new Set(weeks);
+  if(!dataWeeks.has(w)&&!txt) {
+    /* FIX: Next week preview #17 */
+    var nwp='';
+    if(w===Math.max.apply(null,[...dataWeeks])+1&&txt===''){nwp='<div class="nwp"><div class="nwp-hdr">\uD83D\uDCCB Coming Next</div><div class="nwp-body">Prepare your child by reviewing this week\'s reading assignment. Check t.me/KIN_gU for the specific passage for Week '+w+'.</div></div>';}
+    return'<div class="rp" id="rp'+w+'">'+nwp+'<div style="text-align:center;padding:48px 20px;color:var(--text3);"><div style="font-size:36px;margin-bottom:12px;">\uD83D\uDCC5</div><div style="font-family:\'Cinzel\',serif;font-size:16px;color:var(--text2);margin-bottom:8px;">Week '+w+' \u2014 Coming Soon</div><div style="font-size:14px;line-height:1.7;">This week\'s report will appear here once the session has taken place and data has been synced.</div></div></div>';
+  }
+  /* Pattern detection (4-week) */
+  var patHtml='';
+  var issues={};
+  CATS.forEach(function(cat){var misses=0;for(var wi=Math.max(1,w-3);wi<=w;wi++){var wdx=gpa[wi]||gpa[String(wi)];if(!wdx||(wdx[cat]||0)<0.5)misses++;}if(misses>=3)issues[cat]=misses;});
+  var issueList=Object.entries(issues);
+  if(issueList.length) patHtml='<div class="trend tr-pat"><div class="trend-icon">\u26A0\uFE0F</div><div class="trend-body"><div class="trend-title">Pattern Alert \u2014 4-Week Trend</div><div class="trend-desc">'+issueList.map(function(p){return'<strong>'+p[0]+'</strong> missed '+p[1]+' of the last 4 weeks';}).join(' \u00B7 ')+'</div></div></div>';
+  /* Trend banner */
+  var tHtml='';
+  if(pct!=null){var cls,icon,title,desc,spk='';
+    if(prevPct==null){cls='tr-new';icon='\uD83C\uDD95';title='Week '+w+' \u2014 '+pct+'%';desc='Starting data for this week.';}
+    else if(pct-prevPct>10){cls='tr-up';icon='\u2191';title='Improving \u2014 up '+(pct-prevPct)+'% from last week';desc='From '+prevPct+'% to '+pct+'%.';}
+    else if(prevPct-pct>10){cls='tr-down';icon='\u2193';title='Declining \u2014 down '+(prevPct-pct)+'% from last week';desc='From '+prevPct+'% to '+pct+'%. See the Parent Guide below.';}
+    else{cls='tr-flat';icon='\u2192';title='Stable \u2014 ~'+pct+'%';desc='Consistency is good. Check the guide for where to push further.';}
+    var swks=weeks.filter(function(w2){return w2<=w;}).slice(-4);
+    if(swks.length>1){var ss=swks.map(function(w2){return wkScForCode(gpa,w2)!=null?Math.round(wkScForCode(gpa,w2)*100):0;});var sm=Math.max.apply(null,ss.concat([1]));spk='<div class="spark">'+ss.map(function(v){var h=Math.max(4,Math.round((v/sm)*22));var c=v>=80?'#10B981':v>=60?'#F59E0B':v>=40?'#F97316':'rgba(239,68,68,.6)';return'<div class="sp-b" style="height:'+h+'px;background:'+c+'"></div>';}).join('')+'</div>';}
+    /* class avg for this week */
+    var cavg=CLASS_AVGS[w];
+    var cavgNote=cavg!=null?' (class avg: '+cavg+'%)':(CLASS_AVGS[w-1]!=null?' (class avg: '+CLASS_AVGS[w-1]+'%)':'');
+    if(cavgNote)desc+=cavgNote;
+    tHtml='<div class="trend '+cls+'"><div class="trend-icon">'+icon+'</div><div class="trend-body"><div class="trend-title">'+title+'</div><div class="trend-desc">'+desc+'</div></div>'+spk+'</div>';
+  }
+  var SN={'Weekly report':'Report','Time Sheet':'Timesheet','Pathway':'Pathway','Activity':'Activity','Attendance':'Attend.'};
+  var pillsHtml='';
+  if(Object.keys(wd).length){pillsHtml='<div class="rsc-row">'+CATS.map(function(m){var v=wd[m];var cls='rpna',ic='\u2014';if(v===1){cls='rp1';ic='\u2713';}else if(v===0.5){cls='rp05';ic='\u25D1';}else if(v===0){cls='rp0';ic='\u25CB';}return'<div class="rsc-pill '+cls+'">'+ic+' '+SN[m]+'</div>';}).join('')+(mins>0?'<div class="rsc-pill" style="background:var(--teal-bg);border:1.5px solid rgba(20,184,166,.28);color:var(--teal)">\u231A '+mins+'m</div>':'')+'</div>';}
+  var noteHtml='<div class="inst-note"><div class="inst-hdr">\uD83D\uDCDC Instructor\'s Observation</div>'+(txt?'<div class="inst-txt">'+txt+'</div>':'<div style="font-size:14px;color:var(--text3);font-style:italic">No instructor report for this week yet.</div>')+'</div>';
+  var suggs=genSugg(s,w,wd,pct,prevPct,mins,weeks,gpa);
+  var suggHtml='<div class="sugg-hdr">\uD83C\uDFAF Parent Action Guide \u2014 Week '+w+'</div>'+(suggs.length?suggs.map(function(sg){return'<div class="sugg s-'+sg.p+'"><div class="sugg-ic">'+sg.i+'</div><div class="sugg-body">'+sg.t+'</div></div>';}).join(''):'<div style="font-size:14px;color:var(--text2);padding:14px;text-align:center;font-style:italic;">Great week \u2014 no urgent actions needed!</div>');
+  /* FIX #16: message sent confirmation */
+  var shareHtml='<div class="share-row"><button class="share-btn share-tg" onclick="shareToTG(\''+s.code+'\','+w+')">\u2708\uFE0F Share</button><button class="share-btn share-copy" onclick="copyRep(\''+s.first_name+'\','+w+','+(pct||0)+','+(mins||0)+')">&#x1F4CB; Copy</button><button class="share-btn share-print" onclick="window.print()">&#x1F5A8; Print</button></div>';
+  var msgHtml='<div class="msg-form"><div class="msg-hdr">&#x1F4AC; Message to Instructor</div><textarea class="msg-ta" id="msg-'+w+'" placeholder="Write a note about '+s.first_name+' to send to the instructor\u2026"></textarea><div class="msg-footer"><button class="msg-send" onclick="sendMsg(\''+s.first_name+'\','+w+')">Send via Telegram \u2192</button><span class="msg-sent-note" id="msent-'+w+'">\u2713 Sent!</span></div></div>';
+  return'<div class="rp" id="rp'+w+'">'+patHtml+tHtml+pillsHtml+noteHtml+'<div style="margin-top:16px;">'+suggHtml+'</div>'+shareHtml+msgHtml+'</div>';
+}
+
+function swRep(w,btn) {
+  document.querySelectorAll('.wt').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.rp').forEach(function(p){p.classList.remove('on');});
+  btn.classList.add('on');
+  var panel=document.getElementById('rp'+w);
+  if(panel)panel.classList.add('on');
+}
+
+/* ═══ SUGGESTIONS ═══ */
+function genSugg(s,w,wd,pct,prevPct,mins,weeks,gpa) {
+  var fn=s.first_name;var suggs=[];
+  function missCount(cat){var n=0;for(var wi=Math.max(1,w-3);wi<=w;wi++){var wdx=gpa[wi]||gpa[String(wi)];if(!wdx||(wdx[cat]||0)<0.5)n++;}return n;}
+  if(wd['Weekly report']===0)suggs.push({p:'hi',i:'\uD83D\uDCCB',t:'<strong>Weekly report not submitted.</strong> Set aside 15\u201320 min Saturday evening for '+fn+' to complete it. Ask: "What stood out from what you read this week?"'});
+  else if(wd['Weekly report']===0.5)suggs.push({p:'me',i:'\uD83D\uDCCB',t:'<strong>Report partially done.</strong> A complete report helps the instructor track growth. 15 focused minutes is all it takes.'});
+  if(missCount('Weekly report')>=3)suggs.push({p:'hi',i:'\uD83D\uDD01',t:'<strong>Pattern: Report missed '+missCount('Weekly report')+' of the last 4 weeks.</strong> Set a recurring Saturday reminder for '+fn+'.'});
+  if(wd['Time Sheet']===0)suggs.push({p:'hi',i:'\u23F1\uFE0F',t:'<strong>Time sheet not logged.</strong> Help '+fn+' log each session \u2014 even one line each evening.'});
+  if(missCount('Time Sheet')>=3)suggs.push({p:'me',i:'\uD83D\uDD01',t:'<strong>Pattern: Time sheet missed '+missCount('Time Sheet')+' of the last 4 weeks.</strong> Pin the sheet somewhere '+fn+' will see it daily.'});
+  if(wd['Pathway']===0)suggs.push({p:'hi',i:'\uD83D\uDCD6',t:'<strong>Word Challenge not completed.</strong> Make daily reading non-negotiable \u2014 10 minutes before breakfast. The Word is '+fn+'\'s spiritual food.'});
+  else if(wd['Pathway']===0.5)suggs.push({p:'me',i:'\uD83D\uDCD6',t:'<strong>Pathway reading half done.</strong> Break it into daily portions. Consistency beats catch-up.'});
+  if(missCount('Pathway')>=3)suggs.push({p:'hi',i:'\uD83D\uDD01',t:'<strong>Pattern: Pathway missed '+missCount('Pathway')+' of the last 4 weeks.</strong> Ask lovingly: "What\'s making this hard?" \u2014 then remove that obstacle together.'});
+  if(wd['Attendance']===0)suggs.push({p:'hi',i:'\uD83D\uDCE1',t:'<strong>'+fn+' missed class.</strong> Attendance is the foundation. Inform the instructor in advance if absence is unavoidable.'});
+  if(missCount('Attendance')>=2)suggs.push({p:'hi',i:'\uD83D\uDD01',t:'<strong>Pattern: Attendance missed '+missCount('Attendance')+' of the last 4 weeks.</strong> Please prioritise class time. Regular absence makes everything else harder.'});
+  if(wd['Activity']===0)suggs.push({p:'me',i:'\uD83C\uDFAF',t:'<strong>Activity not completed.</strong> Ask '+fn+' after class: "What activity did you do?" Your interest motivates engagement.'});
+  if(mins===0)suggs.push({p:'hi',i:'\u231A',t:'<strong>No minutes logged.</strong> Target is '+CFG.minTarget+'+ min/week ('+(Math.round(CFG.minTarget/7))+' min/day). Start with 20 minutes and build up.'});
+  else if(mins>0&&mins<CFG.minTarget/2)suggs.push({p:'me',i:'\u231A',t:'<strong>Only '+mins+' minutes logged</strong> \u2014 target is '+CFG.minTarget+'+. Add one extra daily session to close the gap.'});
+  else if(mins>=CFG.minTarget/2&&mins<CFG.minTarget)suggs.push({p:'in',i:'\u231A',t:'<strong>'+mins+' minutes</strong> \u2014 just '+(CFG.minTarget-mins)+' more to hit the '+CFG.minTarget+'-minute target. Almost there!'});
+  else if(mins>=CFG.minTarget)suggs.push({p:'go',i:'\uD83C\uDF89',t:'<strong>'+mins+' minutes in God\'s Word!</strong> Above target \u2014 celebrate this with '+fn+'!'});
+  if(prevPct!=null&&pct!=null&&prevPct-pct>20)suggs.push({p:'hi',i:'\uD83D\uDCC9',t:'<strong>Significant drop this week.</strong> Ask gently: "What made this week hard?" Understanding the reason is the first step.'});
+  if(prevPct!=null&&pct!=null&&pct-prevPct>15)suggs.push({p:'go',i:'\uD83D\uDCC8',t:'<strong>Great improvement from '+prevPct+'% to '+pct+'%!</strong> Tell '+fn+' specifically what you noticed.'});
+  if(pct!=null&&pct>=80&&suggs.filter(function(sg){return sg.p==='hi';}).length===0)suggs.push({p:'go',i:'\uD83C\uDF1F',t:'<strong>Outstanding week!</strong> Your role this week is to affirm \u2014 tell '+fn+' exactly what you observed. Specific praise sticks.'});
+  return suggs;
+}
+
+/* ═══ SHARE ═══ */
+function shareToTG(code,week) {
+  var s=DATA.students[code]||{};var gpa=getGPA(code);var reps=getReps(code);
+  var wd=gpa[week]||gpa[String(week)]||{};var pct=wkScForCode(gpa,week)!=null?Math.round(wkScForCode(gpa,week)*100):null;
+  var msg='🌟 goDs University Update — '+s.first_name+' '+s.last_name+'\nWeek '+week+' Score: '+(pct!=null?pct+'%':'N/A')+'\n'+(reps[week]?'Instructor: '+reps[week].substring(0,100)+'…':'')+'\n\nVia goDs University Parent Portal';
+  window.open('https://t.me/share/url?url=https://bit.ly/KINpro&text='+encodeURIComponent(msg),'_blank');
+}
+function copyRep(name,week,pct,mins) {
+  var txt='goDs University — '+name+' | Week '+week+'\nScore: '+(pct||0)+'% | Minutes: '+(mins||0)+' min';
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){alert('Report copied!');});
+}
+function sendMsg(name,week) {
+  var ta=document.getElementById('msg-'+week);if(!ta)return;
+  var msg=ta.value.trim();if(!msg){alert('Please type a message first.');return;}
+  var full='[goDs University] Re: '+name+' — Week '+week+'\n\n'+msg;
+  window.open('https://t.me/KIN_gU?text='+encodeURIComponent(full),'_blank');
+  /* FIX #16: show sent confirmation */
+  var sentNote=document.getElementById('msent-'+week);
+  if(sentNote){sentNote.style.display='block';setTimeout(function(){sentNote.style.display='none';},3000);}
+  ta.value='';
+}
+
+/* ═══ AI SUMMARY ═══ */
+function loadAI(code) {
+  try { var saved=localStorage.getItem('gU_ai_'+code); if(saved){document.getElementById('ai-body').textContent=saved;document.getElementById('ai-gen-btn').textContent='\u21BA Regenerate';return;} } catch(e) {}
+  document.getElementById('ai-body').textContent='Click Generate Summary for an AI-powered analysis of your child\'s term progress so far.';
+  if(!CFG.apiKey){document.getElementById('ai-key-note').style.display='block';}
+}
+function generateAI() {
+  if(!currentStudent)return;
+  if(!CFG.apiKey){document.getElementById('ai-key-note').style.display='block';return;}
+  var s=currentStudent;var code=s.code;var gpa=getGPA(code);var reps=getReps(code);
+  var weeks=Object.keys(gpa).map(Number).filter(function(w){return Object.keys(gpa[w]||{}).length>0;}).sort(function(a,b){return a-b;});
+  var allSc=weeks.map(function(w){return wkScForCode(gpa,w);}).filter(function(v){return v!=null;});
+  var avgPct=allSc.length?Math.round(allSc.reduce(function(a,b){return a+b;},0)/allSc.length*100):null;
+  var totalMins=Object.values(gpa).reduce(function(sum,w){return sum+(w['Invested Minutes']||0);},0);
+  var repTexts=Object.entries(reps).map(function(pair){return'Week '+pair[0]+': '+pair[1];}).join('\n');
+  var prompt='You are a children\'s ministry coach. Write a warm, encouraging 3-sentence term summary for a parent about their child at goDs University.\n\nStudent: '+s.first_name+' '+s.last_name+', age '+(s.age||'unknown')+', '+weeks.length+' weeks of data.\nAverage gPA score: '+(avgPct!=null?avgPct+'%':'not available')+'.\nTotal minutes in God\'s Word: '+totalMins+'.\nInstructor notes: '+(repTexts||'None yet')+'.\n\nWrite 3 sentences: (1) overall observation, (2) one specific strength, (3) one gentle actionable encouragement for the parent. Be warm, faith-centred, specific. No generic phrases.';
+  var btn=document.getElementById('ai-gen-btn');var aiBody=document.getElementById('ai-body');
+  btn.textContent='Generating\u2026';btn.disabled=true;aiBody.className='ai-body loading';aiBody.textContent='Analysing term data\u2026';
+  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':CFG.apiKey,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,messages:[{role:'user',content:prompt}]})})
+  .then(function(res){return res.json();})
+  .then(function(data){
+    if(data.error)throw new Error(data.error.message);
+    var txt=data.content&&data.content[0]?data.content[0].text:'Could not generate summary.';
+    aiBody.className='ai-body';aiBody.textContent=txt;
+    try{localStorage.setItem('gU_ai_'+code,txt);}catch(e){}
+    btn.textContent='\u21BA Regenerate';btn.disabled=false;
+  })
+  .catch(function(err){
+    aiBody.className='ai-body';aiBody.textContent='Could not generate summary. Check your API key and connection.';
+    btn.textContent='\u2736 Generate Summary';btn.disabled=false;
+  });
+}
+
+/* ═══ TESTIMONY ═══ */
+function buildTesty(fb) {
+  var el=document.getElementById('testy-list');
+  if(!fb||!fb.length){el.innerHTML='<div class="card mb20"><div class="no-data">No testimonies yet \u2014 coming soon! \uD83D\uDE4C</div></div>';return;}
+  el.innerHTML=fb.map(function(f){
+    var t=f.testimony?'<div class="tc-body">'+f.testimony+'</div>':'';
+    var c=(f.comment&&f.comment!==f.testimony)?'<div class="tc-body" style="margin-top:9px;font-size:14px;border-top:1px solid rgba(20,184,166,.12);padding-top:10px;">'+f.comment+'</div>':'';
+    var d=f.date?'<span class="tc-date">'+f.date+'</span>':'';
+    return'<div class="tc">'+t+c+'<div class="tc-meta"><span>\u2014 Parent \u00B7 goDs University \u2736</span>'+d+'</div></div>';
+  }).join('');
+}
+
+/* ═══ PROFILE ═══ */
+function buildProfile(s) {
+  var fields=[['&#x1F4DB; Full Name',[s.first_name,s.middle_name,s.last_name].filter(Boolean).join(' ')],['&#x1F511; goD Code',s.code],['&#x1F4C6; Date of Birth',s.dob?fmtDate(s.dob):'\u2014'],['&#x1F331; Age',s.age?s.age+' years old':'\u2014'],['&#x1F4DA; Programme','Word Challenge \u00B7 goDs University'],['&#x1F194; KIN Number',s.kin_no||'\u2014']];
+  document.getElementById('pf-grid').innerHTML=fields.map(function(pair){return'<div class="pf"><div class="pf-l">'+pair[0]+'</div><div class="pf-v">'+pair[1]+'</div></div>';}).join('');
+}
+function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}catch(e){return d;}}
+
+</script>
+</body>
+</html>
