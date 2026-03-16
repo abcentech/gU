@@ -629,7 +629,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
           <div class="gs-cfg-title">Programme Configuration</div>
           <div class="gs-cfg-row">
             <span class="gs-cfg-label">Programme start date</span>
-            <input class="gs-cfg-inp" id="cfg-start" type="date" value="2026-01-05"/>
+            <input class="gs-cfg-inp" id="cfg-start" type="date" value="2026-02-07"/>
           </div>
           <div class="gs-cfg-row">
             <span class="gs-cfg-label">Total weeks</span>
@@ -882,6 +882,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
    URL:  https://wfopidgqwycjyskpqhxh.supabase.co
    Mode: anon key (read-only, RLS enforced)
 ═══════════════════════════════════════════════════ */
+var WEEK_DATES={1: "Feb 7", 2: "Feb 14", 3: "Feb 21", 4: "Feb 28", 5: "Mar 7", 6: "Mar 14", 7: "Mar 21", 8: "Mar 28", 9: "Apr 4", 10: "Apr 11", 11: "Apr 18", 12: "Apr 25", 13: "May 2", 14: "May 9", 15: "May 16", 16: "May 23", 17: "May 30", 18: "Jun 6", 19: "Jun 13", 20: "Jun 20", 21: "Jun 27", 22: "Jul 4", 23: "Jul 11", 24: "Jul 18", 25: "Jul 25", 26: "Aug 1", 27: "Aug 8", 28: "Aug 15", 29: "Aug 22", 30: "Aug 29", 31: "Sep 5", 32: "Sep 12", 33: "Sep 19", 34: "Sep 26", 35: "Oct 3", 36: "Oct 10", 37: "Oct 17", 38: "Oct 24", 39: "Oct 31", 40: "Nov 7", 41: "Nov 14", 42: "Nov 21", 43: "Nov 28", 44: "Dec 5"};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var SUPABASE_CONNECTED = false;
@@ -1067,6 +1068,7 @@ function sendMsg(name, week) {
 /* ═══ SUPABASE CONFIG ═══ */
 
 /* ═══ SUPABASE LAYER ═══ */
+var WEEK_DATES={1: "Feb 7", 2: "Feb 14", 3: "Feb 21", 4: "Feb 28", 5: "Mar 7", 6: "Mar 14", 7: "Mar 21", 8: "Mar 28", 9: "Apr 4", 10: "Apr 11", 11: "Apr 18", 12: "Apr 25", 13: "May 2", 14: "May 9", 15: "May 16", 16: "May 23", 17: "May 30", 18: "Jun 6", 19: "Jun 13", 20: "Jun 20", 21: "Jun 27", 22: "Jul 4", 23: "Jul 11", 24: "Jul 18", 25: "Jul 25", 26: "Aug 1", 27: "Aug 8", 28: "Aug 15", 29: "Aug 22", 30: "Aug 29", 31: "Sep 5", 32: "Sep 12", 33: "Sep 19", 34: "Sep 26", 35: "Oct 3", 36: "Oct 10", 37: "Oct 17", 38: "Oct 24", 39: "Oct 31", 40: "Nov 7", 41: "Nov 14", 42: "Nov 21", 43: "Nov 28", 44: "Dec 5"};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var _supaConnected = false;
@@ -1238,7 +1240,7 @@ var CLASS_AVGS = {"1":49,"2":60,"3":66,"4":46};
 
 /* ═══ CONFIG ═══ */
 var CFG = {
-  startDate: '2026-01-05',
+  startDate: '2026-02-07',
   totalWeeks: 44,
   minTarget: 300,
   apiKey: ''
@@ -1721,7 +1723,7 @@ function wsSelectGroup(gIdx) {
     var latest = (w === latestWk);
     wHtml += '<button class="wt' + (has ? ' has-data' : '') + (latest ? ' latest' : '') + '" '
            + 'onclick="wsSelectWeek(' + w + ', this)">'
-           + 'Wk ' + w + (latest ? ' \u25CF' : '') + '</button>';
+           + 'Wk ' + w + ((typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w])?' \u00B7 '+WEEK_DATES[w]:'') + (latest ? ' \u25CF' : '') + '</button>';
   }
   wStrip.innerHTML = wHtml;
 
@@ -1755,8 +1757,11 @@ function wsSelectWeek(w, btn) {
       + '<div style="font-size:48px;margin-bottom:16px;">&#x1F4C5;</div>'
       + '<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;'
       +      'color:var(--gold);letter-spacing:3px;margin-bottom:8px;">SOON</div>'
-      + '<div style="font-size:14px;color:var(--text3);">Week ' + w
-      +      ' data will appear here after the session.</div>'
+      + '<div style="font-size:14px;color:var(--text3);margin-bottom:6px;">Week ' + w
+      + ((typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w])?' \u00B7 '+WEEK_DATES[w]+', 2026':'')
+      + '</div>'
+      + '<div style="font-size:13px;color:var(--text3);">'
+      + 'Session not yet recorded. Check back after the class.</div>'
       + '</div>';
     return;
   }
@@ -1909,6 +1914,9 @@ function wsSelectWeek(w, btn) {
     + 'margin-bottom:16px;flex-wrap:wrap;gap:10px;">'
     + '<div style="font-family:Cinzel,serif;font-size:20px;font-weight:700;'
     + 'color:var(--text);">Week '+w+'</div>'
+    + ((typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w])
+      ? '<div style="font-size:13px;color:var(--text3);margin-top:2px;letter-spacing:1px;">'
+        +WEEK_DATES[w]+', 2026</div>' : '')
     + '<div class="grade-b '+g.cls+'">'+g.txt+'</div></div>'
     + tHtml + cavgHtml + pillsHtml
     + '<div class="card mb20">'
@@ -1924,8 +1932,13 @@ function buildDash(s) {
   var code=s.code, gpa=getGPA(code), reps=getReps(code), fb=(DATA.feedback[code]||[]);
   /* Collect all data weeks */
   var dataWeekSet=new Set();
-  Object.keys(gpa).forEach(function(w){if(Object.keys(gpa[w]||gpa[String(w)]||{}).length>0)dataWeekSet.add(parseInt(w));});
-  Object.keys(reps).forEach(function(w){dataWeekSet.add(parseInt(w));});
+  /* Include ALL weeks present as keys — even if all scores are 0 */
+  Object.keys(gpa).forEach(function(w){
+    var wk=parseInt(w);if(!isNaN(wk))dataWeekSet.add(wk);
+  });
+  Object.keys(reps).forEach(function(w){
+    var wk=parseInt(w);if(!isNaN(wk))dataWeekSet.add(wk);
+  });
   var weeks=[...dataWeekSet].sort(function(a,b){return a-b;});
   var lw=weeks.length?weeks[weeks.length-1]:null;
   var lwData=lw!=null?(gpa[lw]||gpa[String(lw)]):null;
@@ -1948,7 +1961,9 @@ function buildDash(s) {
     }
   }
   /* Term progress FIX #11 */
-  var startDate=new Date(CFG.startDate);
+  /* Use WEEK_DATES map if available for accuracy */
+  var startDate=new Date('2026-02-07');
+  if(CFG&&CFG.startDate)startDate=new Date(CFG.startDate);
   var now=new Date();
   var msPerWk=7*24*60*60*1000;
   var currentWkNum=Math.max(1,Math.min(CFG.totalWeeks,Math.floor((now-startDate)/msPerWk)+1));
@@ -2136,9 +2151,18 @@ function buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins) {
 /* ═══ SCHEDULE ═══ */
 function buildSchedule(currentWkNum) {
   var el=document.getElementById('sched-card');if(!el)return;
-  var startDate=new Date(CFG.startDate);
+  /* Use WEEK_DATES map if available for accuracy */
+  var startDate=new Date('2026-02-07');
+  if(CFG&&CFG.startDate)startDate=new Date(CFG.startDate);
   function wkDate(n){var d=new Date(startDate);d.setDate(d.getDate()+(n-1)*7);return d;}
-  var fmt=function(d){return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});};
+  var fmt=function(d,wk){
+    /* Use WEEK_DATES if available */
+    if(typeof WEEK_DATES!=='undefined'&&wk&&WEEK_DATES[wk]){
+      var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      return days[d.getDay()]+', '+WEEK_DATES[wk]+', 2026';
+    }
+    return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  };
   var upcoming=[];
   for(var w=currentWkNum;w<=Math.min(currentWkNum+3,CFG.totalWeeks);w++) upcoming.push({w:w,d:wkDate(w)});
   el.innerHTML='<div class="sh" style="margin-bottom:14px;">\uD83D\uDCC5 Class Schedule</div>'+(upcoming.length?'<div class="sched-next"><span class="sched-ic">\uD83D\uDCE1</span><div><div class="sched-lbl">Next Class</div><div class="sched-date">'+fmt(upcoming[0].d)+'</div><div class="sched-sub">Week '+upcoming[0].w+' of '+CFG.totalWeeks+' \u2014 goDs University</div></div></div>':'<div style="font-size:14px;color:var(--text3);margin-bottom:14px;">Programme complete!</div>')+'<div class="sched-list">'+upcoming.map(function(u,idx){return'<div class="sched-item"><span class="si-wk">Wk '+u.w+'</span><div class="si-info"><div class="si-date">'+fmt(u.d)+'</div><div class="si-note">goDs University Session</div></div></div>';}).join('')+'</div>';
