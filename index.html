@@ -882,7 +882,6 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
    URL:  https://wfopidgqwycjyskpqhxh.supabase.co
    Mode: anon key (read-only, RLS enforced)
 ═══════════════════════════════════════════════════ */
-var wsGroup=function(){},wsWeek=function(){};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var SUPABASE_CONNECTED = false;
@@ -1068,7 +1067,6 @@ function sendMsg(name, week) {
 /* ═══ SUPABASE CONFIG ═══ */
 
 /* ═══ SUPABASE LAYER ═══ */
-var wsGroup=function(){},wsWeek=function(){};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var _supaConnected = false;
@@ -1662,137 +1660,263 @@ function buildFeesBanner(bal,id){
 }
 
 /* ===WEEKLY SNAPSHOT=== */
-function buildWeeklySection(s,gpa,reps,weeks,currentWkNum){
-  var totalWks=CFG.totalWeeks||44;
-  var dataWeeks=new Set(weeks);
-  var GROUP_SIZE=4;
-  var numGroups=Math.ceil(totalWks/GROUP_SIZE);
-  var activeGroup=0;
-  if(weeks.length)activeGroup=Math.floor((weeks[weeks.length-1]-1)/GROUP_SIZE);
 
-  var gStrip=document.getElementById('ws-group-strip');
-  var wStrip=document.getElementById('ws-week-strip');
-  if(!gStrip||!wStrip)return;
+/* ===WEEKLY SNAPSHOT=== */
+var _ws = { s:null, gpa:null, reps:null, weeks:null };
 
-  gStrip.innerHTML=Array.from({length:numGroups},function(_,i){
-    var start=i*GROUP_SIZE+1,end=Math.min(start+GROUP_SIZE-1,totalWks);
-    var has=[...dataWeeks].some(function(w){return w>=start&&w<=end;});
-    return'<button class="wg-btn'+(has?' has':'')+'" onclick="wsGroup('+i+')">'
-      +'Wk '+start+(start!==end?'\u2013'+end:'')+'</button>';
-  }).join('');
+function buildWeeklySection(s, gpa, reps, weeks, currentWkNum) {
+  _ws.s = s; _ws.gpa = gpa; _ws.reps = reps; _ws.weeks = weeks;
+  var totalWks = (CFG && CFG.totalWeeks) ? CFG.totalWeeks : 44;
+  var dataWeeks = {};
+  weeks.forEach(function(w){ dataWeeks[w] = true; });
+  var GROUP_SIZE = 4;
+  var numGroups  = Math.ceil(totalWks / GROUP_SIZE);
+  /* Find active group — group containing latest data week */
+  var latestWk  = weeks.length ? weeks[weeks.length-1] : 1;
+  var activeGrp = Math.floor((latestWk - 1) / GROUP_SIZE);
 
-  wsGroup=function(gIdx){
-    var start=gIdx*GROUP_SIZE+1,end=Math.min(start+GROUP_SIZE-1,totalWks);
-    document.querySelectorAll('#ws-group-strip .wg-btn').forEach(function(b,i){b.classList.toggle('on',i===gIdx);});
-    var grpWeeks=[];for(var w=start;w<=end;w++)grpWeeks.push(w);
-    wStrip.innerHTML=grpWeeks.map(function(w){
-      var has=dataWeeks.has(w);
-      var latest=weeks.length&&w===weeks[weeks.length-1];
-      return'<button class="wt'+(has?' has-data':'')+(latest?' latest':'')+'" onclick="wsWeek('+w+',this)">'
-        +'Wk '+w+(latest?' \u25CF':'')+'</button>';
-    }).join('');
-    var toClick=wStrip.querySelector('.latest')||wStrip.querySelector('.has-data');
-    if(!toClick)toClick=wStrip.querySelector('.wt');
-    if(toClick)toClick.click();
-  };
+  var gStrip = document.getElementById('ws-group-strip');
+  if (!gStrip) return;
 
-  wsWeek=function(w,btn){
-    document.querySelectorAll('#ws-week-strip .wt').forEach(function(b){b.classList.remove('on');});
-    if(btn)btn.classList.add('on');
-    var el=document.getElementById('ws-content');if(!el)return;
-    var wd=gpa[w]||gpa[String(w)]||{};
-    var sc=wkScForCode(gpa,w);
-    var pct=sc!=null?Math.round(sc*100):null;
-    var prevSc=w>1?wkScForCode(gpa,w-1):null;
-    var prevPct=prevSc!=null?Math.round(prevSc*100):null;
-    var mins=wd['Invested Minutes']||0;
-    var g=gradeOf(pct);
-    var classAvg=CLASS_AVGS[w]||null;
-    var txt=reps[w]||'';
+  /* Build group buttons */
+  var gHtml = '';
+  for (var g = 0; g < numGroups; g++) {
+    var gs = g * GROUP_SIZE + 1;
+    var ge = Math.min(gs + GROUP_SIZE - 1, totalWks);
+    var hasData = false;
+    for (var w = gs; w <= ge; w++) { if (dataWeeks[w]) { hasData = true; break; } }
+    gHtml += '<button class="wg-btn' + (hasData ? ' has' : '') + '" '
+           + 'onclick="wsSelectGroup(' + g + ')">'
+           + 'Wk ' + gs + (gs !== ge ? '\u2013' + ge : '') + '</button>';
+  }
+  gStrip.innerHTML = gHtml;
 
-    if(!dataWeeks.has(w)&&!txt){
-      el.innerHTML='<div style="text-align:center;padding:48px 20px;color:var(--text3);">'
-        +'<div style="font-size:36px;margin-bottom:12px;">&#x1F4C5;</div>'
-        +'<div style="font-size:16px;color:var(--text2);margin-bottom:8px;">Week '+w+' \u2014 Coming Soon</div>'
-        +'<div style="font-size:14px;line-height:1.7;">This week&#39;s data will appear here after the session.</div></div>';
-      return;
-    }
+  /* Auto-open the active group */
+  wsSelectGroup(activeGrp);
+}
 
-    /* Trend banner */
-    var tHtml='';
-    if(pct!=null){
-      var tcls,ticon,ttitle,tdesc;
-      if(prevPct==null){tcls='tr-new';ticon='\uD83C\uDD95';ttitle='Week '+w+' \u2014 '+pct+'%';tdesc='First data for this week.';}
-      else if(pct-prevPct>10){tcls='tr-up';ticon='\u2191';ttitle='Improving \u2014 up '+(pct-prevPct)+'%';tdesc='From '+prevPct+'% to '+pct+'%.';}
-      else if(prevPct-pct>10){tcls='tr-down';ticon='\u2193';ttitle='Declining \u2014 down '+(prevPct-pct)+'%';tdesc='From '+prevPct+'% to '+pct+'%.';}
-      else{tcls='tr-flat';ticon='\u2192';ttitle='Stable at ~'+pct+'%';tdesc='Holding steady.';}
-      if(classAvg!=null)tdesc+=' Class avg this week: '+classAvg+'%';
-      tHtml='<div class="trend '+tcls+'" style="margin-bottom:16px;"><div class="trend-icon">'+ticon+'</div>'
-        +'<div class="trend-body"><div class="trend-title">'+ttitle+'</div><div class="trend-desc">'+tdesc+'</div></div></div>';
-    }
+function wsSelectGroup(gIdx) {
+  var totalWks  = (CFG && CFG.totalWeeks) ? CFG.totalWeeks : 44;
+  var GROUP_SIZE = 4;
+  var gs = gIdx * GROUP_SIZE + 1;
+  var ge = Math.min(gs + GROUP_SIZE - 1, totalWks);
 
-    /* Score pills */
-    var SN={'Weekly report':'Report','Time Sheet':'Timesheet','Pathway':'Pathway','Activity':'Activity','Attendance':'Attend.'};
-    var pillsHtml='<div class="rsc-row">'+CATS.map(function(m){
-      var v=wd[m];var cls='rpna',ic='\u2014';
-      if(v===1){cls='rp1';ic='\u2713';}else if(v===0.5){cls='rp05';ic='\u25D1';}else if(v===0){cls='rp0';ic='\u25CB';}
-      return'<div class="rsc-pill '+cls+'">'+ic+' '+SN[m]+'</div>';
-    }).join('')+(mins>0?'<div class="rsc-pill" style="background:var(--teal-bg);border:1.5px solid rgba(20,184,166,.28);color:var(--teal)">\u231A '+mins+'m</div>':'')+'</div>';
+  /* Highlight active group button */
+  var gStrip = document.getElementById('ws-group-strip');
+  if (gStrip) {
+    var btns = gStrip.querySelectorAll('.wg-btn');
+    btns.forEach(function(b, i){ b.classList.toggle('on', i === gIdx); });
+  }
 
-    /* Cat bars */
-    var mTgt=CFG.minTarget||300;
-    var barsHtml=CATS.map(function(m){
-      var v=wd[m],p2=v!=null&&typeof v==='number'?v*100:null;
-      var spl='',sc2='var(--text3)';
-      if(p2===100){spl='<span class="spl sp1">\u2713 Done</span>';sc2='var(--green)';}
-      else if(p2===50){spl='<span class="spl sp05">\u25D1 Partial</span>';sc2='var(--amber)';}
-      else if(p2===0){spl='<span class="spl sp0">\u25CB Not done</span>';sc2='var(--red)';}
-      return'<div class="pr"><div class="pr-top"><span class="pr-nm">'+m+'</span><span class="pr-rt">'+spl
-        +'<span class="pr-pct" style="color:'+sc2+'">'+(p2!=null?p2+'%':'\u2014')+'</span></span></div>'
-        +'<div class="pr-tr"><div class="pr-fl" style="background:'+CCAT[m]+';width:'+(p2||0)+'%"></div></div></div>';
-    }).join('');
-    var mPct=Math.min(100,Math.round((mins/mTgt)*100));
-    var mCol=mins>=mTgt?'var(--green)':mins>=mTgt/2?'var(--amber)':'var(--red)';
-    var mSpl=mins>=mTgt?'<span class="spl sp1">\u2713 On target</span>':mins>0?'<span class="spl sp05">\u25D1 '+mins+'m</span>':'<span class="spl sp0">\u25CB Not logged</span>';
-    var mBar='<div class="pr" style="margin-top:11px;padding-top:11px;border-top:1px solid rgba(128,128,128,.1)">'
-      +'<div class="pr-top"><span class="pr-nm">\u231A Invested Minutes <span style="font-size:12px;color:var(--text3)">(target: '+mTgt+' min)</span></span>'
-      +'<span class="pr-rt">'+mSpl+'<span class="pr-pct" style="color:'+mCol+';margin-left:8px">'+(mins>0?mins+' min':'\u2014')+'</span></span></div>'
-      +'<div class="pr-tr"><div class="pr-fl" style="background:linear-gradient(90deg,#065F46,#14B8A6);width:'+mPct+'%"></div></div></div>';
+  /* Build week tabs */
+  var dataWeeks = {};
+  if (_ws.weeks) _ws.weeks.forEach(function(w){ dataWeeks[w] = true; });
+  var latestWk = _ws.weeks && _ws.weeks.length ? _ws.weeks[_ws.weeks.length-1] : 0;
 
-    /* Class avg row */
-    var cavgHtml='';
-    if(classAvg!=null&&pct!=null){
-      var diff=pct-classAvg,cc=diff>=0?'var(--green)':'var(--red)';
-      cavgHtml='<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:10px;margin-bottom:16px;">'
-        +'<div style="width:8px;height:8px;border-radius:50%;background:'+cc+'"></div>'
-        +'<span style="font-size:13px;color:var(--text2);font-weight:600;">Class avg: '+classAvg+'% &nbsp;'
-        +'<strong style="color:'+cc+'">'+(diff>=0?'+':'')+diff+'%</strong> vs class</span></div>';
-    }
+  var wStrip = document.getElementById('ws-week-strip');
+  if (!wStrip) return;
+  var wHtml = '';
+  for (var w = gs; w <= ge; w++) {
+    var has    = dataWeeks[w];
+    var latest = (w === latestWk);
+    wHtml += '<button class="wt' + (has ? ' has-data' : '') + (latest ? ' latest' : '') + '" '
+           + 'onclick="wsSelectWeek(' + w + ', this)">'
+           + 'Wk ' + w + (latest ? ' \u25CF' : '') + '</button>';
+  }
+  wStrip.innerHTML = wHtml;
 
-    /* Instructor note */
-    var noteHtml='<div class="inst-note"><div class="inst-hdr">&#x1F4DC; Instructor&#39;s Observation</div>'
-      +(txt?'<div class="inst-txt">'+txt+'</div>':'<div style="font-size:14px;color:var(--text3);font-style:italic">No report for this week yet.</div>')+'</div>';
+  /* Auto-click latest or first data week in group, else first */
+  var toClick = wStrip.querySelector('.latest')
+             || wStrip.querySelector('.has-data')
+             || wStrip.querySelector('.wt');
+  if (toClick) toClick.click();
+}
 
-    /* Suggestions */
-    var suggs=genSugg(s,w,wd,pct,prevPct,mins,weeks,gpa);
-    var suggHtml='<div class="sugg-hdr">&#x1F3AF; Parent Action Guide \u2014 Week '+w+'</div>'
-      +(suggs.length?suggs.map(function(sg){return'<div class="sugg s-'+sg.p+'"><div class="sugg-ic">'+sg.i+'</div><div class="sugg-body">'+sg.t+'</div></div>';}).join('')
-        :'<div style="font-size:14px;color:var(--text2);padding:14px;text-align:center;font-style:italic;">Great week!</div>');
+function wsSelectWeek(w, btn) {
+  /* Highlight active week button */
+  var wStrip = document.getElementById('ws-week-strip');
+  if (wStrip) wStrip.querySelectorAll('.wt').forEach(function(b){ b.classList.remove('on'); });
+  if (btn) btn.classList.add('on');
 
-    el.innerHTML=
-      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">'
-      +'<div style="font-family:Cinzel,serif;font-size:18px;font-weight:700;color:var(--text);">Week '+w+'</div>'
-      +'<div class="grade-b '+g.cls+'">'+g.txt+'</div></div>'
-      +tHtml+cavgHtml+pillsHtml
-      +'<div class="card mb20"><div class="sh" style="margin-bottom:16px;">Category Breakdown</div>'+barsHtml+mBar+'</div>'
-      +noteHtml+'<div style="margin-top:16px;">'+suggHtml+'</div>'
-      +'<div class="share-row">'
-      +'<button class="share-btn share-tg" onclick="shareToTG(\''+s.god_code+'\','+w+')">\u2708\uFE0F Share</button>'
-      +'<button class="share-btn share-copy" onclick="copyRep(\''+s.first_name+'\','+w+','+(pct||0)+','+(mins||0)+')">&#x1F4CB; Copy</button>'
-      +'<button class="share-btn share-print" onclick="window.print()">&#x1F5A8; Print</button></div>';
-  };
+  var el = document.getElementById('ws-content');
+  if (!el) return;
 
-  wsGroup(activeGroup);
+  var s    = _ws.s;
+  var gpa  = _ws.gpa  || {};
+  var reps = _ws.reps || {};
+  var weeks = _ws.weeks || [];
+  var dataWeeks = {};
+  weeks.forEach(function(ww){ dataWeeks[ww] = true; });
+
+  /* No data yet — show SOON */
+  if (!dataWeeks[w]) {
+    el.innerHTML =
+      '<div style="text-align:center;padding:60px 20px;">'
+      + '<div style="font-size:48px;margin-bottom:16px;">&#x1F4C5;</div>'
+      + '<div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;'
+      +      'color:var(--gold);letter-spacing:3px;margin-bottom:8px;">SOON</div>'
+      + '<div style="font-size:14px;color:var(--text3);">Week ' + w
+      +      ' data will appear here after the session.</div>'
+      + '</div>';
+    return;
+  }
+
+  var wd      = gpa[w] || gpa[String(w)] || {};
+  var sc      = wkScForCode(gpa, w);
+  var pct     = sc != null ? Math.round(sc * 100) : null;
+  var prevSc  = w > 1 ? wkScForCode(gpa, w-1) : null;
+  var prevPct = prevSc != null ? Math.round(prevSc * 100) : null;
+  var mins    = wd['Invested Minutes'] || 0;
+  var g       = gradeOf(pct);
+  var txt     = reps[w] || '';
+  var mTgt    = (CFG && CFG.minTarget) ? CFG.minTarget : 300;
+  var cavg    = (typeof CLASS_AVGS !== 'undefined') ? (CLASS_AVGS[w] || null) : null;
+
+  /* ── Trend banner ── */
+  var tcls, ticon, ttitle, tdesc;
+  if (pct == null) {
+    tcls='tr-new'; ticon='\uD83D\uDCCA'; ttitle='Week '+w; tdesc='Data recorded.';
+  } else if (prevPct == null) {
+    tcls='tr-new'; ticon='\uD83C\uDD95'; ttitle='Week '+w+' \u2014 '+pct+'%'; tdesc='First data for this week.';
+  } else if (pct - prevPct > 10) {
+    tcls='tr-up'; ticon='\u2191';
+    ttitle='Improving \u2014 up '+(pct-prevPct)+'%';
+    tdesc='From '+prevPct+'% to '+pct+'%.';
+  } else if (prevPct - pct > 10) {
+    tcls='tr-down'; ticon='\u2193';
+    ttitle='Declining \u2014 down '+(prevPct-pct)+'%';
+    tdesc='From '+prevPct+'% to '+pct+'%.';
+  } else {
+    tcls='tr-flat'; ticon='\u2192';
+    ttitle='Stable at ~'+pct+'%'; tdesc='Holding steady.';
+  }
+  if (cavg != null && pct != null) tdesc += ' Class avg: '+cavg+'%.';
+
+  var tHtml = '<div class="trend '+tcls+'" style="margin-bottom:16px;">'
+    + '<div class="trend-icon">'+ticon+'</div>'
+    + '<div class="trend-body">'
+    + '<div class="trend-title">'+ttitle+'</div>'
+    + '<div class="trend-desc">'+tdesc+'</div>'
+    + '</div></div>';
+
+  /* ── Class avg row ── */
+  var cavgHtml = '';
+  if (cavg != null && pct != null) {
+    var diff = pct - cavg;
+    var cc   = diff >= 0 ? 'var(--green)' : 'var(--red)';
+    cavgHtml = '<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;'
+      + 'background:var(--card2);border-radius:10px;margin-bottom:16px;">'
+      + '<div style="width:8px;height:8px;border-radius:50%;background:'+cc+'"></div>'
+      + '<span style="font-size:13px;color:var(--text2);font-weight:600;">'
+      + 'Class avg: '+cavg+'%&nbsp;&nbsp;<strong style="color:'+cc+'">'
+      + (diff >= 0 ? '+' : '')+diff+'%</strong> vs class</span></div>';
+  }
+
+  /* ── Score pills ── */
+  var SN = {'Weekly report':'Report','Time Sheet':'Timesheet',
+            'Pathway':'Pathway','Activity':'Activity','Attendance':'Attend.'};
+  var pillsHtml = '<div class="rsc-row">';
+  CATS.forEach(function(m) {
+    var v  = wd[m];
+    var cls='rpna', ic='\u2014';
+    if (v===1){cls='rp1';ic='\u2713';}
+    else if (v===0.5){cls='rp05';ic='\u25D1';}
+    else if (v===0){cls='rp0';ic='\u25CB';}
+    pillsHtml += '<div class="rsc-pill '+cls+'">'+ic+' '+(SN[m]||m)+'</div>';
+  });
+  if (mins > 0) {
+    pillsHtml += '<div class="rsc-pill" style="background:var(--teal-bg);'
+      + 'border:1.5px solid rgba(20,184,166,.28);color:var(--teal)">'
+      + '\u231A '+mins+'m</div>';
+  }
+  pillsHtml += '</div>';
+
+  /* ── Category bars ── */
+  var barsHtml = '';
+  CATS.forEach(function(m) {
+    var v  = wd[m];
+    var p2 = (v != null && typeof v === 'number') ? v * 100 : null;
+    var spl='', sc2='var(--text3)';
+    if (p2===100){spl='<span class="spl sp1">\u2713 Done</span>';sc2='var(--green)';}
+    else if (p2===50){spl='<span class="spl sp05">\u25D1 Partial</span>';sc2='var(--amber)';}
+    else if (p2===0){spl='<span class="spl sp0">\u25CB Not done</span>';sc2='var(--red)';}
+    barsHtml += '<div class="pr">'
+      + '<div class="pr-top"><span class="pr-nm">'+m+'</span>'
+      + '<span class="pr-rt">'+spl
+      + '<span class="pr-pct" style="color:'+sc2+'">'+(p2!=null?p2+'%':'\u2014')+'</span>'
+      + '</span></div>'
+      + '<div class="pr-tr"><div class="pr-fl" style="background:'+(CCAT[m]||'var(--gold)')
+      + ';width:'+(p2||0)+'%"></div></div></div>';
+  });
+
+  /* ── Minutes bar ── */
+  var mPct  = Math.min(100, Math.round((mins / mTgt) * 100));
+  var mCol  = mins >= mTgt ? 'var(--green)' : mins >= mTgt/2 ? 'var(--amber)' : 'var(--red)';
+  var mSpl  = mins >= mTgt
+    ? '<span class="spl sp1">\u2713 On target</span>'
+    : mins > 0
+      ? '<span class="spl sp05">\u25D1 '+mins+'m</span>'
+      : '<span class="spl sp0">\u25CB Not logged</span>';
+  var mBar  = '<div class="pr" style="margin-top:11px;padding-top:11px;'
+    + 'border-top:1px solid rgba(128,128,128,.1)">'
+    + '<div class="pr-top">'
+    + '<span class="pr-nm">\u231A Invested Minutes '
+    + '<span style="font-size:12px;color:var(--text3)">(target: '+mTgt+' min)</span></span>'
+    + '<span class="pr-rt">'+mSpl
+    + '<span class="pr-pct" style="color:'+mCol+';margin-left:8px">'
+    + (mins>0?mins+' min':'\u2014')+'</span></span></div>'
+    + '<div class="pr-tr"><div class="pr-fl" style="'
+    + 'background:linear-gradient(90deg,#065F46,#14B8A6);width:'+mPct+'%"></div></div></div>';
+
+  /* ── Instructor note ── */
+  var noteHtml = '<div class="inst-note">'
+    + '<div class="inst-hdr">&#x1F4DC; Instructor&#39;s Observation</div>'
+    + (txt
+      ? '<div class="inst-txt">'+txt+'</div>'
+      : '<div style="font-size:14px;color:var(--text3);font-style:italic">'
+        + 'No report for this week yet.</div>')
+    + '</div>';
+
+  /* ── Parent suggestions ── */
+  var suggs = genSugg(s, w, wd, pct, prevPct, mins, weeks, gpa);
+  var suggHtml = '<div class="sugg-hdr">&#x1F3AF; Parent Action Guide \u2014 Week '+w+'</div>';
+  if (suggs.length) {
+    suggs.forEach(function(sg) {
+      suggHtml += '<div class="sugg s-'+sg.p+'">'
+        + '<div class="sugg-ic">'+sg.i+'</div>'
+        + '<div class="sugg-body">'+sg.t+'</div></div>';
+    });
+  } else {
+    suggHtml += '<div style="font-size:14px;color:var(--text2);padding:14px;'
+      + 'text-align:center;font-style:italic;">Great week \u2014 keep it up!</div>';
+  }
+
+  /* ── Share row ── */
+  var code = s.god_code || s.code || '';
+  var fn   = s.first_name || '';
+  var shareHtml = '<div class="share-row">'
+    + '<button class="share-btn share-tg" onclick="shareToTG(\''+code+'\','+w+')">'
+    + '\u2708\uFE0F Share</button>'
+    + '<button class="share-btn share-copy" '
+    + 'onclick="copyRep(\''+fn+'\','+w+','+(pct||0)+','+(mins||0)+')">'
+    + '&#x1F4CB; Copy</button>'
+    + '<button class="share-btn share-print" onclick="window.print()">'
+    + '&#x1F5A8; Print</button></div>';
+
+  /* ── Assemble ── */
+  el.innerHTML =
+    '<div style="display:flex;align-items:center;justify-content:space-between;'
+    + 'margin-bottom:16px;flex-wrap:wrap;gap:10px;">'
+    + '<div style="font-family:Cinzel,serif;font-size:20px;font-weight:700;'
+    + 'color:var(--text);">Week '+w+'</div>'
+    + '<div class="grade-b '+g.cls+'">'+g.txt+'</div></div>'
+    + tHtml + cavgHtml + pillsHtml
+    + '<div class="card mb20">'
+    + '<div class="sh" style="margin-bottom:16px;">Category Breakdown</div>'
+    + barsHtml + mBar + '</div>'
+    + noteHtml
+    + '<div style="margin-top:16px;">'+suggHtml+'</div>'
+    + shareHtml;
 }
 
 function buildDash(s) {
@@ -1884,7 +2008,7 @@ function buildDash(s) {
   loadAI(code);
   try{buildFeesBanner(s.fees_balance,'fees-home');}catch(e){console.warn('fees-home:',e);}
   try{buildFeesBanner(s.fees_balance,'fees-profile');}catch(e){console.warn('fees-profile:',e);}
-  try{buildWeeklySection(s,gpa,reps,weeks,currentWkNum);}catch(e){console.warn('weekly:',e);}
+  buildWeeklySection(s,gpa,reps,weeks,currentWkNum);
 }
 
 function switchChild(code) {
