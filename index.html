@@ -1662,8 +1662,8 @@ function buildFeesBanner(bal,id){
   }else if(fs.type==='pending'){
     el.innerHTML='<a class="fbw fbw-pend" href="https://t.me/KidsInspiringNation" target="_blank"><span class="fbw-ic">&#x23F3;</span><div class="fbw-bd"><div class="fbw-tn">Payment Pending</div><div class="fbw-s">We received your payment and will confirm shortly.</div></div><span class="fbw-cta fbw-ctaa">Contact Us</span></a>';
   }else{
-    var amt=fs.amount?'<br>Balance: <strong>'+fs.amount+'</strong>':'';
-    el.innerHTML='<a class="fbw fbw-owed" href="https://bit.ly/KINpro" target="_blank"><span class="fbw-ic">&#x1F4B3;</span><div class="fbw-bd"><div class="fbw-to">Fees Outstanding</div><div class="fbw-s">Amount owed: <strong style="font-size:15px;color:var(--red)">'+fs.amount+'</strong><br>Click to pay and secure your child&#39;s place.</div></div><span class="fbw-cta fbw-ctar">Pay Now &#x2192;</span></a>';
+    var amtDisplay=fs.amount?'<div style="font-family:Cinzel,serif;font-size:24px;font-weight:700;color:var(--red);margin:4px 0 2px">'+fs.amount+'</div>':'';
+    el.innerHTML='<a class="fbw fbw-owed" href="https://bit.ly/KINpro" target="_blank"><span class="fbw-ic">&#x1F4B3;</span><div class="fbw-bd"><div class="fbw-to">Fees Outstanding</div>'+amtDisplay+'<div class="fbw-s">Click to pay now and secure your child&#39;s place.</div></div><span class="fbw-cta fbw-ctar">Pay Now &#x2192;</span></a>';
   }
 }
 
