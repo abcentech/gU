@@ -191,6 +191,44 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .fbw-ctar{background:var(--red);}
 .fbw-ctag{background:var(--green);}
 .fbw-ctaa{background:var(--amber);color:#0D1428;}
+
+.fam-strip{display:none;background:rgba(232,196,67,.04);border-bottom:1px solid rgba(232,196,67,.1);padding:10px 16px;}
+.fam-strip.show{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.fam-strip
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+::-webkit-scrollbar{display:none;}
+.fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
+.fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
+.fam-card:hover:not(.active){border-color:rgba(232,196,67,.3);}
+.fam-cname{font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.fam-cscore{font-family:Cinzel,serif;font-size:20px;font-weight:700;}
+.fam-clbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:2px;}
+
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
 ::-webkit-scrollbar{display:none;}
 .child-switcher.show{display:flex;}
 .cs-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);flex-shrink:0;}
@@ -354,6 +392,44 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .fbw-ctar{background:var(--red);}
 .fbw-ctag{background:var(--green);}
 .fbw-ctaa{background:var(--amber);color:#0D1428;}
+
+.fam-strip{display:none;background:rgba(232,196,67,.04);border-bottom:1px solid rgba(232,196,67,.1);padding:10px 16px;}
+.fam-strip.show{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.fam-strip
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+::-webkit-scrollbar{display:none;}
+.fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
+.fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
+.fam-card:hover:not(.active){border-color:rgba(232,196,67,.3);}
+.fam-cname{font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.fam-cscore{font-family:Cinzel,serif;font-size:20px;font-weight:700;}
+.fam-clbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:2px;}
+
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
 ::-webkit-scrollbar{display:none;}
 .wg-btn{padding:5px 14px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
 .wg-btn.on{background:var(--card2);border-color:var(--gold);color:var(--gold);}
@@ -379,6 +455,44 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .fbw-ctar{background:var(--red);}
 .fbw-ctag{background:var(--green);}
 .fbw-ctaa{background:var(--amber);color:#0D1428;}
+
+.fam-strip{display:none;background:rgba(232,196,67,.04);border-bottom:1px solid rgba(232,196,67,.1);padding:10px 16px;}
+.fam-strip.show{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.fam-strip
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+::-webkit-scrollbar{display:none;}
+.fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
+.fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
+.fam-card:hover:not(.active){border-color:rgba(232,196,67,.3);}
+.fam-cname{font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.fam-cscore{font-family:Cinzel,serif;font-size:20px;font-weight:700;}
+.fam-clbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:2px;}
+
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
 ::-webkit-scrollbar{display:none;}
 .wt{padding:6px 13px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
 .wt.on{background:var(--gold);border-color:var(--gold);color:#0D1428;box-shadow:0 3px 10px rgba(232,196,67,.35);}
@@ -555,10 +669,63 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .fbw-ctar{background:var(--red);}
 .fbw-ctag{background:var(--green);}
 .fbw-ctaa{background:var(--amber);color:#0D1428;}
+
+.fam-strip{display:none;background:rgba(232,196,67,.04);border-bottom:1px solid rgba(232,196,67,.1);padding:10px 16px;}
+.fam-strip.show{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.fam-strip
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+::-webkit-scrollbar{display:none;}
+.fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
+.fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
+.fam-card:hover:not(.active){border-color:rgba(232,196,67,.3);}
+.fam-cname{font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.fam-cscore{font-family:Cinzel,serif;font-size:20px;font-weight:700;}
+.fam-clbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:2px;}
+
+.cert-modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);}
+.cert-modal.show{display:flex;}
+.cert{background:linear-gradient(135deg,#0D1428,#1E2A42);border:3px solid var(--gold);border-radius:24px;padding:36px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 0 60px rgba(232,196,67,.3);}
+.cert-crown{font-size:52px;margin-bottom:10px;display:block;filter:drop-shadow(0 0 20px rgba(232,196,67,.6));}
+.cert-lbl{font-family:Cinzel,serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.cert-name{font-family:Cinzel,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cert-pct{font-family:Cinzel,serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;}
+.cert-wk{font-size:14px;color:var(--text2);margin-top:5px;margin-bottom:18px;}
+.cert-verse{font-family:Lora,serif;font-style:italic;font-size:13px;color:var(--text2);line-height:1.7;padding:12px;border-top:1px solid rgba(232,196,67,.2);border-bottom:1px solid rgba(232,196,67,.2);margin-bottom:18px;}
+.cert-btns{display:flex;gap:10px;justify-content:center;}
+.cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
+.cbtn-share{background:var(--blue);color:white;}
+.cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:rgba(128,128,128,.04);}::-webkit-scrollbar-thumb{background:rgba(128,128,128,.15);border-radius:3px;}
 
 @media print{
-  canvas,nav,.topbar,.tkr,.share-row,.msg-form,.cta,.ai-gen-btn,.term-bar,.child-switcher,.alert-banner,#onboard,.tb-r,.xbtn,.sync-btn,.theme-btn{display:none!important;}
+  canvas,nav,.topbar,.tkr,.share-row,.msg-form,.cta,.ai-gen-btn,.term-bar,
+  .child-switcher,.fam-strip,.alert-banner,#onboard,.tb-r,.xbtn,.theme-btn,
+  #tp2,.fbw,.mt-tabs,#mt-cumul,.wg-strip,.bg-grid,.ai-card,
+  #sec-testy,#sec-profile,#sec-weekly,.bot-nav{display:none!important;}
+  body{background:white!important;color:#000!important;font-size:12px!important;}
+  .card,.inst-note,.sugg,.trend{border:1px solid #ccc!important;background:white!important;
+    box-shadow:none!important;break-inside:avoid;}
+  .inst-txt,.tc-body{color:#222!important;}
+  #dash{padding-bottom:0!important;}
+  .sec{display:none!important;}
+  #sec-home{display:block!important;}
+  #sec-reports{display:block!important;}
+  .rp{display:none!important;}
+  .rp.on{display:block!important;}
+  @page{margin:15mm;size:A4;}
+}
   body{background:white!important;color:#000!important;}
   .card,.inst-note,.sugg,.trend{border:1px solid #ddd!important;background:white!important;box-shadow:none!important;}
   .inst-txt,.tc-body{color:#333!important;}
@@ -688,6 +855,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     <div id="cs-chips"></div>
   </div>
 
+  <div class="fam-strip" id="fam-strip"></div>
   <div class="tkr"><div class="tkr-in">
     <span>&#x2736; In Spirit &middot; By Skills &middot; For Service</span>
     <span>&middot; &ldquo;Train up a child in the way he should go&rdquo; &mdash; Proverbs 22:6</span>
@@ -802,16 +970,32 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     </div>
 
     <div class="sec" id="sec-testy">
-      <div class="sh">&#x2736; Testimonies &amp; Parent Feedback</div>
+      <div class="sh">&#x1F64C; Testimonies &amp; Reflections</div>
+
+      <!-- Parent testimonies from gUFeedback sheet -->
       <div id="testy-list"></div>
-      <div class="card" style="text-align:center;padding:28px;margin-top:16px;">
-        <div style="font-size:30px;margin-bottom:10px;">&#x1F64C;</div>
-        <div style="font-family:Cinzel,serif;font-size:16px;color:var(--text);margin-bottom:7px;">Share a Testimony</div>
-        <div style="font-size:14px;color:var(--text2);margin-bottom:17px;line-height:1.7;">Has your child shown growth this week?</div>
-        <a href="https://t.me/KidsInspiringNation" target="_blank" style="display:inline-block;background:var(--green);color:white;border-radius:18px;padding:10px 26px;font-size:14px;font-weight:800;text-decoration:none;">Share on Telegram &rarr;</a>
+
+      <!-- Instructor highlights pulled from latest reports -->
+      <div id="instructor-highlights" style="margin-bottom:16px;"></div>
+
+      <!-- Share prompt -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(20,184,166,.08),rgba(20,184,166,.03));border:2px solid rgba(20,184,166,.2);padding:28px;text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">&#x1F64C;</div>
+        <div style="font-family:'Cinzel',serif;font-size:17px;color:var(--text);margin-bottom:8px;">Share a Testimony</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:10px;line-height:1.8;">
+          Has your child shown growth, completed their reading, or had a breakthrough this week?<br>
+          <strong style="color:var(--teal)">Your testimony encourages other families!</strong>
+        </div>
+        <div style="font-family:'Lora',serif;font-style:italic;font-size:13px;color:var(--text3);padding:12px 16px;margin-bottom:18px;border-top:1px solid rgba(20,184,166,.15);border-bottom:1px solid rgba(20,184,166,.15);line-height:1.8;">
+          &ldquo;They triumphed over him by the blood of the Lamb and by the word of their testimony&rdquo;
+          <br><span style="font-size:11px;letter-spacing:2px;margin-top:4px;display:inline-block;">REVELATION 12:11</span>
+        </div>
+        <a href="https://t.me/KidsInspiringNation" target="_blank" style="display:inline-block;background:var(--teal);color:white;border-radius:18px;padding:12px 28px;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 4px 16px rgba(20,184,166,.35);">
+          &#x2708;&#xFE0F; Share on Telegram &rarr;
+        </a>
+        <div style="margin-top:10px;font-size:12px;color:var(--text3);">t.me/KidsInspiringNation</div>
       </div>
     </div>
-
     <div class="sec" id="sec-profile">
       <div class="sh">&#x2736; goD Child Profile</div>
       <div class="card mb20">
@@ -882,7 +1066,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
    URL:  https://wfopidgqwycjyskpqhxh.supabase.co
    Mode: anon key (read-only, RLS enforced)
 ═══════════════════════════════════════════════════ */
-var WEEK_DATES={1: "Feb 7", 2: "Feb 14", 3: "Feb 21", 4: "Feb 28", 5: "Mar 7", 6: "Mar 14", 7: "Mar 21", 8: "Mar 28", 9: "Apr 4", 10: "Apr 11", 11: "Apr 18", 12: "Apr 25", 13: "May 2", 14: "May 9", 15: "May 16", 16: "May 23", 17: "May 30", 18: "Jun 6", 19: "Jun 13", 20: "Jun 20", 21: "Jun 27", 22: "Jul 4", 23: "Jul 11", 24: "Jul 18", 25: "Jul 25", 26: "Aug 1", 27: "Aug 8", 28: "Aug 15", 29: "Aug 22", 30: "Aug 29", 31: "Sep 5", 32: "Sep 12", 33: "Sep 19", 34: "Sep 26", 35: "Oct 3", 36: "Oct 10", 37: "Oct 17", 38: "Oct 24", 39: "Oct 31", 40: "Nov 7", 41: "Nov 14", 42: "Nov 21", 43: "Nov 28", 44: "Dec 5"};
+var WEEK_DATES={"1": "Feb 7", "2": "Feb 14", "3": "Feb 21", "4": "Feb 28", "5": "Mar 7", "6": "Mar 14", "7": "Mar 21", "8": "Mar 28", "9": "Apr 4", "10": "Apr 11", "11": "Apr 18", "12": "Apr 25", "13": "May 2", "14": "May 9", "15": "May 16", "16": "May 23", "17": "May 30", "18": "Jun 6", "19": "Jun 13", "20": "Jun 20", "21": "Jun 27", "22": "Jul 4", "23": "Jul 11", "24": "Jul 18", "25": "Jul 25", "26": "Aug 1", "27": "Aug 8", "28": "Aug 15", "29": "Aug 22", "30": "Aug 29", "31": "Sep 5", "32": "Sep 12", "33": "Sep 19", "34": "Sep 26", "35": "Oct 3", "36": "Oct 10", "37": "Oct 17", "38": "Oct 24", "39": "Oct 31", "40": "Nov 7", "41": "Nov 14", "42": "Nov 21", "43": "Nov 28", "44": "Dec 5"};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var SUPABASE_CONNECTED = false;
@@ -1251,6 +1435,14 @@ var CFG = {
   minTarget: 300,
   apiKey: ''
 };
+function regenWeekDates(){
+  var sd=new Date(CFG.startDate||'2026-02-07');
+  var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  for(var w=1;w<=(CFG.totalWeeks||44);w++){
+    if(!WEEK_DATES[w]){var d=new Date(sd.getTime()+(w-1)*7*24*60*60*1000);WEEK_DATES[w]=MO[d.getMonth()]+' '+d.getDate();}
+  }
+}
+
 function loadCfg() {
   try {
     var s = localStorage.getItem('gU_cfg');
@@ -1668,6 +1860,80 @@ function buildFeesBanner(bal,id){
 }
 
 
+function buildFamilyStrip(s,gpa){
+  var strip=document.getElementById('fam-strip');
+  if(!strip)return;
+  var code=s.code||s.god_code;
+  var siblings=FAMILIES[code]||[];
+  if(!siblings.length){strip.classList.remove('show');return;}
+  strip.classList.add('show');
+  var all=[code].concat(siblings);
+  var cards='';
+  all.forEach(function(c){
+    var sib=DATA.students[c]||{};
+    var sg=DATA.gpa[c]||{};
+    var swks=Object.keys(sg).map(Number).sort(function(a,b){return a-b;});
+    var lw2=swks.length?swks[swks.length-1]:null;
+    var sc2=lw2?wkScForCode(sg,lw2):null;
+    var pct2=sc2!=null?Math.round(sc2*100):null;
+    var g2=gradeOf(pct2);
+    var col=pct2!=null?g2.col:'var(--text3)';
+    var isAct=(c===code);
+    var sc=("switchChild('"+c+"')");
+    cards+='<div class="fam-card'+(isAct?' active':'')
+      +'" onclick="'+sc+'">'
+      +'<div class="fam-cname">'+(sib.first_name||c)+'</div>'
+      +'<div class="fam-cscore" style="color:'+col+'">'+(pct2!=null?pct2+'%':'&#x2013;')+'</div>'
+      +'<div class="fam-clbl">Latest</div></div>';
+  });
+  strip.innerHTML=cards;
+}
+
+function checkReengagement(){
+  try{
+    var last=parseInt(localStorage.getItem('gU_last_visit')||'0');
+    var now=Date.now();
+    var days=(now-last)/(1000*60*60*24);
+    localStorage.setItem('gU_last_visit',now);
+    if(last>0&&days>=7){
+      var b=document.createElement('div');
+      b.style.cssText='position:fixed;top:65px;left:50%;transform:translateX(-50%);z-index:5000;'
+        +'background:var(--card);border:2px solid var(--gold);border-radius:14px;'
+        +'padding:14px 20px;max-width:360px;width:90%;box-shadow:0 8px 32px var(--shadow);'
+        +'display:flex;align-items:center;gap:12px;animation:fu .4s ease;';
+      var nm=(currentStudent&&currentStudent.first_name)?currentStudent.first_name+"'s":"Your child's";
+      b.innerHTML='<span style="font-size:24px">&#x1F4C5;</span>'
+        +'<div style="flex:1"><div style="font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--gold)">Welcome Back!</div>'
+        +'<div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5">'
+        +'You last visited '+Math.round(days)+' days ago. '+nm+' latest data is ready.</div></div>'
+        +'<button onclick="this.parentNode.remove()" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:0 4px">&#x2715;</button>';
+      document.body.appendChild(b);
+      setTimeout(function(){if(b.parentNode)b.remove();},8000);
+    }
+  }catch(e){}
+}
+
+function showCertificate(name,pct,week){
+  document.getElementById('cert-name').textContent=name;
+  document.getElementById('cert-pct').textContent=pct+'%';
+  var wd=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[week])?' · '+WEEK_DATES[week]:'';
+  document.getElementById('cert-wk').textContent='Week '+week+wd+', 2026';
+  document.getElementById('cert-modal').classList.add('show');
+}
+function shareCertificate(){
+  var name=document.getElementById('cert-name').textContent;
+  var pct=document.getElementById('cert-pct').textContent;
+  var wk=document.getElementById('cert-wk').textContent;
+  var txt='&#x1F3F0; goDs University Achievement!\n'+name+' scored '+pct+' - '+wk+'!'
+    +'\n\n"I can do all things through Christ who strengthens me" - Phil 4:13'
+    +'\n\nhttps://abcentech.github.io/gU';
+  if(navigator.share){
+    navigator.share({title:'goDs University Achievement',text:txt}).catch(function(){if(navigator.clipboard)navigator.clipboard.writeText(txt);});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(function(){alert('Copied! Paste to share.');});
+  }
+}
+
 function buildDash(s) {
   s.code = s.code || s.god_code; // normalise Supabase field name
   var code=s.code, gpa=getGPA(code), reps=getReps(code), fb=(DATA.feedback[code]||[]);
@@ -1688,7 +1954,14 @@ function buildDash(s) {
   var avgPct=allSc.length?Math.round(allSc.reduce(function(a,b){return a+b;},0)/allSc.length*100):null;
   /* FIX #12: streak requires >40% threshold */
   var streak=0;
-  for(var i=weeks.length-1;i>=0;i--){var sc=wkScForCode(gpa,weeks[i]);if(sc!=null&&sc*100>=40)streak++;else break;}
+  for(var si=weeks.length-1;si>=0;si--){
+    var sw=weeks[si],swd=gpa[sw]||gpa[String(sw)]||{};
+    var ssc=wkScForCode(gpa,sw),spct=ssc!=null?ssc*100:0;
+    var satt=swd['Attendance'],srep=reps[sw]||reps[String(sw)];
+    var sActive=spct>=40||(satt!=null&&satt>0);
+    var sExcused=(!satt||satt===0)&&!!srep;
+    if(sActive||sExcused){streak++;}else{break;}
+  }
   var totalMins=Object.values(gpa).reduce(function(s,w){return s+(w['Invested Minutes']||0);},0);
   var latestMins=lwData?lwData['Invested Minutes']||0:0;
   var g=gradeOf(pct);
@@ -1758,10 +2031,14 @@ function buildDash(s) {
   buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins);
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
+  buildInstructorHighlights(code, reps);
   buildProfile(s);
   buildSchedule(currentWkNum);
   updateCfgUI();
   loadAI(code);
+  if(pct!=null&&pct>=80&&lw){var ck='gU_cert_'+(s.code||s.god_code)+'_'+lw;try{if(!localStorage.getItem(ck)){localStorage.setItem(ck,'1');setTimeout(function(){showCertificate(s.first_name||'',pct,lw);},1500);}}catch(e){}}
+  try{checkReengagement();}catch(e){}
+  try{buildFamilyStrip(s,gpa);}catch(e){}
   try{buildFeesBanner(s.fees_balance,'fees-home');}catch(e){console.warn('fees-home:',e);}
   try{buildFeesBanner(s.fees_balance,'fees-profile');}catch(e){console.warn('fees-profile:',e);}
 }
@@ -2091,6 +2368,28 @@ function generateAI() {
 }
 
 /* ═══ TESTIMONY ═══ */
+
+function buildInstructorHighlights(code, reps) {
+  var el = document.getElementById('instructor-highlights');
+  if (!el) return;
+  var weeks = Object.keys(reps).map(Number).sort(function(a,b){return b-a;});
+  if (!weeks.length) { el.innerHTML = ''; return; }
+  /* Show last 3 instructor notes as "highlights" */
+  var html2 = '<div class="sh" style="margin-bottom:14px;">&#x1F4DC; Recent Instructor Notes</div>';
+  weeks.slice(0,3).forEach(function(w) {
+    var txt = reps[w] || reps[String(w)];
+    if (!txt) return;
+    var wdate = (typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w]) ? WEEK_DATES[w]+', 2026' : '';
+    html2 += '<div class="tc" style="margin-bottom:14px;">'
+      + '<div class="tc-body">' + txt + '</div>'
+      + '<div class="tc-meta">'
+      + '<span>&#x2736; Instructor · goDs University</span>'
+      + (wdate?'<span class="tc-date">Week '+w+' · '+wdate+'</span>':'')
+      + '</div></div>';
+  });
+  el.innerHTML = html2;
+}
+
 function buildTesty(fb) {
   var el=document.getElementById('testy-list');
   if(!fb||!fb.length){el.innerHTML='<div class="card mb20"><div class="no-data">No testimonies yet \u2014 coming soon! \uD83D\uDE4C</div></div>';return;}
@@ -2258,8 +2557,116 @@ function wkWk(w,btn){
   el.innerHTML=hdr+tH+cH+pills+'<div class="card mb20"><div class="sh" style="margin-bottom:16px;">Category Breakdown</div>'+bars+'</div>'+note+'<div style="margin-top:16px;">'+sH+'</div>'+share;
 }
 
+function printTermReport(){document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on');});document.getElementById('sec-home').classList.add('on');window.print();}
+
 function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}catch(e){return d;}}
 
 </script>
+
+<style>
+#tp2{position:fixed;bottom:0;right:0;z-index:9999;width:290px;background:#0D1428;
+  border:2px solid #E8C443;border-top-left-radius:14px;font-family:sans-serif;}
+#tp2-h{display:flex;align-items:center;justify-content:space-between;
+  padding:9px 13px;cursor:pointer;user-select:none;}
+#tp2-title{font-size:11px;letter-spacing:2.5px;color:#E8C443;font-weight:700;text-transform:uppercase;}
+#tp2-arr{color:#5A7090;font-size:12px;}
+#tp2-body{padding:8px 10px 10px;max-height:55vh;overflow-y:auto;border-top:1px solid rgba(232,196,67,.15);}
+.tp-g{margin-bottom:8px;}
+.tp-gl{font-size:9px;letter-spacing:2px;color:#5A7090;font-weight:700;text-transform:uppercase;
+  padding-bottom:3px;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:4px;}
+.tp-b{display:block;width:100%;padding:6px 9px;background:rgba(232,196,67,.05);
+  border:1px solid rgba(232,196,67,.18);border-radius:7px;color:#94A3B8;font-size:12px;
+  font-weight:600;cursor:pointer;text-align:left;margin-bottom:3px;transition:all .15s;}
+.tp-b:hover{background:rgba(232,196,67,.14);color:#E8C443;border-color:rgba(232,196,67,.4);}
+.tp-b span{float:right;}
+.tp-note{font-size:10px;color:#5A7090;line-height:1.7;padding:4px 2px 6px;}
+</style>
+<div id="tp2">
+  <div id="tp2-h" onclick="(function(){var b=document.getElementById('tp2-body'),a=document.getElementById('tp2-arr');if(b.style.display==='none'){b.style.display='block';a.textContent='▼';}else{b.style.display='none';a.textContent='▲';}})()">
+    <span id="tp2-title">&#x1F9EA; Test Logins</span>
+    <span id="tp2-arr">&#x25BC;</span>
+  </div>
+  <div id="tp2-body">
+    <div class="tp-note">&#x2705; = Paid &nbsp; &#x1F4B3; = Owes fees<br>Click any name to log in instantly.</div>
+    <div class="tp-g"><div class="tp-gl">BB (BB)</div>
+    <button class="tp-b" onclick="qTest('gAEM','Emmanuel')">Adebowale Moshood<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gASW','Samuel')">Adiel Wakshama<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gASM','Samuel')">Ayoade Moshood<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gJOO','Oseakuemhen Oyindamola')">Jonie Obiyan<span>&#x2705;</span></button>
+    <button class="tp-b" onclick="qTest('gJOB','Oluwalanafunmi')">Joshua Betiku<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gTYA','Ainoghena')">Tyshawn Atsekhameh<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gVMO','Mojolaoluwa')">Virtue Oluwatobi<span>&#x1F4B3;</span></button>
+    </div>
+    <div class="tp-g"><div class="tp-gl">NT</div>
+    <button class="tp-b" onclick="qTest('gGCU','Chinemerem')">Great Ugbor<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gOOB','Olamide')">Omomurewa Babatunde-Idowu<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gTAA','Ahmanosi')">Talia Atsekhameh<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gVIO','Mojubaoluwa')">Victor Oluwatobi<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gWOO','Oluwajomiloju')">Wisdom Oluwatobi<span>&#x1F4B3;</span></button>
+    </div>
+    <div class="tp-g"><div class="tp-gl">NT</div>
+    <button class="tp-b" onclick="qTest('gEDA','Damilare')">Emmanuel Aderemi<span>&#x1F4B3;</span></button>
+    </div>
+    <div class="tp-g"><div class="tp-gl">OT (OT)</div>
+    <button class="tp-b" onclick="qTest('gAJW','Jason')">Akilahyel Wakshama<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gOEI','Emmanuella')">Olohi Iyoko<span>&#x2705;</span></button>
+    <button class="tp-b" onclick="qTest('gOFA','Faith')">Oluwanifemi Asade<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gSDO','Damilare')">Samuel Olabode<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gTAN','Abraham')">Timilehin Nathaniel<span>&#x1F4B3;</span></button>
+    <button class="tp-b" onclick="qTest('gTDN','Daniel')">Todimu Nathaniel<span>&#x1F4B3;</span></button>
+    </div>
+  </div>
+</div>
+<script>
+function qTest(code, pw) {
+  var s = Object.values(DATA.students).find(function(x){
+    return (x.god_code||x.code||'').toLowerCase() === code.toLowerCase();
+  });
+  if (!s) {
+    // Try loading from Supabase (new student not in embedded data)
+    if (typeof loadFromSupabase === 'function') {
+      loadFromSupabase(code).then(function(live){
+        currentStudent=DATA.students[code]||live;
+        currentStudent.code=currentStudent.god_code||currentStudent.code;
+        document.getElementById('login').style.display='none';
+        document.getElementById('dash').style.display='block';
+        document.getElementById('tp2').style.display='none';
+        buildDash(currentStudent);
+      }).catch(function(){ alert('Student not found: '+code); });
+      return;
+    }
+    alert('Not in embedded data: ' + code + '. Run syncAll() first then refresh.'); return;
+  }
+  s.code = s.god_code || s.code;
+  currentStudent = s;
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dash').style.display = 'block';
+  document.getElementById('tp2').style.display = 'none';
+  buildDash(s);
+  if (typeof loadFromSupabase === 'function') {
+    loadFromSupabase(code)
+      .then(function(live) {
+        currentStudent = DATA.students[code] || live;
+        currentStudent.code = currentStudent.god_code || currentStudent.code;
+        buildDash(currentStudent);
+      })
+      .catch(function() { /* offline — embedded data shown */ });
+  }
+}
+</script>
+
+<div class="cert-modal" id="cert-modal"><div class="cert">
+  <span class="cert-crown">&#x1F451;</span>
+  <div class="cert-lbl">goDs University &#xB7; Achievement</div>
+  <div class="cert-name" id="cert-name">-</div>
+  <div class="cert-pct" id="cert-pct">-</div>
+  <div class="cert-wk" id="cert-wk">-</div>
+  <div class="cert-verse">&#x201C;I can do all things through Christ who strengthens me.&#x201D;<br>
+    <span style="font-size:11px;letter-spacing:2px;color:var(--text3);">PHILIPPIANS 4:13</span></div>
+  <div class="cert-btns">
+    <button class="cert-btn cbtn-share" onclick="shareCertificate()">&#x2708;&#xFE0F; Share</button>
+    <button class="cert-btn cbtn-close" onclick="document.getElementById('cert-modal').classList.remove('show')">Close</button>
+  </div>
+</div></div>
 </body>
 </html>
