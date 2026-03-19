@@ -594,7 +594,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
       <div class="lc-top"></div>
       <div class="fl">goD Code</div>
       <div class="fw"><input type="text" id="cinp" placeholder="e.g. gTAA" autocomplete="off" autocapitalize="none" spellcheck="false"/></div>
-      <div class="fl">Password &mdash; Child&rsquo;s Middle Name</div>
+      <div class="fl">Password &mdash; Middle Name <span style="color:var(--text3);font-weight:400">(or LAST NAME in CAPS if no middle name)</span></div>
       <div class="fw"><input type="password" id="pinp" placeholder="Enter middle name"/></div>
       <button class="lbtn" id="lbtn" onclick="typeof doLoginSupabase==='function'?doLoginSupabase():doLogin()">
         <span id="lbtn-txt">&#x2736; &nbsp;Enter Portal&nbsp; &#x2736;</span>
@@ -761,8 +761,8 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
           <div id="goal-row"></div>
         </div>
         <div class="mt-tabs">
-          <button class="mt-btn on" onclick="swMins('weekly',this)">Weekly</button>
-          <button class="mt-btn" onclick="swMins('cumul',this)">Cumulative</button>
+          <button class="mt-btn on" onclick="swMins('weekly',this)">Bar Chart</button>
+          <button class="mt-btn" onclick="swMins('cumul',this)">By Week</button>
         </div>
         <div class="mt-panel on" id="mt-weekly"><div id="mins-bars"></div></div>
         <div class="mt-panel" id="mt-cumul"><div id="cumul-view"></div></div>
@@ -871,7 +871,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     <div class="bn on" onclick="navTo('home',this)"><div class="bn-i">&#x1F3E0;</div><div class="bn-l">Home</div></div>
     <div class="bn" onclick="navTo('reports',this)"><div class="bn-i">&#x1F4DD;</div><div class="bn-l">Reports</div></div>
     <div class="bn" onclick="navTo('testy',this)"><div class="bn-i">&#x1F64C;</div><div class="bn-l">Testimony</div></div>
-    <div class="bn" onclick="navTo('weekly',this)"><div class="bn-i">&#x1F4C5;</div><div class="bn-l">Weekly</div></div>
+    <div class="bn" onclick="navTo('weekly',this);buildWeekly()"><div class="bn-i">&#x1F4C5;</div><div class="bn-l">Weekly</div></div>
     <div class="bn" onclick="navTo('profile',this)"><div class="bn-i">&#x1F464;</div><div class="bn-l">Profile</div></div>
   </nav>
 </div>
@@ -996,11 +996,15 @@ function doLogin() {
   err.style.display = 'none';
 
   /* First check credential against Supabase */
-  sbGet('students?god_code=eq.' + encodeURIComponent(code) + '&select=god_code,middle_name,first_name')
+  sbGet('students?god_code=eq.' + encodeURIComponent(code) + '&select=god_code,middle_name,last_name,first_name')
     .then(function(rows) {
       if (!rows || !rows.length) { showErr('Incorrect code or password.'); return; }
       var s = rows[0];
-      if (!s.middle_name || pass.toLowerCase() !== s.middle_name.toLowerCase()) { showErr('Incorrect code or password.'); return; }
+      /* Middle name (case-insensitive) OR last name in CAPS if no middle name */
+      var sbGet2 = 'students?god_code=eq.'+encodeURIComponent(code)+'&select=god_code,middle_name,last_name,first_name';
+      var midOk  = s.middle_name && pass.toLowerCase() === s.middle_name.toLowerCase();
+      var lastOk = !s.middle_name && pass === (s.last_name||'').toUpperCase();
+      if (!midOk && !lastOk) { showErr('Incorrect code or password.'); return; }
 
       /* Auth passed — load full data */
       return loadFromSupabase(code).then(function(student) {
@@ -1017,7 +1021,9 @@ function doLogin() {
       /* Fallback to embedded data if offline */
       if (isOffline || !navigator.onLine) {
         var fallback = Object.values(DATA.students).find(function(s){ return s.code && s.code.toLowerCase() === code.toLowerCase(); });
-        if (fallback && pass.toLowerCase() === (fallback.middle_name||'').toLowerCase()) {
+        var midOkF  = fallback.middle_name && pass.toLowerCase() === (fallback.middle_name||'').toLowerCase();
+        var lastOkF = !fallback.middle_name && pass === (fallback.last_name||'').toUpperCase();
+        if (fallback && (midOkF || lastOkF)) {
           btn.disabled = false; btntxt.style.display = 'block'; btnspin.style.display = 'none';
           document.getElementById('login').style.display = 'none';
           document.getElementById('dash').style.display = 'block';
@@ -1657,14 +1663,10 @@ function buildFeesBanner(bal,id){
     el.innerHTML='<a class="fbw fbw-pend" href="https://t.me/KidsInspiringNation" target="_blank"><span class="fbw-ic">&#x23F3;</span><div class="fbw-bd"><div class="fbw-tn">Payment Pending</div><div class="fbw-s">We received your payment and will confirm shortly.</div></div><span class="fbw-cta fbw-ctaa">Contact Us</span></a>';
   }else{
     var amt=fs.amount?'<br>Balance: <strong>'+fs.amount+'</strong>':'';
-    el.innerHTML='<a class="fbw fbw-owed" href="https://bit.ly/KINpro" target="_blank"><span class="fbw-ic">&#x1F4B3;</span><div class="fbw-bd"><div class="fbw-to">Fees Outstanding</div><div class="fbw-s">Click to complete payment and secure your child&#39;s place.'+amt+'</div></div><span class="fbw-cta fbw-ctar">Pay Now &#x2192;</span></a>';
+    el.innerHTML='<a class="fbw fbw-owed" href="https://bit.ly/KINpro" target="_blank"><span class="fbw-ic">&#x1F4B3;</span><div class="fbw-bd"><div class="fbw-to">Fees Outstanding</div><div class="fbw-s">Amount owed: <strong style="font-size:15px;color:var(--red)">'+fs.amount+'</strong><br>Click to pay and secure your child&#39;s place.</div></div><span class="fbw-cta fbw-ctar">Pay Now &#x2192;</span></a>';
   }
 }
 
-/* ===WEEKLY SNAPSHOT=== */
-
-/* ===WEEKLY SNAPSHOT=== */
-var _ws = { s:null, gpa:null, reps:null, weeks:null };
 
 function buildWeeklySection(s, gpa, reps, weeks, currentWkNum) {
   _ws.s = s; _ws.gpa = gpa; _ws.reps = reps; _ws.weeks = weeks;
@@ -2106,7 +2108,7 @@ function buildMT(gpa,weeks,code) {
   var maxM=Math.max.apply(null,md.map(function(d){return d.m;}).concat([CFG.minTarget,1]));
   var H=100;
   if(!weeks.length){el.innerHTML='<div class="no-data">No minutes data yet</div>';return;}
-  el.innerHTML='<div style="position:relative;margin-bottom:8px;"><div style="display:flex;align-items:flex-end;gap:8px;height:'+H+'px;padding:0 4px;position:relative;"><div style="position:absolute;left:0;right:0;bottom:'+((CFG.minTarget/maxM)*H)+'px;border-top:2px dashed rgba(20,184,166,.4);z-index:2;pointer-events:none;"><span style="position:absolute;right:0;top:-17px;font-size:10px;color:var(--teal);font-weight:800;background:var(--card);padding:0 4px;border-radius:3px;">'+CFG.minTarget+' min</span></div>'+md.map(function(d){var h=d.m>0?Math.max(6,Math.round((d.m/maxM)*H)):6;var c=d.m>=CFG.minTarget?'linear-gradient(to top,#065F46,#10B981)':d.m>=CFG.minTarget/2?'linear-gradient(to top,#92400E,#F59E0B)':'linear-gradient(to top,#7F1D1D,#EF4444)';return'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;"><div style="font-size:11px;font-weight:800;color:'+(d.m>=CFG.minTarget?'var(--green)':d.m>=CFG.minTarget/2?'var(--amber)':'var(--red)')+';">'+(d.m>0?d.m:'\u2014')+'</div><div style="width:100%;min-width:20px;height:0;background:'+c+';border-radius:5px 5px 0 0;opacity:'+(d.m>0?1:.22)+';transition:height 1s cubic-bezier(.34,1.56,.64,1)" data-h="'+h+'"></div></div>';}).join('')+'</div><div style="display:flex;gap:8px;padding:0 4px;margin-top:7px;">'+md.map(function(d){return'<div style="flex:1;text-align:center;font-size:11px;font-weight:700;color:var(--text3);">W'+d.w+'</div>';}).join('')+'</div></div>';
+  el.innerHTML='<div style="position:relative;margin-bottom:8px;"><div style="display:flex;align-items:flex-end;gap:8px;height:'+H+'px;padding:0 4px;position:relative;"><div style="position:absolute;left:0;right:0;bottom:'+((CFG.minTarget/maxM)*H)+'px;border-top:2px dashed rgba(20,184,166,.4);z-index:2;pointer-events:none;"><span style="position:absolute;right:0;top:-17px;font-size:10px;color:var(--teal);font-weight:800;background:var(--card);padding:0 4px;border-radius:3px;">'+CFG.minTarget+' min</span></div>'+md.map(function(d){var h=d.m>0?Math.max(6,Math.round((d.m/maxM)*H)):6;var c=d.m>=CFG.minTarget?'linear-gradient(to top,#065F46,#10B981)':d.m>=CFG.minTarget/2?'linear-gradient(to top,#92400E,#F59E0B)':'linear-gradient(to top,#7F1D1D,#EF4444)';return'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;"><div style="font-size:11px;font-weight:800;color:'+(d.m>=CFG.minTarget?'var(--green)':d.m>=CFG.minTarget/2?'var(--amber)':'var(--red)')+';">'+(d.m>0?d.m:'\u2014')+'</div><div style="width:100%;min-width:20px;height:0;background:'+c+';border-radius:5px 5px 0 0;opacity:'+(d.m>0?1:.22)+';transition:height 1s cubic-bezier(.34,1.56,.64,1)" data-h="'+h+'"></div></div>';}).join('')+'</div><div style="display:flex;gap:8px;padding:0 4px;margin-top:7px;">'+md.map(function(d){return'<div style="flex:1;text-align:center;">'+'<div style="font-size:11px;font-weight:700;color:var(--text3);">W'+d.w+'</div>'+((typeof WEEK_DATES!=='undefined'&&WEEK_DATES[d.w])?'<div style="font-size:9px;color:var(--text3);opacity:.6;">'+WEEK_DATES[d.w]+'</div>':'+'+'""')+'</div>';}).join('')+'</div></div>';
   setTimeout(function(){el.querySelectorAll('[data-h]').forEach(function(b){b.style.height=b.dataset.h+'px';});},150);
   /* Goal setting FIX #14 */
   var goalRow=document.getElementById('goal-row');
@@ -2116,9 +2118,8 @@ function buildMT(gpa,weeks,code) {
     goalRow.innerHTML='<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:12px;color:var(--text3);font-weight:700;">My Goal:</span><select onchange="setGoal(\''+code+'\',this.value)" style="background:var(--card2);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:4px 10px;outline:none;font-family:\'Plus Jakarta Sans\',sans-serif;">'+ [CFG.minTarget,CFG.minTarget*1.4,CFG.minTarget*2].map(function(g){g=Math.round(g);return'<option value="'+g+'"'+(g===userGoal?' selected':'')+'>'+g+' min/wk</option>';}).join('')+'</select></div>';
   }
   var totalMins=md.reduce(function(s,d){return s+d.m;},0);
-  var running=0;
-  var milestones=[{n:CFG.minTarget,l:'Month 1'},{n:CFG.minTarget*2,l:'Month 2'},{n:CFG.minTarget*4,l:'Champion'},{n:CFG.minTarget*8,l:'Term Hero'}];
-  document.getElementById('cumul-view').innerHTML='<div style="text-align:center;padding:18px 0 12px;"><div style="font-family:\'Cinzel\',serif;font-size:40px;font-weight:700;color:var(--teal);line-height:1;">'+totalMins+'<span style="font-size:18px;color:var(--text2);font-weight:500;margin-left:4px;">min</span></div><div style="font-size:14px;color:var(--text2);margin-top:6px;">Total across '+weeks.length+' week'+(weeks.length!==1?'s':'')+' of '+CFG.totalWeeks+'</div><div style="font-size:15px;color:var(--text);margin-top:4px;font-weight:700;">\u2248 '+(totalMins/60).toFixed(1)+' hours in God\'s Word</div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;">'+md.map(function(d){running+=d.m;return'<div style="flex:1;min-width:52px;background:var(--card2);border:1.5px solid var(--border);border-radius:11px;padding:10px 7px;text-align:center;"><div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;margin-bottom:4px;">WK '+d.w+'</div><div style="font-family:\'Cinzel\',serif;font-size:14px;font-weight:700;color:'+(running>0?'var(--teal)':'var(--text3)')+';">'+running+'m</div></div>';}).join('')+'</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'+milestones.map(function(m){var ok=totalMins>=m.n;return'<div style="background:'+(ok?'var(--teal-bg)':'var(--card2)')+';border:2px solid '+(ok?'rgba(20,184,166,.3)':'var(--border)')+';border-radius:12px;padding:13px 8px;text-align:center;"><div style="font-family:\'Cinzel\',serif;font-size:15px;font-weight:700;color:'+(ok?'var(--teal)':'var(--text3)')+';">'+m.n+'m</div><div style="font-size:11px;color:'+(ok?'var(--teal)':'var(--text3)')+';margin-top:3px;font-weight:700;">'+m.l+' '+(ok?'\u2713':'')+'</div></div>';}).join('')+'</div>';
+  var milestones=[];
+  document.getElementById('cumul-view').innerHTML='<div style="text-align:center;padding:18px 0 12px;"><div style="font-family:\'Cinzel\',serif;font-size:40px;font-weight:700;color:var(--teal);line-height:1;">'+totalMins+'<span style="font-size:18px;color:var(--text2);font-weight:500;margin-left:4px;">min</span></div><div style="font-size:14px;color:var(--text2);margin-top:6px;">Total across '+weeks.length+' week'+(weeks.length!==1?'s':'')+' of '+CFG.totalWeeks+'</div><div style="font-size:15px;color:var(--text);margin-top:4px;font-weight:700;">\u2248 '+(totalMins/60).toFixed(1)+' hours in God\'s Word</div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;">'+md.map(function(d){var wc=d.m>0?'var(--teal)':'var(--text3)';var wd=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[d.w])?WEEK_DATES[d.w]:'';return'<div style="flex:1;min-width:64px;background:var(--card2);border:1.5px solid var(--border);border-radius:11px;padding:10px 7px;text-align:center;">'+'<div style="font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.8px;margin-bottom:2px;">WK '+d.w+'</div>'+(wd?'<div style="font-size:9px;color:var(--text3);margin-bottom:4px;">'+wd+'</div>':'+'+'""')+'<div style="font-family:Cinzel,serif;font-size:15px;font-weight:700;color:'+wc+';">'+(d.m>0?d.m+'m':'—')+'</div>'+'</div>';}).join('')+'</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'+milestones.map(function(m){var ok=totalMins>=m.n;return'<div style="background:'+(ok?'var(--teal-bg)':'var(--card2)')+';border:2px solid '+(ok?'rgba(20,184,166,.3)':'var(--border)')+';border-radius:12px;padding:13px 8px;text-align:center;"><div style="font-family:\'Cinzel\',serif;font-size:15px;font-weight:700;color:'+(ok?'var(--teal)':'var(--text3)')+';">'+m.n+'m</div><div style="font-size:11px;color:'+(ok?'var(--teal)':'var(--text3)')+';margin-top:3px;font-weight:700;">'+m.l+' '+(ok?'\u2713':'')+'</div></div>';}).join('')+'</div>';
 }
 function setGoal(code,val) { try{localStorage.setItem('gU_goal_'+code,val);}catch(e){} buildMT(getGPA(code),Object.keys(getGPA(code)).map(Number).filter(function(w){return Object.keys(getGPA(code)[w]||{}).length>0;}).sort(function(a,b){return a-b;}),code); }
 
@@ -2367,9 +2368,158 @@ function buildTesty(fb) {
 function buildProfile(s) {
   var fsFees=feesStatus(s.fees_balance);
   var feesVal=fsFees?'<span class="fees-chip '+(fsFees.type==='paid'?'fees-paid':fsFees.type==='pending'?'fees-pending':'fees-owed')+'">'+fsFees.label+(fsFees.amount?' &#x2014; '+fsFees.amount:'')+'</span>':'Not set';
-  var fields=[['&#x1F4DB; Full Name',[s.first_name,s.middle_name,s.last_name].filter(Boolean).join(' ')],['&#x1F511; goD Code',s.code],['&#x1F4C6; Date of Birth',s.dob?fmtDate(s.dob):'\u2014'],['&#x1F331; Age',s.age?s.age+' years old':'\u2014'],['&#x1F4DA; Programme','Word Challenge \u00B7 goDs University'],['&#x1F194; KIN Number',s.kin_no||'\u2014'],['&#x1F4B3; Fees Status',feesVal]];
+  var pathLabel=s.pathway||'Not set';
+  var fields=[['&#x1F4DB; Full Name',[s.first_name,s.middle_name,s.last_name].filter(Boolean).join(' ')],['&#x1F511; goD Code',s.code],['&#x1F4D6; Pathway','<strong style="color:var(--teal)">'+pathLabel+'</strong>'],['&#x1F4C6; Date of Birth',s.dob?fmtDate(s.dob):'\u2014'],['&#x1F331; Age',s.age?s.age+' years old':'\u2014'],['&#x1F194; KIN Number',s.kin_no||'\u2014'],['&#x1F4B3; Fees Status',feesVal]];
   document.getElementById('pf-grid').innerHTML=fields.map(function(pair){return'<div class="pf"><div class="pf-l">'+pair[0]+'</div><div class="pf-v">'+pair[1]+'</div></div>';}).join('');
 }
+
+/* ════ WEEKLY SNAPSHOT — reads from DATA at click time ════ */
+function buildWeekly(){
+  if(!currentStudent)return;
+  var code=currentStudent.code||currentStudent.god_code;
+  var gpa=DATA.gpa[code]||{};
+  var reps=DATA.reports[code]||{};
+  var totalWks=(CFG&&CFG.totalWeeks)?CFG.totalWeeks:44;
+  var GRP=4,numGrps=Math.ceil(totalWks/GRP);
+  var dw={};
+  Object.keys(gpa).forEach(function(w){dw[parseInt(w)]=true;});
+  Object.keys(reps).forEach(function(w){dw[parseInt(w)]=true;});
+  var latest=0;
+  Object.keys(dw).forEach(function(w){if(parseInt(w)>latest)latest=parseInt(w);});
+  var bestGrp=latest>0?Math.floor((latest-1)/GRP):0;
+  var gEl=document.getElementById('ws-group-strip');
+  if(!gEl)return;
+  var gh='';
+  for(var g=0;g<numGrps;g++){
+    var gs=g*GRP+1,ge=Math.min(gs+GRP-1,totalWks);
+    var has=false;for(var x=gs;x<=ge;x++){if(dw[x]){has=true;break;}}
+    gh+='<button class="wg-btn'+(has?' has':'')+'" onclick="wkGrp('+g+')">'
+       +'Wk '+gs+(gs!==ge?'\u2013'+ge:'')+'</button>';
+  }
+  gEl.innerHTML=gh;
+  wkGrp(bestGrp);
+}
+function wkGrp(g){
+  var totalWks=(CFG&&CFG.totalWeeks)?CFG.totalWeeks:44,GRP=4;
+  var gs=g*GRP+1,ge=Math.min(gs+GRP-1,totalWks);
+  var gEl=document.getElementById('ws-group-strip');
+  if(gEl)gEl.querySelectorAll('.wg-btn').forEach(function(b,i){b.classList.toggle('on',i===g);});
+  if(!currentStudent)return;
+  var code=currentStudent.code||currentStudent.god_code;
+  var gpa=DATA.gpa[code]||{},reps=DATA.reports[code]||{};
+  var dw={};
+  Object.keys(gpa).forEach(function(w){dw[parseInt(w)]=true;});
+  Object.keys(reps).forEach(function(w){dw[parseInt(w)]=true;});
+  var latest=0;Object.keys(dw).forEach(function(w){if(parseInt(w)>latest)latest=parseInt(w);});
+  var wEl=document.getElementById('ws-week-strip');
+  if(!wEl)return;
+  var wh='';
+  for(var w=gs;w<=ge;w++){
+    var has=!!dw[w],isLat=(w===latest);
+    var dt=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w])?' \u00B7 '+WEEK_DATES[w]:'';
+    wh+='<button class="wt'+(has?' has-data':'')+(isLat?' latest':'')+'" onclick="wkWk('+w+',this)">'
+       +'Wk '+w+dt+(isLat?' \u25CF':'')+'</button>';
+  }
+  wEl.innerHTML=wh;
+  var pick=wEl.querySelector('.latest')||wEl.querySelector('.has-data')||wEl.querySelector('.wt');
+  if(pick)pick.click();
+}
+function wkWk(w,btn){
+  var wEl=document.getElementById('ws-week-strip');
+  if(wEl)wEl.querySelectorAll('.wt').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  var el=document.getElementById('ws-content');
+  if(!el||!currentStudent)return;
+  var code=currentStudent.code||currentStudent.god_code;
+  var s=DATA.students[code]||currentStudent;
+  var gpa=DATA.gpa[code]||{},reps=DATA.reports[code]||{};
+  var mTgt=(CFG&&CFG.minTarget)?CFG.minTarget:300;
+  var dw={};
+  Object.keys(gpa).forEach(function(x){dw[parseInt(x)]=true;});
+  Object.keys(reps).forEach(function(x){dw[parseInt(x)]=true;});
+  var allWks=Object.keys(dw).map(Number).sort(function(a,b){return a-b;});
+  var wDate=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w])?WEEK_DATES[w]+', 2026':'';
+  if(!dw[w]){
+    el.innerHTML='<div style="text-align:center;padding:60px 20px;">'
+      +'<div style="font-size:52px;margin-bottom:16px;">&#x1F4C5;</div>'
+      +'<div style="font-family:Cinzel,serif;font-size:28px;font-weight:900;color:var(--gold);letter-spacing:6px;margin-bottom:12px;">SOON</div>'
+      +'<div style="font-family:Cinzel,serif;font-size:15px;color:var(--text2);margin-bottom:8px;">Week '+w+(wDate?' \u00B7 '+wDate:'')+'</div>'
+      +'<div style="font-size:14px;color:var(--text3);max-width:300px;margin:0 auto;line-height:1.8;">Session not yet recorded. Data will appear here after the class.</div></div>';
+    return;
+  }
+  var wd=gpa[w]||gpa[String(w)]||{};
+  var sc=wkScForCode(gpa,w);
+  var pct=sc!=null?Math.round(sc*100):null;
+  var prevWks=allWks.filter(function(x){return x<w;});
+  var prevW=prevWks.length?prevWks[prevWks.length-1]:null;
+  var prevSc=prevW!=null?wkScForCode(gpa,prevW):null;
+  var prevPct=prevSc!=null?Math.round(prevSc*100):null;
+  var mins=Number(wd['Invested Minutes']||0);
+  var txt=reps[w]||reps[String(w)]||'';
+  var g=gradeOf(pct);
+  var cavg=(typeof CLASS_AVGS!=='undefined'&&CLASS_AVGS)?CLASS_AVGS[w]||null:null;
+  var hdr='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:10px;">'
+    +'<div><div style="font-family:Cinzel,serif;font-size:22px;font-weight:700;color:var(--text);">Week '+w+'</div>'
+    +(wDate?'<div style="font-size:13px;color:var(--text3);margin-top:2px;">'+wDate+'</div>':'')
+    +'</div><div class="grade-b '+g.cls+'">'+g.txt+'</div></div>';
+  var tcls,ticon,ttitle,tdesc;
+  if(pct==null){tcls='tr-new';ticon='&#x1F4CA;';ttitle='Week '+w;tdesc='Data recorded.';}
+  else if(prevPct==null){tcls='tr-new';ticon='&#x1F195;';ttitle='Week '+w+' \u2014 '+pct+'%';tdesc='First week.';}
+  else if(pct-prevPct>10){tcls='tr-up';ticon='&#x2191;';ttitle='Up '+(pct-prevPct)+'%';tdesc='From '+prevPct+'% to '+pct+'%.';}
+  else if(prevPct-pct>10){tcls='tr-down';ticon='&#x2193;';ttitle='Down '+(prevPct-pct)+'%';tdesc='From '+prevPct+'% to '+pct+'%.';}
+  else{tcls='tr-flat';ticon='&#x2192;';ttitle='Stable ~'+pct+'%';tdesc='Holding steady.';}
+  if(cavg!=null&&pct!=null)tdesc+=' Class avg: '+cavg+'%.';
+  var tH='<div class="trend '+tcls+'" style="margin-bottom:16px;"><div class="trend-icon">'+ticon+'</div>'
+    +'<div class="trend-body"><div class="trend-title">'+ttitle+'</div><div class="trend-desc">'+tdesc+'</div></div></div>';
+  var cH='';
+  if(cavg!=null&&pct!=null){
+    var diff=pct-cavg,cc=diff>=0?'var(--green)':'var(--red)';
+    cH='<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card2);border-radius:10px;margin-bottom:16px;">'
+      +'<div style="width:8px;height:8px;border-radius:50%;background:'+cc+'"></div>'
+      +'<span style="font-size:13px;color:var(--text2);font-weight:600;">Class avg: '+cavg+'%&nbsp;&nbsp;'
+      +'<strong style="color:'+cc+'">'+(diff>=0?'+':'')+diff+'%</strong> vs class</span></div>';
+  }
+  var SN={'Weekly report':'Report','Time Sheet':'Timesheet','Pathway':'Pathway','Activity':'Activity','Attendance':'Attend.'};
+  var pills='<div class="rsc-row">';
+  CATS.forEach(function(m){
+    var v=wd[m];var cls='rpna',ic='\u2014';
+    if(v===1){cls='rp1';ic='\u2713';}else if(v===0.5){cls='rp05';ic='\u25D1';}else if(v===0){cls='rp0';ic='\u25CB';}
+    pills+='<div class="rsc-pill '+cls+'">'+ic+' '+SN[m]+'</div>';
+  });
+  if(mins>0)pills+='<div class="rsc-pill" style="background:var(--teal-bg);border:1.5px solid rgba(20,184,166,.28);color:var(--teal)">\u231A '+mins+'m</div>';
+  pills+='</div>';
+  var bars='';
+  CATS.forEach(function(m){
+    var v=wd[m],p2=(v!=null&&typeof v==='number')?v*100:null;
+    var spl='',sc2='var(--text3)';
+    if(p2===100){spl='<span class="spl sp1">\u2713 Done</span>';sc2='var(--green)';}
+    else if(p2===50){spl='<span class="spl sp05">\u25D1 Partial</span>';sc2='var(--amber)';}
+    else if(p2===0){spl='<span class="spl sp0">\u25CB Not done</span>';sc2='var(--red)';}
+    bars+='<div class="pr"><div class="pr-top"><span class="pr-nm">'+m+'</span>'
+      +'<span class="pr-rt">'+spl+'<span class="pr-pct" style="color:'+sc2+'">'+(p2!=null?p2+'%':'\u2014')+'</span></span></div>'
+      +'<div class="pr-tr"><div class="pr-fl" style="background:'+(CCAT[m]||'var(--gold)')+';width:'+(p2||0)+'%"></div></div></div>';
+  });
+  var mPct=Math.min(100,Math.round((mins/mTgt)*100));
+  var mCol=mins>=mTgt?'var(--green)':mins>=mTgt/2?'var(--amber)':'var(--red)';
+  var mSpl=mins>=mTgt?'<span class="spl sp1">\u2713 On target</span>':mins>0?'<span class="spl sp05">\u25D1 '+mins+'m</span>':'<span class="spl sp0">\u25CB Not logged</span>';
+  bars+='<div class="pr" style="margin-top:11px;padding-top:11px;border-top:1px solid rgba(128,128,128,.1)">'
+    +'<div class="pr-top"><span class="pr-nm">\u231A Invested Minutes <span style="font-size:12px;color:var(--text3)">(target: '+mTgt+' min)</span></span>'
+    +'<span class="pr-rt">'+mSpl+'<span class="pr-pct" style="color:'+mCol+';margin-left:8px">'+(mins>0?mins+' min':'\u2014')+'</span></span></div>'
+    +'<div class="pr-tr"><div class="pr-fl" style="background:linear-gradient(90deg,#065F46,#14B8A6);width:'+mPct+'%"></div></div></div>';
+  var note='<div class="inst-note"><div class="inst-hdr">&#x1F4DC; Instructor Observation</div>'
+    +(txt?'<div class="inst-txt">'+txt+'</div>':'<div style="font-size:14px;color:var(--text3);font-style:italic">No report for this week yet.</div>')+'</div>';
+  var suggs=genSugg(s,w,wd,pct,prevPct,mins,allWks,gpa);
+  var sH='<div class="sugg-hdr">&#x1F3AF; Parent Action Guide \u2014 Week '+w+'</div>';
+  if(suggs.length){suggs.forEach(function(sg){sH+='<div class="sugg s-'+sg.p+'"><div class="sugg-ic">'+sg.i+'</div><div class="sugg-body">'+sg.t+'</div></div>';});}
+  else{sH+='<div style="font-size:14px;color:var(--text2);padding:14px;text-align:center;font-style:italic;">Great week \u2014 keep it up!</div>';}
+  var fc=s.god_code||s.code||'',fn=s.first_name||'';
+  var share='<div class="share-row">'
+    +'<button class="share-btn share-tg" onclick="shareToTG(\''+fc+'\','+w+')">\u2708\uFE0F Share</button>'
+    +'<button class="share-btn share-copy" onclick="copyRep(\''+fn+'\','+w+','+(pct||0)+','+(mins||0)+')">&#x1F4CB; Copy</button>'
+    +'<button class="share-btn share-print" onclick="window.print()">&#x1F5A8; Print</button></div>';
+  el.innerHTML=hdr+tH+cH+pills+'<div class="card mb20"><div class="sh" style="margin-bottom:16px;">Category Breakdown</div>'+bars+'</div>'+note+'<div style="margin-top:16px;">'+sH+'</div>'+share;
+}
+
 function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}catch(e){return d;}}
 
 </script>
