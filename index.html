@@ -2213,6 +2213,13 @@ function buildBadgeGallery(s, gpa, reps, fb) {
   var lw  = wks.length ? wks[wks.length-1] : 0;
   if (!lw) { el.innerHTML = ''; return; }
 
+  /* Store student data for use in downloadBadge */
+  window._bdgStudent = {
+    fullName: [s.first_name, s.last_name].filter(Boolean).join(' '),
+    pathway:  s.pathway || '',
+    code:     s.code || s.god_code || ''
+  };
+
   var earned = [], locked = [];
   BADGE_DEFS.forEach(function(b) {
     var ok = false;
@@ -2221,19 +2228,17 @@ function buildBadgeGallery(s, gpa, reps, fb) {
   });
   if (!earned.length && !locked.length) { el.innerHTML = ''; return; }
 
-  var fullName = [s.first_name, s.last_name].filter(Boolean).join(' ');
-  var pathway  = s.pathway || '';
-  var code     = s.code || s.god_code || '';
-
   var out = '<div class="sh" style="margin-bottom:14px;">&#x1F3C5; Your Badges</div><div class="bdg-grid">';
   earned.forEach(function(b) {
-    var icText = b.ic;
+    /* Decode entity to actual emoji for display */
+    var ic = b.ic;
+    /* Pass only the badge id — downloadBadge looks up everything else */
     out += '<div class="bdg-card earned">'
       + '<div class="bdg-earned-tag">EARNED</div>'
-      + '<span class="bdg-ic">' + icText + '</span>'
+      + '<span class="bdg-ic">' + ic + '</span>'
       + '<div class="bdg-nm">' + b.nm + '</div>'
       + '<div class="bdg-desc">' + b.desc + '</div>'
-      + '<button class="bdg-dl" onclick="downloadBadge(\'' + b.id + '\',\'' + b.nm + '\',\'' + icText + '\',\'' + fullName + '\',\'' + pathway + '\',\'' + code + '\')">&#x2B07; Download</button>'
+      + '<button class="bdg-dl" onclick="downloadBadge(' + "'" + b.id + "'" + ')">&#x2B07; Download</button>'
       + '</div>';
   });
   locked.slice(0, Math.min(4, locked.length)).forEach(function(b) {
@@ -2248,7 +2253,18 @@ function buildBadgeGallery(s, gpa, reps, fb) {
   el.innerHTML = out;
 }
 
-function downloadBadge(id, nm, ic, fullName, pathway, code) {
+function downloadBadge(id) {
+  /* Look up badge definition */
+  var b = null;
+  for (var i = 0; i < BADGE_DEFS.length; i++) { if (BADGE_DEFS[i].id === id) { b = BADGE_DEFS[i]; break; } }
+  if (!b) return;
+  var nm       = b.nm;
+  var ic       = b.ic;
+  var stu      = window._bdgStudent || {};
+  var fullName = stu.fullName || '';
+  var pathway  = stu.pathway  || '';
+  var code     = stu.code     || '';
+
   var cv  = document.createElement('canvas');
   cv.width = 800; cv.height = 800;
   var ctx = cv.getContext('2d');
@@ -2333,10 +2349,28 @@ function downloadBadge(id, nm, ic, fullName, pathway, code) {
   ctx.lineWidth=1;
   ctx.stroke();
 
-  /* Verse */
-  ctx.font = 'italic 16px Georgia, serif';
-  ctx.fillStyle = 'rgba(148,163,184,.7)';
-  ctx.fillText('\u201CI can do all things through Christ who strengthens me\u201D \u2014 Phil 4:13', 400, 632);
+  /* Rotating scriptures about children growing in wisdom */
+  var VERSES = [
+    '\u201CAnd Jesus grew in wisdom and stature\u201D \u2014 Luke 2:52',
+    '\u201CHere am I and the children the LORD has given me\u201D \u2014 Isa 8:18',
+    '\u201CTrain up a child in the way he should go\u201D \u2014 Prov 22:6',
+    '\u201CI can do all things through Christ\u201D \u2014 Phil 4:13',
+    '\u201CYour word is a lamp to my feet\u201D \u2014 Psalm 119:105',
+    '\u201CLet the word of Christ dwell in you richly\u201D \u2014 Col 3:16',
+    '\u201CFrom childhood you have known the sacred scriptures\u201D \u2014 2 Tim 3:15',
+    '\u201CBut grow in the grace and knowledge of our Lord\u201D \u2014 2 Pet 3:18'
+  ];
+  var verse = VERSES[Math.floor(Date.now() / (1000*60*60*24)) % VERSES.length];
+  ctx.font = 'italic 15px Georgia, serif';
+  ctx.fillStyle = 'rgba(148,163,184,.75)';
+  /* Word-wrap verse if too long */
+  if (ctx.measureText(verse).width > 580) {
+    var mid = Math.floor(verse.length/2); var sp = verse.lastIndexOf(' ', mid);
+    ctx.fillText(verse.substring(0,sp), 400, 622);
+    ctx.fillText(verse.substring(sp+1), 400, 642);
+  } else {
+    ctx.fillText(verse, 400, 632);
+  }
 
   /* Footer org text */
   ctx.font = 'bold 18px Georgia, serif';
