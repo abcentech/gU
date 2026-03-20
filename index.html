@@ -881,16 +881,19 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 #student-bar.show{display:flex!important;}
 
 
-.bdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:8px;}
-.bdg-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:20px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .2s;}
-.bdg-card:hover{transform:translateY(-2px);}
-.bdg-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.08),rgba(232,196,67,.03));}
-.bdg-card.locked{opacity:.45;filter:grayscale(.6);}
-.bdg-ic{font-size:36px;margin-bottom:8px;display:block;}
+
+.bdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-bottom:8px;}
+.bdg-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:18px 12px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.bdg-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow);}
+.bdg-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.03));}
+.bdg-card.locked{opacity:.4;filter:grayscale(.7);}
+.bdg-earned-tag{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:1.5px;padding:2px 7px;border-radius:20px;}
+.bdg-ic{font-size:38px;margin-bottom:8px;display:block;}
 .bdg-nm{font-family:Cinzel,serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
 .bdg-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:10px;}
 .bdg-dl{display:inline-block;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--gold);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;transition:opacity .15s;}
 .bdg-dl:hover{opacity:.85;}
+
 .bdg-lock{font-size:11px;color:var(--text3);font-style:italic;}
 
 </style>
@@ -2140,20 +2143,6 @@ function checkReengagement(){
   }catch(e){}
 }
 
-var BADGE_DEFS = [
-  {id:'first_step',   icon:'&#x1F463;', title:'First Step',    desc:'Completed Week 1',       check:function(wks,gpa,reps){return wks.length>=1;}},
-  {id:'faithful_3',   icon:'&#x1F525;', title:'On Fire',       desc:'3 weeks in a row',        check:function(wks,gpa,reps,streak){return streak>=3;}},
-  {id:'halfway',      icon:'&#x1F3C6;', title:'Halfway',       desc:'Week 22 completed',       check:function(wks){return wks.indexOf(22)!==-1||Math.max.apply(null,wks)>=22;}},
-  {id:'perfect_week', icon:'&#x2B50;',  title:'Perfect Week',  desc:'100% score any week',     check:function(wks,gpa){return wks.some(function(w){var sc=wkScForCode(gpa,w);return sc!=null&&sc>=1;});}},
-  {id:'consistent',   icon:'&#x1F4AA;', title:'Consistent',    desc:'5 consecutive weeks',     check:function(wks,gpa,reps,streak){return streak>=5;}},
-  {id:'scholar',      icon:'&#x1F393;', title:'Scholar',       desc:'Completed all 44 weeks',  check:function(wks){return Math.max.apply(null,wks.concat([0]))>=44;}},
-  {id:'time_100',     icon:'&#x23F1;',  title:'100 Hours',     desc:'1000+ invested minutes',  check:function(wks,gpa){var tot=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};tot+=Number(d['Invested Minutes']||0);});return tot>=1000;}},
-  {id:'word_warrior', icon:'&#x2694;&#xFE0F;', title:'Word Warrior', desc:'Pathway done 4 weeks', check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Pathway']||0)>=1)n++;});return n>=4;}},
-  {id:'reporter',     icon:'&#x1F4DD;', title:'Diligent',      desc:'Report submitted 4 weeks',check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Weekly report']||0)>=1)n++;});return n>=4;}},
-  {id:'timekeeper',   icon:'&#x1F5D3;', title:'Timekeeper',    desc:'Timesheet 3 weeks',       check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Time Sheet']||0)>=1)n++;});return n>=3;}},
-  {id:'present',      icon:'&#x1F4E1;', title:'Present',       desc:'Attended 4 weeks',        check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Attendance']||0)>0)n++;});return n>=4;}},
-  {id:'nation_builder',icon:'&#x1F3DB;&#xFE0F;',title:'Nation Builder',desc:'80%+ in any week', check:function(wks,gpa){return wks.some(function(w){var sc=wkScForCode(gpa,w);return sc!=null&&sc>=0.8;});}},
-];
 
 function buildBadgeGrid(s, gpa, reps, weeks) {
   var el = document.getElementById('badge-grid-dl');
@@ -2187,211 +2176,181 @@ function buildBadgeGrid(s, gpa, reps, weeks) {
   el.innerHTML = cards;
 }
 
-function downloadBadge(badgeId, btn) {
-  var b = BADGE_DEFS.find(function(x){return x.id===badgeId;});
-  if (!b || !currentStudent) return;
-  var canvas = document.getElementById('badge-canvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var W = 600, H = 600;
-  ctx.clearRect(0, 0, W, H);
 
-  /* Background */
-  var bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, '#0D1428');
-  bg.addColorStop(1, '#1E2A42');
-  ctx.fillStyle = bg;
-  ctx.beginPath();
-  ctx.roundRect(0, 0, W, H, 40);
-  ctx.fill();
 
-  /* Gold border */
-  ctx.strokeStyle = '#E8C443';
-  ctx.lineWidth = 8;
-  ctx.beginPath();
-  ctx.roundRect(8, 8, W-16, H-16, 36);
-  ctx.stroke();
 
-  /* Inner glow ring */
-  ctx.strokeStyle = 'rgba(232,196,67,.2)';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.roundRect(20, 20, W-40, H-40, 28);
-  ctx.stroke();
 
-  /* goDs University */
-  ctx.fillStyle = '#E8C443';
-  ctx.font = 'bold 18px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.letterSpacing = '6px';
-  ctx.fillText('GODS UNIVERSITY', W/2, 64);
-
-  /* Icon - render as emoji via text */
-  ctx.font = '110px serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(b.icon.replace(/&#x([0-9A-Fa-f]+);/g, function(m, hex){
-    return String.fromCodePoint(parseInt(hex, 16));
-  }).replace(/&#(\d+);/g, function(m, dec){
-    return String.fromCodePoint(parseInt(dec));
-  }), W/2, 260);
-
-  /* Badge title */
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 38px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(b.title.toUpperCase(), W/2, 335);
-
-  /* Student name */
-  ctx.fillStyle = '#E8C443';
-  ctx.font = 'bold 24px sans-serif';
-  ctx.fillText((currentStudent.first_name||'') + ' ' + (currentStudent.last_name||''), W/2, 382);
-
-  /* goD code */
-  ctx.fillStyle = 'rgba(232,196,67,.7)';
-  ctx.font = '15px monospace';
-  ctx.fillText(currentStudent.code || currentStudent.god_code || '', W/2, 412);
-
-  /* Description */
-  ctx.fillStyle = '#94A3B8';
-  ctx.font = '18px sans-serif';
-  ctx.fillText(b.desc, W/2, 450);
-
-  /* Date */
-  var now = new Date();
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  ctx.fillStyle = 'rgba(255,255,255,.3)';
-  ctx.font = '14px sans-serif';
-  ctx.fillText(months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear(), W/2, 490);
-
-  /* Phil 4:13 */
-  ctx.fillStyle = 'rgba(232,196,67,.5)';
-  ctx.font = 'italic 14px Georgia, serif';
-  ctx.fillText('"I can do all things through Christ who strengthens me"', W/2, 540);
-  ctx.fillText('Philippians 4:13', W/2, 562);
-
-  /* KIN brand */
-  ctx.fillStyle = 'rgba(232,196,67,.3)';
-  ctx.font = '12px sans-serif';
-  ctx.fillText('KidsInspiringNation  ·  abcentech.github.io/gU', W/2, 588);
-
-  /* Download */
-  var name = (currentStudent.first_name||'student').toLowerCase().replace(/\s/g,'_');
-  var link = document.createElement('a');
-  link.download = 'gU_badge_' + name + '_' + badgeId + '.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-  
-  /* Brief feedback on button */
-  if (btn) { var orig=btn.textContent; btn.textContent='Downloaded!'; setTimeout(function(){btn.textContent=orig;}, 2000); }
-}
-
+/* ═══════════════════════════════════════════════════
+   BADGE SYSTEM — 10 earnable badges + canvas download
+   ═══════════════════════════════════════════════════ */
 var BADGE_DEFS = [
-  {id:'first_week', ic:'&#x1F4D6;', nm:'First Word',      desc:'Completed Week 1 reading',      check:function(w,g,r){return !!g[1]||!!g['1'];}},
-  {id:'streak3',    ic:'&#x1F525;', nm:'On Fire',         desc:'3 weeks in a row above 40%',    check:function(w,g,r){var s=0;for(var i=w;i>=1;i--){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=3;}},
-  {id:'streak6',    ic:'&#x26A1;',  nm:'Unstoppable',     desc:'6 consecutive active weeks',    check:function(w,g,r){var s=0;for(var i=w;i>=1;i--){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=6;}},
-  {id:'hundred',    ic:'&#x1F3C6;', nm:'Perfect Week',    desc:'Scored 100% in any week',       check:function(w,g,r){for(var ww=1;ww<=w;ww++){if(wkScForCode(g,ww)===1)return true;}return false;}},
-  {id:'mins300',    ic:'&#x231A;',  nm:'Time Keeper',     desc:'300+ minutes in a single week', check:function(w,g,r){for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if((wd['Invested Minutes']||0)>=300)return true;}return false;}},
-  {id:'mins2000',   ic:'&#x1F5FA;', nm:'2000 Minutes',    desc:'2000+ total invested minutes',  check:function(w,g,r){var t=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};t+=wd['Invested Minutes']||0;}return t>=2000;}},
-  {id:'report6',    ic:'&#x1F4DD;', nm:'Faithful Scribe', desc:'Reports submitted 6 weeks',     check:function(w,g,r){var n=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if(wd['Weekly report']>0)n++;}return n>=6;}},
-  {id:'attendance', ic:'&#x1F4E1;', nm:'Always Present',  desc:'Attended class 4+ weeks',      check:function(w,g,r){var n=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if((wd['Attendance']||0)>0)n++;}return n>=4;}},
-  {id:'improver',   ic:'&#x1F4C8;', nm:'Rising Star',     desc:'Score improved 3 weeks running',check:function(w,g,r){var prev=null,cnt=0,best=0;for(var ww=1;ww<=w;ww++){var sc=wkScForCode(g,ww);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)best=cnt;}prev=sc;}return best>=2;}},
-  {id:'testimony',  ic:'&#x1F64C;', nm:'Testimony',       desc:'Parent shared a testimony',     check:function(w,g,r,fb){return fb&&fb.length>0;}},
+  {id:'first_week', ic:'&#x1F4D6;', nm:'First Word',       desc:'Completed Week 1 reading',
+   check:function(lw,gpa,reps,fb){return !!(gpa[1]||gpa['1']);}},
+  {id:'streak3',    ic:'&#x1F525;', nm:'On Fire',          desc:'3 consecutive weeks above 40%',
+   check:function(lw,gpa,reps,fb){var s=0;for(var i=lw;i>=1;i--){var sc=wkScForCode(gpa,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=3;}},
+  {id:'streak6',    ic:'&#x26A1;',  nm:'Unstoppable',      desc:'6 consecutive active weeks',
+   check:function(lw,gpa,reps,fb){var s=0;for(var i=lw;i>=1;i--){var sc=wkScForCode(gpa,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=6;}},
+  {id:'hundred',    ic:'&#x1F3C6;', nm:'Perfect Week',     desc:'Scored 100% in any week',
+   check:function(lw,gpa,reps,fb){for(var w=1;w<=lw;w++){if(wkScForCode(gpa,w)===1)return true;}return false;}},
+  {id:'mins300',    ic:'&#x231A;',  nm:'Time Keeper',      desc:'300+ minutes in a single week',
+   check:function(lw,gpa,reps,fb){for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Invested Minutes']||0)>=300)return true;}return false;}},
+  {id:'mins2000',   ic:'&#x1F5FA;', nm:'2000 Minutes',     desc:'2000+ total invested minutes',
+   check:function(lw,gpa,reps,fb){var t=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};t+=wd['Invested Minutes']||0;}return t>=2000;}},
+  {id:'reporter',   ic:'&#x1F4DD;', nm:'Faithful Scribe',  desc:'Reports submitted 6 weeks',
+   check:function(lw,gpa,reps,fb){var n=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Weekly report']||0)>0)n++;}return n>=6;}},
+  {id:'attender',   ic:'&#x1F4E1;', nm:'Always Present',   desc:'Attended class 4 or more weeks',
+   check:function(lw,gpa,reps,fb){var n=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Attendance']||0)>0)n++;}return n>=4;}},
+  {id:'improver',   ic:'&#x1F4C8;', nm:'Rising Star',      desc:'Score improved 3 weeks running',
+   check:function(lw,gpa,reps,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(gpa,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
+  {id:'testimony',  ic:'&#x1F64C;', nm:'Testimony',        desc:'A testimony has been shared',
+   check:function(lw,gpa,reps,fb){return !!(fb&&fb.length);}}
 ];
 
 function buildBadgeGallery(s, gpa, reps, fb) {
   var el = document.getElementById('badge-gallery');
   if (!el) return;
-  var weeks = Object.keys(gpa).map(Number).filter(function(n){return !isNaN(n);}).sort(function(a,b){return a-b;});
-  var lw = weeks.length ? weeks[weeks.length-1] : 0;
+  var wks = Object.keys(gpa).map(Number).filter(function(n){return !isNaN(n);}).sort(function(a,b){return a-b;});
+  var lw  = wks.length ? wks[wks.length-1] : 0;
   if (!lw) { el.innerHTML = ''; return; }
 
   var earned = [], locked = [];
   BADGE_DEFS.forEach(function(b) {
     var ok = false;
-    try { ok = b.check(lw, gpa, reps, fb); } catch(e) {}
-    if (ok) earned.push(b); else locked.push(b);
+    try { ok = !!b.check(lw, gpa, reps, fb); } catch(e) {}
+    (ok ? earned : locked).push(b);
   });
-
-  var html2 = '<div class="sh" style="margin-bottom:14px;">&#x1F3C5; Achievement Badges</div>';
   if (!earned.length && !locked.length) { el.innerHTML = ''; return; }
 
-  html2 += '<div class="bdg-grid">';
+  var fullName = [s.first_name, s.last_name].filter(Boolean).join(' ');
+  var pathway  = s.pathway || '';
+  var code     = s.code || s.god_code || '';
+
+  var out = '<div class="sh" style="margin-bottom:14px;">&#x1F3C5; Your Badges</div><div class="bdg-grid">';
   earned.forEach(function(b) {
-    var name = s.first_name || '';
-    html2 += '<div class="bdg-card earned">'
-      + '<span class="bdg-ic">' + b.ic + '</span>'
+    var icText = b.ic;
+    out += '<div class="bdg-card earned">'
+      + '<div class="bdg-earned-tag">EARNED</div>'
+      + '<span class="bdg-ic">' + icText + '</span>'
       + '<div class="bdg-nm">' + b.nm + '</div>'
       + '<div class="bdg-desc">' + b.desc + '</div>'
-      + '<button class="bdg-dl" onclick="downloadBadge(\'' + b.id + '\',\'' + b.ic + '\',\'' + b.nm + '\',\'' + name + '\')">'
-      + '&#x2B07; Download</button>'
+      + '<button class="bdg-dl" onclick="downloadBadge(\'' + b.id + '\',\'' + b.nm + '\',\'' + icText + '\',\'' + fullName + '\',\'' + pathway + '\',\'' + code + '\')">&#x2B07; Download</button>'
       + '</div>';
   });
-  locked.slice(0, 4).forEach(function(b) {
-    html2 += '<div class="bdg-card locked">'
-      + '<span class="bdg-ic">&#x1F512;</span>'
+  locked.slice(0, Math.min(4, locked.length)).forEach(function(b) {
+    out += '<div class="bdg-card locked">'
+      + '<span class="bdg-ic" style="filter:grayscale(1)">&#x1F512;</span>'
       + '<div class="bdg-nm">' + b.nm + '</div>'
       + '<div class="bdg-desc">' + b.desc + '</div>'
-      + '<div class="bdg-lock">Keep going...</div>'
+      + '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:6px;">Keep going...</div>'
       + '</div>';
   });
-  html2 += '</div>';
-  el.innerHTML = html2;
+  out += '</div>';
+  el.innerHTML = out;
 }
 
-function downloadBadge(id, ic, nm, childName) {
-  /* Draw badge on canvas and trigger download */
-  var cv = document.createElement('canvas');
-  cv.width = 600; cv.height = 600;
+function downloadBadge(id, nm, ic, fullName, pathway, code) {
+  var cv  = document.createElement('canvas');
+  cv.width = 800; cv.height = 800;
   var ctx = cv.getContext('2d');
 
-  /* Background */
-  var grd = ctx.createRadialGradient(300,300,50,300,300,300);
-  grd.addColorStop(0, '#1E2A42');
-  grd.addColorStop(1, '#0D1428');
-  ctx.fillStyle = grd;
-  ctx.fillRect(0,0,600,600);
+  /* Dark gradient background */
+  var bg = ctx.createRadialGradient(400,400,60,400,400,400);
+  bg.addColorStop(0, '#1A2540');
+  bg.addColorStop(1, '#0A0F22');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,800,800);
 
-  /* Gold border ring */
+  /* Outer gold ring */
   ctx.beginPath();
-  ctx.arc(300,300,280,0,Math.PI*2);
-  ctx.strokeStyle = '#E8C443';
-  ctx.lineWidth = 8;
+  ctx.arc(400,400,370,0,Math.PI*2);
+  ctx.strokeStyle='#E8C443';
+  ctx.lineWidth=10;
+  ctx.stroke();
+  /* Inner subtle ring */
+  ctx.beginPath();
+  ctx.arc(400,400,350,0,Math.PI*2);
+  ctx.strokeStyle='rgba(232,196,67,.25)';
+  ctx.lineWidth=2;
   ctx.stroke();
 
-  ctx.beginPath();
-  ctx.arc(300,300,265,0,Math.PI*2);
-  ctx.strokeStyle = 'rgba(232,196,67,.3)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  /* Icon */
-  ctx.font = '120px serif';
+  /* "goDs University" bold at top */
+  ctx.font = 'bold 52px Georgia, serif';
   ctx.textAlign = 'center';
-  ctx.fillText(ic.replace(/&#x([0-9A-Fa-f]+);/g, function(_,h){return String.fromCodePoint(parseInt(h,16));}), 300, 230);
+  ctx.fillStyle = '#E8C443';
+  ctx.fillText('goDs University', 400, 130);
+
+  /* "In Spirit · By Skills · For Service" in italic calligraphy below */
+  ctx.font = 'italic 22px Georgia, serif';
+  ctx.fillStyle = 'rgba(232,196,67,.7)';
+  ctx.fillText('\u2736 In Spirit \u00B7 By Skills \u00B7 For Service \u2736', 400, 170);
+
+  /* Thin divider */
+  ctx.beginPath();
+  ctx.moveTo(160,188); ctx.lineTo(640,188);
+  ctx.strokeStyle='rgba(232,196,67,.3)';
+  ctx.lineWidth=1;
+  ctx.stroke();
+
+  /* Emoji icon */
+  var emojiText = ic.replace(/&#x([0-9A-Fa-f]+);/g, function(_,h){return String.fromCodePoint(parseInt(h,16));})
+                    .replace(/&amp;/g,'&');
+  ctx.font = '140px serif';
+  ctx.fillText(emojiText, 400, 360);
 
   /* Badge name */
-  ctx.font = 'bold 36px serif';
-  ctx.fillStyle = '#E8C443';
-  ctx.fillText(nm, 300, 310);
+  ctx.font = 'bold 46px Georgia, serif';
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillText(nm, 400, 440);
 
-  /* Child name */
-  ctx.font = '24px sans-serif';
-  ctx.fillStyle = '#94A3B8';
-  ctx.fillText(childName, 300, 355);
+  /* Thin divider */
+  ctx.beginPath();
+  ctx.moveTo(200,460); ctx.lineTo(600,460);
+  ctx.strokeStyle='rgba(255,255,255,.15)';
+  ctx.lineWidth=1;
+  ctx.stroke();
 
-  /* goDs University */
-  ctx.font = '18px sans-serif';
-  ctx.fillStyle = 'rgba(232,196,67,.6)';
-  ctx.fillText('goDs University \u00B7 2026', 300, 400);
+  /* Child full name */
+  ctx.font = 'bold 32px Georgia, serif';
+  ctx.fillStyle = '#F0F4FF';
+  ctx.fillText(fullName, 400, 510);
 
-  /* Bible verse */
-  ctx.font = 'italic 14px serif';
+  /* goD Code */
+  ctx.font = '18px monospace';
+  ctx.fillStyle = 'rgba(232,196,67,.8)';
+  ctx.fillText(code, 400, 540);
+
+  /* Pathway */
+  if (pathway) {
+    ctx.font = 'italic 20px Georgia, serif';
+    ctx.fillStyle = 'rgba(148,163,184,.85)';
+    ctx.fillText(pathway, 400, 572);
+  }
+
+  /* Footer divider */
+  ctx.beginPath();
+  ctx.moveTo(130,600); ctx.lineTo(670,600);
+  ctx.strokeStyle='rgba(232,196,67,.2)';
+  ctx.lineWidth=1;
+  ctx.stroke();
+
+  /* Verse */
+  ctx.font = 'italic 16px Georgia, serif';
   ctx.fillStyle = 'rgba(148,163,184,.7)';
-  ctx.fillText('\u201CI can do all things through Christ\u201D \u2014 Phil 4:13', 300, 450);
+  ctx.fillText('\u201CI can do all things through Christ who strengthens me\u201D \u2014 Phil 4:13', 400, 632);
+
+  /* Footer org text */
+  ctx.font = 'bold 18px Georgia, serif';
+  ctx.fillStyle = 'rgba(232,196,67,.6)';
+  ctx.fillText('KidsInspiringNation \u00B7 raising goDs, building Nations', 400, 668);
+
+  ctx.font = '15px Georgia, serif';
+  ctx.fillStyle = 'rgba(148,163,184,.5)';
+  ctx.fillText('KidsInspiringNation.org', 400, 692);
 
   /* Download */
+  var safeName = fullName.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
   var a = document.createElement('a');
-  a.download = 'goDs-Badge-' + id + '-' + childName.replace(/\s+/g,'-') + '.png';
+  a.download = 'goDs-' + id + '-' + safeName + '.png';
   a.href = cv.toDataURL('image/png');
   a.click();
 }
@@ -2517,7 +2476,8 @@ function buildDash(s) {
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
   buildInstructorHighlights(code, reps);
-  try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn(e);}
+  try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn("badges:",e);}
+
   try{buildBadgeGrid(s,gpa,reps,weeks);}catch(e){console.warn("badges:",e);}
   buildProfile(s);
   buildSchedule(currentWkNum);
@@ -2820,8 +2780,21 @@ function genSugg(s,w,wd,pct,prevPct,mins,weeks,gpa) {
 /* ═══ SHARE ═══ */
 function shareToTG(code,week) {
   var s=DATA.students[code]||{};var gpa=getGPA(code);var reps=getReps(code);
-  var wd=gpa[week]||gpa[String(week)]||{};var pct=wkScForCode(gpa,week)!=null?Math.round(wkScForCode(gpa,week)*100):null;
-  var msg='🌟 goDs University Update — '+s.first_name+' '+s.last_name+'\nWeek '+week+' Score: '+(pct!=null?pct+'%':'N/A')+'\n'+(reps[week]?'Instructor: '+reps[week].substring(0,100)+'…':'')+'\n\nVia goDs University Parent Portal';
+  var wd=gpa[week]||gpa[String(week)]||{};
+  var pct=wkScForCode(gpa,week)!=null?Math.round(wkScForCode(gpa,week)*100):null;
+  var fullName=[s.first_name,s.last_name].filter(Boolean).join(' ');
+  var godCode=s.code||s.god_code||code;
+  var pathway=s.pathway||'';
+  var wdate=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[week])?' ('+WEEK_DATES[week]+', 2026)':'';
+  var repTxt=reps[week]||reps[String(week)]||'';
+  var msg='\u2736 goDs University Update'+'\n'+'\n'
+    +fullName+' \u00B7 '+godCode+'\n'
+    +(pathway?pathway+'\n':'')
+    +'\nWeek '+week+wdate+'\n'
+    +'Score: '+(pct!=null?pct+'%':'N/A')+'\n'
+    +(repTxt?'\nInstructor note:\n'+repTxt.substring(0,150)+(repTxt.length>150?'\u2026':'')+'\n':'')
+    +'\n\u201CI can do all things through Christ who strengthens me\u201D \u2014 Phil 4:13'
+    +'\n\ngoDs University Parent Portal\nhttps://abcentech.github.io/gU';
   window.open('https://t.me/share/url?url=https://bit.ly/KINpro&text='+encodeURIComponent(msg),'_blank');
 }
 function copyRep(name,week,pct,mins) {
