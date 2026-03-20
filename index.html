@@ -889,7 +889,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .bdg-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.03));}
 .bdg-card.locked{opacity:.4;filter:grayscale(.7);}
 .bdg-earned-tag{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;letter-spacing:1.5px;padding:2px 7px;border-radius:20px;}
-.bdg-ic{font-size:38px;margin-bottom:8px;display:block;}
+.bdg-ic{font-size:38px;margin-bottom:8px;display:block;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif!important;}
 .bdg-nm{font-family:Cinzel,serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
 .bdg-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:10px;}
 .bdg-dl{display:inline-block;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--gold);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;transition:opacity .15s;}
@@ -2109,21 +2109,6 @@ function buildFeesBanner(bal,id){
 }
 
 
-var TS={small:'12px',normal:'14px',large:'16px',xlarge:'19px'};
-var TS_LBL={small:'Small',normal:'Normal',large:'Large',xlarge:'Extra Large'};
-function setTextSize(sz){
-  document.documentElement.style.setProperty('--fs',TS[sz]||'14px');
-  try{localStorage.setItem('gU_textSize',sz);}catch(e){}
-  ['sm','nm','lg','xl'].forEach(function(id){var b=document.getElementById('ts-'+id);if(b)b.classList.remove('ts-active');});
-  var map={small:'sm',normal:'nm',large:'lg',xlarge:'xl'};
-  var btn=document.getElementById('ts-'+(map[sz]||'nm'));
-  if(btn)btn.classList.add('ts-active');
-  var lbl=document.getElementById('ts-label');
-  if(lbl)lbl.textContent=TS_LBL[sz]||'Normal';
-}
-function loadTextSize(){
-  try{var sz=localStorage.getItem('gU_textSize')||'normal';setTextSize(sz);}catch(e){}
-}
 
 function buildFamilyStrip(s, gpa) {
   var strip = document.getElementById('fam-strip');
@@ -2325,99 +2310,95 @@ function triggerBadgeDownload(btn) {
   drawBadge(b.emoji, b.title, fullName, code, pathway);
 }
 
-function drawBadge(emoji, title, fullName, code, pathway) {
-  var cv  = document.createElement('canvas');
-  cv.width = 800; cv.height = 800;
-  var ctx = cv.getContext('2d');
 
-  /* Dark gradient background */
-  var bg = ctx.createRadialGradient(400,300,40,400,400,420);
-  bg.addColorStop(0,'#1A2540');
-  bg.addColorStop(1,'#0A0F22');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0,0,800,800);
+/* TEXT SIZE — body font-size approach, persisted */
+function setTextSize(sz){
+  var sizes={small:12,normal:14,large:16,xlarge:19};
+  var px=(sizes[sz]||14)+'px';
+  document.body.style.fontSize=px;
+  document.documentElement.style.setProperty('--fs',px);
+  try{localStorage.setItem('gU_textSize',sz);}catch(e){}
+  ['sm','nm','lg','xl'].forEach(function(id){
+    var b=document.getElementById('ts-'+id);
+    if(!b)return;
+    var active=(sz==='small'&&id==='sm')||(sz==='normal'&&id==='nm')||(sz==='large'&&id==='lg')||(sz==='xlarge'&&id==='xl');
+    b.style.borderColor=active?'var(--gold)':'var(--border)';
+    b.style.background=active?'rgba(232,196,67,.1)':'var(--card)';
+    b.style.color=active?'var(--gold)':'var(--text2)';
+  });
+}
+function loadTextSize(){
+  try{setTextSize(localStorage.getItem('gU_textSize')||'normal');}catch(e){}
+}
 
-  /* Gold outer ring */
-  ctx.beginPath(); ctx.arc(400,400,375,0,Math.PI*2);
-  ctx.strokeStyle='#E8C443'; ctx.lineWidth=10; ctx.stroke();
-  ctx.beginPath(); ctx.arc(400,400,358,0,Math.PI*2);
-  ctx.strokeStyle='rgba(232,196,67,.25)'; ctx.lineWidth=2; ctx.stroke();
-
-  /* goDs University — bold top */
-  ctx.font='bold 54px Georgia,serif';
+function drawBadge(emoji,title,fullName,code,pathway){
+  var cv=document.createElement('canvas');
+  cv.width=1200;cv.height=800;
+  var ctx=cv.getContext('2d');
+  /* Background */
+  var bg=ctx.createLinearGradient(0,0,1200,800);
+  bg.addColorStop(0,'#0A0F22');bg.addColorStop(.5,'#1A2540');bg.addColorStop(1,'#0D1830');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,1200,800);
+  /* Watermark: motto tiles */
+  ctx.save();ctx.font='italic 20px Georgia,serif';
+  ctx.fillStyle='rgba(232,196,67,0.05)';ctx.textAlign='center';
+  ctx.translate(600,400);ctx.rotate(-0.33);
+  var mLines=['In Spirit \u00B7 By Skills \u00B7 For Service','goDs University 2026','Raising Nation Builders','KidsInspiringNation.org'];
+  for(var row=-7;row<=7;row++){for(var col=-3;col<=3;col++){
+    ctx.fillText(mLines[Math.abs(row+col)%mLines.length],col*360,row*88);
+  }}ctx.restore();
+  /* Watermark: scriptures */
+  ctx.save();ctx.font='italic 13px Georgia,serif';
+  ctx.fillStyle='rgba(148,163,184,0.055)';ctx.textAlign='left';
+  ctx.translate(0,0);ctx.rotate(0.22);
+  var sLines=['"And Jesus grew in wisdom and stature" \u2014 Luke 2:52','"Train up a child in the way he should go" \u2014 Prov 22:6','"I can do all things through Christ" \u2014 Phil 4:13','"Your word is a lamp to my feet" \u2014 Psalm 119:105','"From childhood you have known the scriptures" \u2014 2 Tim 3:15'];
+  for(var r2=-10;r2<=10;r2++){ctx.fillText(sLines[Math.abs(r2)%sLines.length],-200,r2*65);}
+  ctx.restore();
+  /* Gold border */
+  ctx.strokeStyle='#E8C443';ctx.lineWidth=8;ctx.strokeRect(20,20,1160,760);
+  ctx.strokeStyle='rgba(232,196,67,.25)';ctx.lineWidth=2;ctx.strokeRect(32,32,1136,736);
+  /* Divider line */
+  ctx.beginPath();ctx.moveTo(440,55);ctx.lineTo(440,745);
+  ctx.strokeStyle='rgba(232,196,67,.3)';ctx.lineWidth=1.5;ctx.stroke();
+  /* LEFT: branding */
   ctx.textAlign='center';
-  ctx.fillStyle='#E8C443';
-  ctx.fillText('goDs University', 400, 125);
-
-  /* In Spirit · By Skills · For Service — italic calligraphy */
-  ctx.font='italic 22px Georgia,serif';
-  ctx.fillStyle='rgba(232,196,67,.65)';
-  ctx.fillText('✶ In Spirit · By Skills · For Service ✶', 400, 165);
-
-  /* Divider */
-  ctx.beginPath(); ctx.moveTo(150,182); ctx.lineTo(650,182);
-  ctx.strokeStyle='rgba(232,196,67,.3)'; ctx.lineWidth=1; ctx.stroke();
-
-  /* Emoji — large centre */
-  ctx.font='140px serif';
-  ctx.fillText(emoji, 400, 360);
-
+  ctx.font='bold 44px Georgia,serif';ctx.fillStyle='#E8C443';ctx.fillText('goDs University',220,115);
+  ctx.font='italic 17px Georgia,serif';ctx.fillStyle='rgba(232,196,67,.65)';
+  ctx.fillText('\u2736 In Spirit \u00B7 By Skills \u00B7 For Service \u2736',220,148);
+  ctx.beginPath();ctx.moveTo(55,165);ctx.lineTo(385,165);ctx.strokeStyle='rgba(232,196,67,.3)';ctx.lineWidth=1;ctx.stroke();
+  /* Emoji */
+  ctx.font='150px serif';ctx.fillStyle='#fff';ctx.fillText(emoji,220,400);
+  /* Footer org */
+  ctx.font='bold 14px Georgia,serif';ctx.fillStyle='rgba(232,196,67,.55)';ctx.fillText('KidsInspiringNation',220,670);
+  ctx.font='12px Georgia,serif';ctx.fillStyle='rgba(148,163,184,.5)';ctx.fillText('KidsInspiringNation.org',220,692);
+  ctx.font='italic 12px Georgia,serif';ctx.fillText('raising goDs, building Nations',220,714);
+  /* RIGHT: achievement */
+  var rx=820;
+  ctx.font='bold 13px Georgia,serif';ctx.fillStyle='rgba(232,196,67,.7)';ctx.fillText('ACHIEVEMENT AWARD',rx,90);
+  ctx.beginPath();ctx.moveTo(460,105);ctx.lineTo(1165,105);ctx.strokeStyle='rgba(232,196,67,.2)';ctx.lineWidth=1;ctx.stroke();
   /* Badge title */
-  ctx.font='bold 44px Georgia,serif';
-  ctx.fillStyle='#FFFFFF';
-  ctx.fillText(title, 400, 435);
-
-  /* Divider */
-  ctx.beginPath(); ctx.moveTo(180,455); ctx.lineTo(620,455);
-  ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; ctx.stroke();
-
-  /* Child name — First Last */
-  ctx.font='bold 30px Georgia,serif';
-  ctx.fillStyle='#F0F4FF';
-  ctx.fillText(fullName, 400, 500);
-
-  /* goD code */
-  ctx.font='600 18px monospace';
-  ctx.fillStyle='rgba(232,196,67,.85)';
-  ctx.fillText(code, 400, 530);
-
-  /* Pathway */
-  if (pathway) {
-    ctx.font='italic 20px Georgia,serif';
-    ctx.fillStyle='rgba(148,163,184,.85)';
-    ctx.fillText(pathway, 400, 560);
-  }
-
-  /* Verse — rotates daily */
-  ctx.beginPath(); ctx.moveTo(130,585); ctx.lineTo(670,585);
-  ctx.strokeStyle='rgba(232,196,67,.2)'; ctx.lineWidth=1; ctx.stroke();
-
-  var verse = BADGE_VERSES[Math.floor(Date.now()/(1000*60*60*24)) % BADGE_VERSES.length];
-  ctx.font='italic 15px Georgia,serif';
-  ctx.fillStyle='rgba(148,163,184,.75)';
-  if (ctx.measureText(verse).width > 580) {
-    var mid=Math.floor(verse.length/2), sp=verse.lastIndexOf(' ',mid);
-    ctx.fillText(verse.substring(0,sp), 400, 614);
-    ctx.fillText(verse.substring(sp+1), 400, 634);
-  } else {
-    ctx.fillText(verse, 400, 625);
-  }
-
-  /* Organisation footer */
-  ctx.font='bold 17px Georgia,serif';
-  ctx.fillStyle='rgba(232,196,67,.6)';
-  ctx.fillText('KidsInspiringNation · raising goDs, building Nations', 400, 665);
-
-  ctx.font='14px Georgia,serif';
-  ctx.fillStyle='rgba(148,163,184,.5)';
-  ctx.fillText('KidsInspiringNation.org', 400, 688);
-
-  /* Download */
-  var safe = (fullName||'badge').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
-  var a = document.createElement('a');
-  a.download = 'goDs-' + title.replace(/\s+/g,'-') + '-' + safe + '.png';
-  a.href = cv.toDataURL('image/png');
-  a.click();
+  ctx.font='bold 64px Georgia,serif';ctx.fillStyle='#fff';ctx.fillText(title,rx,215);
+  var tw=ctx.measureText(title).width;
+  ctx.beginPath();ctx.moveTo(rx-tw/2,228);ctx.lineTo(rx+tw/2,228);ctx.strokeStyle='#E8C443';ctx.lineWidth=3;ctx.stroke();
+  /* Awarded to */
+  ctx.font='18px Georgia,serif';ctx.fillStyle='rgba(148,163,184,.7)';ctx.fillText('Awarded to',rx,288);
+  ctx.font='bold 42px Georgia,serif';ctx.fillStyle='#F0F4FF';ctx.fillText(fullName,rx,348);
+  ctx.font='600 20px monospace';ctx.fillStyle='rgba(232,196,67,.85)';ctx.fillText(code,rx,386);
+  if(pathway){ctx.font='italic 22px Georgia,serif';ctx.fillStyle='rgba(148,163,184,.8)';ctx.fillText(pathway,rx,424);}
+  ctx.beginPath();ctx.moveTo(460,448);ctx.lineTo(1165,448);ctx.strokeStyle='rgba(255,255,255,.1)';ctx.lineWidth=1;ctx.stroke();
+  /* Rotating verse */
+  var VERSES=['"And Jesus grew in wisdom and stature" \u2014 Luke 2:52','"Here am I and the children the LORD has given me" \u2014 Isa 8:18','"Train up a child in the way he should go" \u2014 Prov 22:6','"I can do all things through Christ" \u2014 Phil 4:13','"Your word is a lamp to my feet" \u2014 Psalm 119:105','"Let the word of Christ dwell in you richly" \u2014 Col 3:16','"From childhood you have known the sacred scriptures" \u2014 2 Tim 3:15','"Grow in the grace and knowledge of our Lord" \u2014 2 Pet 3:18'];
+  var verse=VERSES[Math.floor(Date.now()/(1000*60*60*24))%VERSES.length];
+  ctx.font='italic 17px Georgia,serif';ctx.fillStyle='rgba(148,163,184,.75)';
+  if(ctx.measureText(verse).width>600){
+    var mid=Math.floor(verse.length/2),sp=verse.lastIndexOf(' ',mid);
+    ctx.fillText(verse.substring(0,sp),rx,500);ctx.fillText(verse.substring(sp+1),rx,524);
+  }else{ctx.fillText(verse,rx,512);}
+  ctx.font='15px Georgia,serif';ctx.fillStyle='rgba(232,196,67,.4)';ctx.fillText('goDs University \u00B7 Session 2026',rx,570);
+  var safe=(fullName||'award').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
+  var a=document.createElement('a');
+  a.download='goDs-'+title.replace(/\s+/g,'-')+'-'+safe+'.png';
+  a.href=cv.toDataURL('image/png');a.click();
 }
 
 function buildDash(s) {
