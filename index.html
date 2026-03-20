@@ -14,12 +14,8 @@
   --border:rgba(255,255,255,.12);--text:#F0F4FF;--text2:#94A3B8;--text3:#5A7090;
   --inv-bg:#F8FAFF;--shadow:rgba(0,0,0,.5);
 }
-[data-theme="light"]{
-  --bg:#F0F4FF;--bg2:#E2E8F8;--card:#FFFFFF;--card2:#EEF2FF;
-  --border:rgba(0,0,50,.12);--text:#0D1428;--text2:#334155;--text3:#64748B;
-  --inv-bg:#0A0F22;--shadow:rgba(0,0,80,.12);
-}
-:root{
+[data-theme="light"]{--bg:#F0F4FF;--bg2:#E2E8F8;--card:#FFFFFF;--card2:#EEF2FF;--border:rgba(0,0,50,.15);--text:#0D1428;--text2:#1E3050;--text3:#4A5568;--inv-bg:#0A0F22;--shadow:rgba(0,0,80,.15);--gold:#7A5C00;--gold2:#9A7500;--gold-d:#5C4400;--green:#065F46;--amber:#92400E;--red:#991B1B;--blue:#1D4ED8;--teal:#0F766E;--teal-bg:rgba(13,148,136,.12);}
+:root{--fs:14px;
   --gold:#E8C443;--gold2:#F6DC74;--gold-d:#8A6F1A;
   --green:#10B981;--green-bg:rgba(16,185,129,.13);
   --amber:#F59E0B;--amber-bg:rgba(245,158,11,.13);
@@ -30,7 +26,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{font-size:16px;}
-body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;;font-size:var(--fs);}
 canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 [data-theme="light"] canvas#sky{opacity:.15;}
 
@@ -564,6 +560,10 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
   .inst-txt,.tc-body{color:#333!important;}
   #dash{padding-bottom:0!important;}
 }
+
+.ts-btn{padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--card2);color:var(--text2);font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;font-family:Cinzel,serif;min-width:44px;}
+.ts-btn:hover{border-color:var(--gold);color:var(--gold);}
+.ts-btn.ts-active{border-color:var(--gold);background:rgba(232,196,67,.1);color:var(--gold);}
 </style>
 </head>
 <body>
@@ -802,16 +802,32 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     </div>
 
     <div class="sec" id="sec-testy">
-      <div class="sh">&#x2736; Testimonies &amp; Parent Feedback</div>
+      <div class="sh">&#x1F64C; Testimonies &amp; Reflections</div>
+
+      <!-- Parent testimonies from gUFeedback sheet -->
       <div id="testy-list"></div>
-      <div class="card" style="text-align:center;padding:28px;margin-top:16px;">
-        <div style="font-size:30px;margin-bottom:10px;">&#x1F64C;</div>
-        <div style="font-family:Cinzel,serif;font-size:16px;color:var(--text);margin-bottom:7px;">Share a Testimony</div>
-        <div style="font-size:14px;color:var(--text2);margin-bottom:17px;line-height:1.7;">Has your child shown growth this week?</div>
-        <a href="https://t.me/KidsInspiringNation" target="_blank" style="display:inline-block;background:var(--green);color:white;border-radius:18px;padding:10px 26px;font-size:14px;font-weight:800;text-decoration:none;">Share on Telegram &rarr;</a>
+
+      <!-- Instructor highlights pulled from latest reports -->
+      <div id="instructor-highlights" style="margin-bottom:16px;"></div>
+
+      <!-- Share prompt -->
+      <div class="card" style="background:linear-gradient(135deg,rgba(20,184,166,.08),rgba(20,184,166,.03));border:2px solid rgba(20,184,166,.2);padding:28px;text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">&#x1F64C;</div>
+        <div style="font-family:'Cinzel',serif;font-size:17px;color:var(--text);margin-bottom:8px;">Share a Testimony</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:10px;line-height:1.8;">
+          Has your child shown growth, completed their reading, or had a breakthrough this week?<br>
+          <strong style="color:var(--teal)">Your testimony encourages other families!</strong>
+        </div>
+        <div style="font-family:'Lora',serif;font-style:italic;font-size:13px;color:var(--text3);padding:12px 16px;margin-bottom:18px;border-top:1px solid rgba(20,184,166,.15);border-bottom:1px solid rgba(20,184,166,.15);line-height:1.8;">
+          &ldquo;They triumphed over him by the blood of the Lamb and by the word of their testimony&rdquo;
+          <br><span style="font-size:11px;letter-spacing:2px;margin-top:4px;display:inline-block;">REVELATION 12:11</span>
+        </div>
+        <a href="https://t.me/KidsInspiringNation" target="_blank" style="display:inline-block;background:var(--teal);color:white;border-radius:18px;padding:12px 28px;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 4px 16px rgba(20,184,166,.35);">
+          &#x2708;&#xFE0F; Share on Telegram &rarr;
+        </a>
+        <div style="margin-top:10px;font-size:12px;color:var(--text3);">t.me/KidsInspiringNation</div>
       </div>
     </div>
-
     <div class="sec" id="sec-profile">
       <div class="sh">&#x2736; goD Child Profile</div>
       <div class="card mb20">
@@ -830,6 +846,18 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
         <div class="cta-desc">bit.ly/KINpro &mdash; click to pay</div>
         <span class="cta-pill-g">Pay Now &rarr;</span>
       </a>
+
+      <div class="card mb20">
+        <div class="sh" style="margin-bottom:12px;">&#x1F524; Text Size</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <button class="ts-btn" id="ts-sm" onclick="setTextSize('small')">A<sup style="font-size:9px">-</sup></button>
+          <button class="ts-btn ts-active" id="ts-nm" onclick="setTextSize('normal')">A</button>
+          <button class="ts-btn" id="ts-lg" onclick="setTextSize('large')">A<sup style="font-size:9px">+</sup></button>
+          <button class="ts-btn" id="ts-xl" onclick="setTextSize('xlarge')">A<sup style="font-size:9px">++</sup></button>
+          <span style="font-size:13px;color:var(--text3);margin-left:6px;" id="ts-label">Normal</span>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin-top:8px;">Adjust text size for easier reading. Your preference is saved.</div>
+      </div>
       <div class="sh">&#x2736; Understanding the gPA System</div>
       <div class="gpa-how">
         <div class="gpa-hdr">
@@ -882,7 +910,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
    URL:  https://wfopidgqwycjyskpqhxh.supabase.co
    Mode: anon key (read-only, RLS enforced)
 ═══════════════════════════════════════════════════ */
-var WEEK_DATES={1: "Feb 7", 2: "Feb 14", 3: "Feb 21", 4: "Feb 28", 5: "Mar 7", 6: "Mar 14", 7: "Mar 21", 8: "Mar 28", 9: "Apr 4", 10: "Apr 11", 11: "Apr 18", 12: "Apr 25", 13: "May 2", 14: "May 9", 15: "May 16", 16: "May 23", 17: "May 30", 18: "Jun 6", 19: "Jun 13", 20: "Jun 20", 21: "Jun 27", 22: "Jul 4", 23: "Jul 11", 24: "Jul 18", 25: "Jul 25", 26: "Aug 1", 27: "Aug 8", 28: "Aug 15", 29: "Aug 22", 30: "Aug 29", 31: "Sep 5", 32: "Sep 12", 33: "Sep 19", 34: "Sep 26", 35: "Oct 3", 36: "Oct 10", 37: "Oct 17", 38: "Oct 24", 39: "Oct 31", 40: "Nov 7", 41: "Nov 14", 42: "Nov 21", 43: "Nov 28", 44: "Dec 5"};
+var WEEK_DATES={"1":"Feb 7","2":"Feb 14","3":"Feb 21","4":"Feb 28","5":"Mar 7","6":"Mar 14"};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var SUPABASE_CONNECTED = false;
@@ -1252,6 +1280,7 @@ var CFG = {
   apiKey: ''
 };
 function loadCfg() {
+  loadTextSize();
   try {
     var s = localStorage.getItem('gU_cfg');
     if (s) { var c = JSON.parse(s); CFG.startDate = c.startDate||CFG.startDate; CFG.totalWeeks = c.totalWeeks||CFG.totalWeeks; CFG.minTarget = c.minTarget||CFG.minTarget; CFG.apiKey = c.apiKey||CFG.apiKey; }
@@ -1668,6 +1697,22 @@ function buildFeesBanner(bal,id){
 }
 
 
+var TS={small:'12px',normal:'14px',large:'16px',xlarge:'19px'};
+var TS_LBL={small:'Small',normal:'Normal',large:'Large',xlarge:'Extra Large'};
+function setTextSize(sz){
+  document.documentElement.style.setProperty('--fs',TS[sz]||'14px');
+  try{localStorage.setItem('gU_textSize',sz);}catch(e){}
+  ['sm','nm','lg','xl'].forEach(function(id){var b=document.getElementById('ts-'+id);if(b)b.classList.remove('ts-active');});
+  var map={small:'sm',normal:'nm',large:'lg',xlarge:'xl'};
+  var btn=document.getElementById('ts-'+(map[sz]||'nm'));
+  if(btn)btn.classList.add('ts-active');
+  var lbl=document.getElementById('ts-label');
+  if(lbl)lbl.textContent=TS_LBL[sz]||'Normal';
+}
+function loadTextSize(){
+  try{var sz=localStorage.getItem('gU_textSize')||'normal';setTextSize(sz);}catch(e){}
+}
+
 function buildDash(s) {
   s.code = s.code || s.god_code; // normalise Supabase field name
   var code=s.code, gpa=getGPA(code), reps=getReps(code), fb=(DATA.feedback[code]||[]);
@@ -1758,6 +1803,7 @@ function buildDash(s) {
   buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins);
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
+  buildInstructorHighlights(code, reps);
   buildProfile(s);
   buildSchedule(currentWkNum);
   updateCfgUI();
@@ -2091,6 +2137,28 @@ function generateAI() {
 }
 
 /* ═══ TESTIMONY ═══ */
+
+function buildInstructorHighlights(code, reps) {
+  var el = document.getElementById('instructor-highlights');
+  if (!el) return;
+  var weeks = Object.keys(reps).map(Number).sort(function(a,b){return b-a;});
+  if (!weeks.length) { el.innerHTML = ''; return; }
+  /* Show last 3 instructor notes as "highlights" */
+  var html2 = '<div class="sh" style="margin-bottom:14px;">&#x1F4DC; Recent Instructor Notes</div>';
+  weeks.slice(0,3).forEach(function(w) {
+    var txt = reps[w] || reps[String(w)];
+    if (!txt) return;
+    var wdate = (typeof WEEK_DATES!=='undefined'&&WEEK_DATES[w]) ? WEEK_DATES[w]+', 2026' : '';
+    html2 += '<div class="tc" style="margin-bottom:14px;">'
+      + '<div class="tc-body">' + txt + '</div>'
+      + '<div class="tc-meta">'
+      + '<span>&#x2736; Instructor · goDs University</span>'
+      + (wdate?'<span class="tc-date">Week '+w+' · '+wdate+'</span>':'')
+      + '</div></div>';
+  });
+  el.innerHTML = html2;
+}
+
 function buildTesty(fb) {
   var el=document.getElementById('testy-list');
   if(!fb||!fb.length){el.innerHTML='<div class="card mb20"><div class="no-data">No testimonies yet \u2014 coming soon! \uD83D\uDE4C</div></div>';return;}
@@ -2261,5 +2329,7 @@ function wkWk(w,btn){
 function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}catch(e){return d;}}
 
 </script>
+
+
 </body>
 </html>
