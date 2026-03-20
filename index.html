@@ -204,6 +204,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
 .fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
@@ -225,6 +245,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .child-switcher.show{display:flex;}
 .cs-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);flex-shrink:0;}
@@ -405,6 +445,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
 .fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
@@ -426,6 +486,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .wg-btn{padding:5px 14px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
 .wg-btn.on{background:var(--card2);border-color:var(--gold);color:var(--gold);}
@@ -468,6 +548,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
 .fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
@@ -489,6 +589,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .wt{padding:6px 13px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--border);color:var(--text3);background:transparent;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
 .wt.on{background:var(--gold);border-color:var(--gold);color:#0D1428;box-shadow:0 3px 10px rgba(232,196,67,.35);}
@@ -682,6 +802,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{display:none;}
 .fam-card{flex-shrink:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;min-width:100px;text-align:center;cursor:pointer;transition:all .2s;}
 .fam-card.active{border-color:var(--gold);background:rgba(232,196,67,.07);}
@@ -703,6 +843,26 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .cert-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;border:none;transition:all .2s;}
 .cbtn-share{background:var(--blue);color:white;}
 .cbtn-close{background:rgba(128,128,128,.12);color:var(--text2);}
+
+.tb-student{display:flex;align-items:center;gap:6px;background:rgba(232,196,67,.08);border:1px solid rgba(232,196,67,.2);border-radius:20px;padding:4px 12px;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:20px;}
+.badge-card{background:var(--card);border:2px solid var(--border);border-radius:18px;padding:20px 14px;
+  text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.badge-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 32px rgba(232,196,67,.2);}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.04));}
+.badge-card.locked{opacity:.4;cursor:default;filter:grayscale(.8);}
+.badge-card.locked:hover{transform:none;box-shadow:none;border-color:var(--border);}
+.badge-icon{font-size:42px;margin-bottom:8px;display:block;line-height:1.1;}
+.badge-title{font-family:Cinzel,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.badge-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.badge-earned-lbl{position:absolute;top:8px;right:8px;background:var(--gold);color:#0D1428;
+  font-size:9px;font-weight:800;padding:2px 7px;border-radius:8px;letter-spacing:1px;}
+.badge-dl-btn{margin-top:12px;width:100%;padding:7px;background:rgba(232,196,67,.12);
+  border:1.5px solid rgba(232,196,67,.3);border-radius:8px;color:var(--gold);font-size:11px;
+  font-weight:700;cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.badge-dl-btn:hover{background:rgba(232,196,67,.25);}
+.badge-canvas-wrap{display:none;}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:rgba(128,128,128,.04);}::-webkit-scrollbar-thumb{background:rgba(128,128,128,.15);border-radius:3px;}
 
 @media print{
@@ -716,6 +876,23 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .ts-btn{padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--card2);color:var(--text2);font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;font-family:Cinzel,serif;min-width:44px;}
 .ts-btn:hover{border-color:var(--gold);color:var(--gold);}
 .ts-btn.ts-active{border-color:var(--gold);background:rgba(232,196,67,.1);color:var(--gold);}
+
+#student-bar{position:sticky;top:48px;z-index:90;display:none;}
+#student-bar.show{display:flex!important;}
+
+
+.bdg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:8px;}
+.bdg-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:20px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .2s;}
+.bdg-card:hover{transform:translateY(-2px);}
+.bdg-card.earned{border-color:var(--gold);background:linear-gradient(135deg,rgba(232,196,67,.08),rgba(232,196,67,.03));}
+.bdg-card.locked{opacity:.45;filter:grayscale(.6);}
+.bdg-ic{font-size:36px;margin-bottom:8px;display:block;}
+.bdg-nm{font-family:Cinzel,serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.5px;}
+.bdg-desc{font-size:11px;color:var(--text3);line-height:1.5;margin-bottom:10px;}
+.bdg-dl{display:inline-block;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--gold);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;transition:opacity .15s;}
+.bdg-dl:hover{opacity:.85;}
+.bdg-lock{font-size:11px;color:var(--text3);font-style:italic;}
+
 </style>
 </head>
 <body>
@@ -812,6 +989,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
   <div class="topbar">
     <div class="tb-l">
       <div class="tb-logo">gU &middot; Portal</div>
+      <div class="tb-student" id="tb-student" style="display:none;"><span id="tb-sname" style="font-weight:700;color:var(--text);font-size:13px;"></span><span id="tb-scode" style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1.5px;margin-left:6px;"></span></div>
       <div class="tbb tbb-wk" id="wk-badge">Wk &mdash; &middot; 2026</div>
       <div class="tbb tbb-live"><span class="ldot"></span>Live</div>
       <div class="tbb tbb-offline" id="offline-chip">&#x1F4F4; Cached</div>
@@ -823,6 +1001,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     </div>
   </div>
 
+  <div id="student-bar" style="display:none;"><div id="sb-ava" style="width:32px;height:32px;border-radius:50%;background:var(--gold-d);display:flex;align-items:center;justify-content:center;font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--bg);flex-shrink:0;"></div><div style="flex:1;min-width:0;"><div id="sb-name" style="font-family:Cinzel,serif;font-size:13px;font-weight:700;color:var(--text);"></div><div id="sb-code" style="font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;"></div></div><div id="sb-score" style="font-family:Cinzel,serif;font-size:16px;font-weight:700;"></div></div>
   <div class="alert-banner" id="alert-banner">
     <span class="ab-icon">&#x26A0;&#xFE0F;</span>
     <span class="ab-text" id="alert-text"></span>
@@ -957,9 +1136,19 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
     <div class="sec" id="sec-testy">
       <div class="sh">&#x1F64C; Testimonies &amp; Reflections</div>
 
+
+      <!-- Downloadable Achievement Badges -->
+      <div id="badge-gallery" style="margin-bottom:16px;"></div>
       <!-- Parent testimonies from gUFeedback sheet -->
       <div id="testy-list"></div>
 
+
+      <!-- Downloadable Badges -->
+      <div class="sh" style="margin-bottom:14px;">&#x1F3C5; Your Badges</div>
+      <div id="badge-grid-dl" class="badge-grid"></div>
+      <div id="badge-canvas-wrap" class="badge-canvas-wrap">
+        <canvas id="badge-canvas" width="600" height="600"></canvas>
+      </div>
       <!-- Instructor highlights pulled from latest reports -->
       <div id="instructor-highlights" style="margin-bottom:16px;"></div>
 
@@ -1138,8 +1327,19 @@ function loadFromSupabase(godCode) {
 
         /* Merge into DATA format so all existing dashboard functions work unchanged */
         DATA.students[godCode] = Object.assign(DATA.students[godCode] || {}, s);
-        DATA.gpa[godCode]      = gpaObj;
-        DATA.reports[godCode]  = repsObj;
+        /* Merge: prefer Supabase data but fall back to embedded for weeks Supabase lacks */
+        var existingGpa = DATA.gpa[godCode] || {};
+        if (Object.keys(gpaObj).length > 0) {
+          DATA.gpa[godCode] = Object.assign({}, existingGpa, gpaObj);
+        } else {
+          DATA.gpa[godCode] = existingGpa;  /* keep embedded if Supabase returned nothing */
+        }
+        var existingReps = DATA.reports[godCode] || {};
+        if (Object.keys(repsObj).length > 0) {
+          DATA.reports[godCode] = Object.assign({}, existingReps, repsObj);
+        } else {
+          DATA.reports[godCode] = existingReps;
+        }
         DATA.feedback[godCode] = results[3] || [];
         CLASS_AVGS = cavgObj;
 
@@ -1192,7 +1392,9 @@ function doLogin() {
         btn.disabled = false; btntxt.style.display = 'block'; btnspin.style.display = 'none';
         document.getElementById('login').style.display = 'none';
         document.getElementById('dash').style.display = 'block';
-        var s2 = DATA.students[code];
+        var s2 = DATA.students[code] || student;
+        s2.code = s2.god_code || s2.code || code;
+        currentStudent = s2;
         buildDash(s2);
         try { if (!localStorage.getItem('gU_onboarded')) setTimeout(showOnboard, 600); } catch(e) {}
       });
@@ -1208,6 +1410,8 @@ function doLogin() {
           btn.disabled = false; btntxt.style.display = 'block'; btnspin.style.display = 'none';
           document.getElementById('login').style.display = 'none';
           document.getElementById('dash').style.display = 'block';
+          fallback.code = fallback.god_code || fallback.code;
+          currentStudent = fallback;
           buildDash(fallback);
           return;
         }
@@ -1936,8 +2140,287 @@ function checkReengagement(){
   }catch(e){}
 }
 
+var BADGE_DEFS = [
+  {id:'first_step',   icon:'&#x1F463;', title:'First Step',    desc:'Completed Week 1',       check:function(wks,gpa,reps){return wks.length>=1;}},
+  {id:'faithful_3',   icon:'&#x1F525;', title:'On Fire',       desc:'3 weeks in a row',        check:function(wks,gpa,reps,streak){return streak>=3;}},
+  {id:'halfway',      icon:'&#x1F3C6;', title:'Halfway',       desc:'Week 22 completed',       check:function(wks){return wks.indexOf(22)!==-1||Math.max.apply(null,wks)>=22;}},
+  {id:'perfect_week', icon:'&#x2B50;',  title:'Perfect Week',  desc:'100% score any week',     check:function(wks,gpa){return wks.some(function(w){var sc=wkScForCode(gpa,w);return sc!=null&&sc>=1;});}},
+  {id:'consistent',   icon:'&#x1F4AA;', title:'Consistent',    desc:'5 consecutive weeks',     check:function(wks,gpa,reps,streak){return streak>=5;}},
+  {id:'scholar',      icon:'&#x1F393;', title:'Scholar',       desc:'Completed all 44 weeks',  check:function(wks){return Math.max.apply(null,wks.concat([0]))>=44;}},
+  {id:'time_100',     icon:'&#x23F1;',  title:'100 Hours',     desc:'1000+ invested minutes',  check:function(wks,gpa){var tot=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};tot+=Number(d['Invested Minutes']||0);});return tot>=1000;}},
+  {id:'word_warrior', icon:'&#x2694;&#xFE0F;', title:'Word Warrior', desc:'Pathway done 4 weeks', check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Pathway']||0)>=1)n++;});return n>=4;}},
+  {id:'reporter',     icon:'&#x1F4DD;', title:'Diligent',      desc:'Report submitted 4 weeks',check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Weekly report']||0)>=1)n++;});return n>=4;}},
+  {id:'timekeeper',   icon:'&#x1F5D3;', title:'Timekeeper',    desc:'Timesheet 3 weeks',       check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Time Sheet']||0)>=1)n++;});return n>=3;}},
+  {id:'present',      icon:'&#x1F4E1;', title:'Present',       desc:'Attended 4 weeks',        check:function(wks,gpa){var n=0;wks.forEach(function(w){var d=gpa[w]||gpa[String(w)]||{};if(Number(d['Attendance']||0)>0)n++;});return n>=4;}},
+  {id:'nation_builder',icon:'&#x1F3DB;&#xFE0F;',title:'Nation Builder',desc:'80%+ in any week', check:function(wks,gpa){return wks.some(function(w){var sc=wkScForCode(gpa,w);return sc!=null&&sc>=0.8;});}},
+];
+
+function buildBadgeGrid(s, gpa, reps, weeks) {
+  var el = document.getElementById('badge-grid-dl');
+  if (!el) return;
+  var allWks = weeks.map(Number).filter(function(n){return !isNaN(n);});
+  /* compute streak */
+  var streak = 0;
+  for (var si = allWks.length-1; si >= 0; si--) {
+    var sw = allWks[si];
+    var ssc = wkScForCode(gpa, sw);
+    var spct = ssc != null ? ssc*100 : 0;
+    var swd = gpa[sw] || gpa[String(sw)] || {};
+    var satt = swd['Attendance'];
+    var srep = reps[sw] || reps[String(sw)];
+    if (spct >= 40 || (satt && satt > 0) || ((!satt || satt===0) && srep)) { streak++; } else { break; }
+  }
+
+  var cards = '';
+  BADGE_DEFS.forEach(function(b) {
+    var earned = b.check(allWks, gpa, reps, streak);
+    cards += '<div class="badge-card ' + (earned ? 'earned' : 'locked') + '">';
+    if (earned) cards += '<div class="badge-earned-lbl">EARNED</div>';
+    cards += '<span class="badge-icon">' + b.icon + '</span>';
+    cards += '<div class="badge-title">' + b.title + '</div>';
+    cards += '<div class="badge-desc">' + b.desc + '</div>';
+    if (earned) {
+      cards += '<button class="badge-dl-btn" onclick="downloadBadge(' + "'" + b.id + "'" + ',this)">&#x2B73; Download</button>';
+    }
+    cards += '</div>';
+  });
+  el.innerHTML = cards;
+}
+
+function downloadBadge(badgeId, btn) {
+  var b = BADGE_DEFS.find(function(x){return x.id===badgeId;});
+  if (!b || !currentStudent) return;
+  var canvas = document.getElementById('badge-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = 600, H = 600;
+  ctx.clearRect(0, 0, W, H);
+
+  /* Background */
+  var bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#0D1428');
+  bg.addColorStop(1, '#1E2A42');
+  ctx.fillStyle = bg;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, W, H, 40);
+  ctx.fill();
+
+  /* Gold border */
+  ctx.strokeStyle = '#E8C443';
+  ctx.lineWidth = 8;
+  ctx.beginPath();
+  ctx.roundRect(8, 8, W-16, H-16, 36);
+  ctx.stroke();
+
+  /* Inner glow ring */
+  ctx.strokeStyle = 'rgba(232,196,67,.2)';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.roundRect(20, 20, W-40, H-40, 28);
+  ctx.stroke();
+
+  /* goDs University */
+  ctx.fillStyle = '#E8C443';
+  ctx.font = 'bold 18px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '6px';
+  ctx.fillText('GODS UNIVERSITY', W/2, 64);
+
+  /* Icon - render as emoji via text */
+  ctx.font = '110px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(b.icon.replace(/&#x([0-9A-Fa-f]+);/g, function(m, hex){
+    return String.fromCodePoint(parseInt(hex, 16));
+  }).replace(/&#(\d+);/g, function(m, dec){
+    return String.fromCodePoint(parseInt(dec));
+  }), W/2, 260);
+
+  /* Badge title */
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 38px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(b.title.toUpperCase(), W/2, 335);
+
+  /* Student name */
+  ctx.fillStyle = '#E8C443';
+  ctx.font = 'bold 24px sans-serif';
+  ctx.fillText((currentStudent.first_name||'') + ' ' + (currentStudent.last_name||''), W/2, 382);
+
+  /* goD code */
+  ctx.fillStyle = 'rgba(232,196,67,.7)';
+  ctx.font = '15px monospace';
+  ctx.fillText(currentStudent.code || currentStudent.god_code || '', W/2, 412);
+
+  /* Description */
+  ctx.fillStyle = '#94A3B8';
+  ctx.font = '18px sans-serif';
+  ctx.fillText(b.desc, W/2, 450);
+
+  /* Date */
+  var now = new Date();
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  ctx.fillStyle = 'rgba(255,255,255,.3)';
+  ctx.font = '14px sans-serif';
+  ctx.fillText(months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear(), W/2, 490);
+
+  /* Phil 4:13 */
+  ctx.fillStyle = 'rgba(232,196,67,.5)';
+  ctx.font = 'italic 14px Georgia, serif';
+  ctx.fillText('"I can do all things through Christ who strengthens me"', W/2, 540);
+  ctx.fillText('Philippians 4:13', W/2, 562);
+
+  /* KIN brand */
+  ctx.fillStyle = 'rgba(232,196,67,.3)';
+  ctx.font = '12px sans-serif';
+  ctx.fillText('KidsInspiringNation  ·  abcentech.github.io/gU', W/2, 588);
+
+  /* Download */
+  var name = (currentStudent.first_name||'student').toLowerCase().replace(/\s/g,'_');
+  var link = document.createElement('a');
+  link.download = 'gU_badge_' + name + '_' + badgeId + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  
+  /* Brief feedback on button */
+  if (btn) { var orig=btn.textContent; btn.textContent='Downloaded!'; setTimeout(function(){btn.textContent=orig;}, 2000); }
+}
+
+var BADGE_DEFS = [
+  {id:'first_week', ic:'&#x1F4D6;', nm:'First Word',      desc:'Completed Week 1 reading',      check:function(w,g,r){return !!g[1]||!!g['1'];}},
+  {id:'streak3',    ic:'&#x1F525;', nm:'On Fire',         desc:'3 weeks in a row above 40%',    check:function(w,g,r){var s=0;for(var i=w;i>=1;i--){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=3;}},
+  {id:'streak6',    ic:'&#x26A1;',  nm:'Unstoppable',     desc:'6 consecutive active weeks',    check:function(w,g,r){var s=0;for(var i=w;i>=1;i--){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=6;}},
+  {id:'hundred',    ic:'&#x1F3C6;', nm:'Perfect Week',    desc:'Scored 100% in any week',       check:function(w,g,r){for(var ww=1;ww<=w;ww++){if(wkScForCode(g,ww)===1)return true;}return false;}},
+  {id:'mins300',    ic:'&#x231A;',  nm:'Time Keeper',     desc:'300+ minutes in a single week', check:function(w,g,r){for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if((wd['Invested Minutes']||0)>=300)return true;}return false;}},
+  {id:'mins2000',   ic:'&#x1F5FA;', nm:'2000 Minutes',    desc:'2000+ total invested minutes',  check:function(w,g,r){var t=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};t+=wd['Invested Minutes']||0;}return t>=2000;}},
+  {id:'report6',    ic:'&#x1F4DD;', nm:'Faithful Scribe', desc:'Reports submitted 6 weeks',     check:function(w,g,r){var n=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if(wd['Weekly report']>0)n++;}return n>=6;}},
+  {id:'attendance', ic:'&#x1F4E1;', nm:'Always Present',  desc:'Attended class 4+ weeks',      check:function(w,g,r){var n=0;for(var ww=1;ww<=w;ww++){var wd=g[ww]||g[String(ww)]||{};if((wd['Attendance']||0)>0)n++;}return n>=4;}},
+  {id:'improver',   ic:'&#x1F4C8;', nm:'Rising Star',     desc:'Score improved 3 weeks running',check:function(w,g,r){var prev=null,cnt=0,best=0;for(var ww=1;ww<=w;ww++){var sc=wkScForCode(g,ww);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)best=cnt;}prev=sc;}return best>=2;}},
+  {id:'testimony',  ic:'&#x1F64C;', nm:'Testimony',       desc:'Parent shared a testimony',     check:function(w,g,r,fb){return fb&&fb.length>0;}},
+];
+
+function buildBadgeGallery(s, gpa, reps, fb) {
+  var el = document.getElementById('badge-gallery');
+  if (!el) return;
+  var weeks = Object.keys(gpa).map(Number).filter(function(n){return !isNaN(n);}).sort(function(a,b){return a-b;});
+  var lw = weeks.length ? weeks[weeks.length-1] : 0;
+  if (!lw) { el.innerHTML = ''; return; }
+
+  var earned = [], locked = [];
+  BADGE_DEFS.forEach(function(b) {
+    var ok = false;
+    try { ok = b.check(lw, gpa, reps, fb); } catch(e) {}
+    if (ok) earned.push(b); else locked.push(b);
+  });
+
+  var html2 = '<div class="sh" style="margin-bottom:14px;">&#x1F3C5; Achievement Badges</div>';
+  if (!earned.length && !locked.length) { el.innerHTML = ''; return; }
+
+  html2 += '<div class="bdg-grid">';
+  earned.forEach(function(b) {
+    var name = s.first_name || '';
+    html2 += '<div class="bdg-card earned">'
+      + '<span class="bdg-ic">' + b.ic + '</span>'
+      + '<div class="bdg-nm">' + b.nm + '</div>'
+      + '<div class="bdg-desc">' + b.desc + '</div>'
+      + '<button class="bdg-dl" onclick="downloadBadge(\'' + b.id + '\',\'' + b.ic + '\',\'' + b.nm + '\',\'' + name + '\')">'
+      + '&#x2B07; Download</button>'
+      + '</div>';
+  });
+  locked.slice(0, 4).forEach(function(b) {
+    html2 += '<div class="bdg-card locked">'
+      + '<span class="bdg-ic">&#x1F512;</span>'
+      + '<div class="bdg-nm">' + b.nm + '</div>'
+      + '<div class="bdg-desc">' + b.desc + '</div>'
+      + '<div class="bdg-lock">Keep going...</div>'
+      + '</div>';
+  });
+  html2 += '</div>';
+  el.innerHTML = html2;
+}
+
+function downloadBadge(id, ic, nm, childName) {
+  /* Draw badge on canvas and trigger download */
+  var cv = document.createElement('canvas');
+  cv.width = 600; cv.height = 600;
+  var ctx = cv.getContext('2d');
+
+  /* Background */
+  var grd = ctx.createRadialGradient(300,300,50,300,300,300);
+  grd.addColorStop(0, '#1E2A42');
+  grd.addColorStop(1, '#0D1428');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,600,600);
+
+  /* Gold border ring */
+  ctx.beginPath();
+  ctx.arc(300,300,280,0,Math.PI*2);
+  ctx.strokeStyle = '#E8C443';
+  ctx.lineWidth = 8;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(300,300,265,0,Math.PI*2);
+  ctx.strokeStyle = 'rgba(232,196,67,.3)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  /* Icon */
+  ctx.font = '120px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(ic.replace(/&#x([0-9A-Fa-f]+);/g, function(_,h){return String.fromCodePoint(parseInt(h,16));}), 300, 230);
+
+  /* Badge name */
+  ctx.font = 'bold 36px serif';
+  ctx.fillStyle = '#E8C443';
+  ctx.fillText(nm, 300, 310);
+
+  /* Child name */
+  ctx.font = '24px sans-serif';
+  ctx.fillStyle = '#94A3B8';
+  ctx.fillText(childName, 300, 355);
+
+  /* goDs University */
+  ctx.font = '18px sans-serif';
+  ctx.fillStyle = 'rgba(232,196,67,.6)';
+  ctx.fillText('goDs University \u00B7 2026', 300, 400);
+
+  /* Bible verse */
+  ctx.font = 'italic 14px serif';
+  ctx.fillStyle = 'rgba(148,163,184,.7)';
+  ctx.fillText('\u201CI can do all things through Christ\u201D \u2014 Phil 4:13', 300, 450);
+
+  /* Download */
+  var a = document.createElement('a');
+  a.download = 'goDs-Badge-' + id + '-' + childName.replace(/\s+/g,'-') + '.png';
+  a.href = cv.toDataURL('image/png');
+  a.click();
+}
+
 function buildDash(s) {
-  s.code = s.code || s.god_code; // normalise Supabase field name
+  s.code = s.code || s.god_code;
+  /* Persistent student bar */
+  try{
+    var sbBar=document.getElementById('student-bar');
+    var sbAva=document.getElementById('sb-ava');
+    var sbNm=document.getElementById('sb-name');
+    var sbCd=document.getElementById('sb-code');
+    var sbSc=document.getElementById('sb-score');
+    if(sbBar&&sbNm&&sbCd){
+      sbBar.classList.add('show');
+      if(sbAva)sbAva.textContent=(s.first_name||'?')[0].toUpperCase();
+      sbNm.textContent=[s.first_name,s.last_name].filter(Boolean).join(' ');
+      sbCd.textContent=s.code||s.god_code||'';
+    }
+  }catch(e){}
+  /* Update topbar with student name */
+  try{
+    var tbSt=document.getElementById('tb-student');
+    var tbNm=document.getElementById('tb-sname');
+    var tbCd=document.getElementById('tb-scode');
+    if(tbSt&&tbNm&&tbCd){
+      tbNm.textContent=s.first_name||''; tbCd.textContent=s.code||s.god_code||''; tbSt.style.display='flex';
+    }
+  }catch(e){} // normalise Supabase field name
   var code=s.code, gpa=getGPA(code), reps=getReps(code), fb=(DATA.feedback[code]||[]);
   /* Collect all data weeks */
   var dataWeekSet=new Set();
@@ -2034,6 +2517,8 @@ function buildDash(s) {
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
   buildInstructorHighlights(code, reps);
+  try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn(e);}
+  try{buildBadgeGrid(s,gpa,reps,weeks);}catch(e){console.warn("badges:",e);}
   buildProfile(s);
   buildSchedule(currentWkNum);
   updateCfgUI();
