@@ -1183,7 +1183,7 @@ img,canvas,iframe,video{max-width:100%;}
     </div>
 
     <div class="sec" id="sec-testy">
-      <div class="sh">&#x1F64C; Testimonies &amp; Reflections</div>
+      <div class="sh">&#x1F3C5; Badges &amp; Testimonies</div>
 
 
       <!-- Downloadable Achievement Badges -->
@@ -1289,7 +1289,7 @@ img,canvas,iframe,video{max-width:100%;}
   <nav class="bot-nav">
     <div class="bn on" onclick="navTo('home',this)"><div class="bn-i">&#x1F3E0;</div><div class="bn-l">Home</div></div>
     <div class="bn" onclick="navTo('reports',this)"><div class="bn-i">&#x1F4DD;</div><div class="bn-l">Reports</div></div>
-    <div class="bn" onclick="navTo('testy',this)"><div class="bn-i">&#x1F64C;</div><div class="bn-l">Testimony</div></div>
+    <div class="bn" onclick="navTo('testy',this)"><div class="bn-i">&#x1F3C5;</div><div class="bn-l">Badges</div></div>
     <div class="bn" onclick="navTo('weekly',this);buildWeekly()"><div class="bn-i">&#x1F4C5;</div><div class="bn-l">Weekly</div></div>
     <div class="bn" onclick="navTo('profile',this)"><div class="bn-i">&#x1F464;</div><div class="bn-l">Profile</div></div>
   </nav>
@@ -2217,28 +2217,6 @@ function buildBadgeGrid(s, gpa, reps, weeks) {
 /* ══════════════════════════════════════════════
    BADGE SYSTEM — bulletproof, no innerHTML args
    ══════════════════════════════════════════════ */
-var BADGE_DEFS = [
-  {id:'first_week', emoji:'📖', title:'First Word',       desc:'Completed Week 1 reading',
-   check:function(lw,g,r,fb){return !!(g[1]||g['1']);}},
-  {id:'streak3',    emoji:'🔥', title:'On Fire',          desc:'3 consecutive weeks above 40%',
-   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=3;}},
-  {id:'streak6',    emoji:'⚡', title:'Unstoppable',      desc:'6 consecutive active weeks',
-   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=6;}},
-  {id:'hundred',    emoji:'🏆', title:'Perfect Week',     desc:'Scored 100% in any week',
-   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){if(wkScForCode(g,w)===1)return true;}return false;}},
-  {id:'mins300',    emoji:'⏱', title:'Time Keeper',      desc:'300+ minutes in a single week',
-   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Invested Minutes']||0)>=300)return true;}return false;}},
-  {id:'mins2000',   emoji:'🗺', title:'2000 Minutes',     desc:'2000+ total invested minutes',
-   check:function(lw,g,r,fb){var t=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};t+=d['Invested Minutes']||0;}return t>=2000;}},
-  {id:'reporter',   emoji:'📝', title:'Faithful Scribe',  desc:'Weekly reports for 6 weeks',
-   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Weekly report']||0)>0)n++;}return n>=6;}},
-  {id:'attender',   emoji:'📡', title:'Always Present',   desc:'Attended class 4 or more weeks',
-   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Attendance']||0)>0)n++;}return n>=4;}},
-  {id:'improver',   emoji:'📈', title:'Rising Star',      desc:'Score improved 3 weeks running',
-   check:function(lw,g,r,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(g,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
-  {id:'testimony',  emoji:'🙌', title:'Testimony',        desc:'A testimony has been shared',
-   check:function(lw,g,r,fb){return !!(fb&&fb.length);}}
-];
 
 /* Rotating scriptures about children growing in wisdom */
 var BADGE_VERSES = [
@@ -2280,7 +2258,7 @@ function buildBadgeGallery(s, gpa, reps, fb) {
          +   '<span class="bdg-ic">' + b.emoji + '</span>'
          +   '<div class="bdg-nm">' + b.title + '</div>'
          +   '<div class="bdg-desc">' + b.desc + '</div>'
-         +   '<button class="bdg-dl" data-bid="' + b.id + '" onclick="triggerBadgeDownload(this)">⬇ Download</button>'
+         +   '<button class="bdg-dl" data-bid="' + b.id + '" onclick="triggerBadgeDownload(this)">&#x2B07; Download</button>'
          + '</div>';
   });
 
@@ -2312,26 +2290,12 @@ function triggerBadgeDownload(btn) {
 
 
 /* TEXT SIZE — body font-size approach, persisted */
-function setTextSize(sz){
-  var sizes={small:12,normal:14,large:16,xlarge:19};
-  var px=(sizes[sz]||14)+'px';
-  document.body.style.fontSize=px;
-  document.documentElement.style.setProperty('--fs',px);
-  try{localStorage.setItem('gU_textSize',sz);}catch(e){}
-  ['sm','nm','lg','xl'].forEach(function(id){
-    var b=document.getElementById('ts-'+id);
-    if(!b)return;
-    var active=(sz==='small'&&id==='sm')||(sz==='normal'&&id==='nm')||(sz==='large'&&id==='lg')||(sz==='xlarge'&&id==='xl');
-    b.style.borderColor=active?'var(--gold)':'var(--border)';
-    b.style.background=active?'rgba(232,196,67,.1)':'var(--card)';
-    b.style.color=active?'var(--gold)':'var(--text2)';
-  });
-}
-function loadTextSize(){
-  try{setTextSize(localStorage.getItem('gU_textSize')||'normal');}catch(e){}
-}
 
+function decodeHtmlEntity(s){
+  var d=document.createElement('div');d.innerHTML=s;return d.textContent||d.innerText||s;
+}
 function drawBadge(emoji,title,fullName,code,pathway){
+  emoji = decodeHtmlEntity(emoji);
   var cv=document.createElement('canvas');
   cv.width=1200;cv.height=800;
   var ctx=cv.getContext('2d');
@@ -2399,6 +2363,65 @@ function drawBadge(emoji,title,fullName,code,pathway){
   var a=document.createElement('a');
   a.download='goDs-'+title.replace(/\s+/g,'-')+'-'+safe+'.png';
   a.href=cv.toDataURL('image/png');a.click();
+}
+
+var BADGE_DEFS = [
+  {id:'first_week', emoji:'&#x1F4D6;', title:'First Word',      desc:'Completed Week 1 reading',
+   check:function(lw,g,r,fb){return !!(g[1]||g['1']);}},
+  {id:'streak3',    emoji:'&#x1F525;', title:'On Fire',         desc:'3 consecutive weeks above 40%',
+   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=3;}},
+  {id:'streak6',    emoji:'&#x26A1;',  title:'Unstoppable',     desc:'6 consecutive active weeks',
+   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=6;}},
+  {id:'hundred',    emoji:'&#x1F3C6;', title:'Perfect Week',    desc:'Scored 100% in any week',
+   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){if(wkScForCode(g,w)===1)return true;}return false;}},
+  {id:'mins300',    emoji:'&#x231A;',  title:'Time Keeper',     desc:'300+ minutes in a single week',
+   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Invested Minutes']||0)>=300)return true;}return false;}},
+  {id:'mins2000',   emoji:'&#x1F5FA;', title:'2000 Minutes',    desc:'2000+ total invested minutes',
+   check:function(lw,g,r,fb){var t=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};t+=d['Invested Minutes']||0;}return t>=2000;}},
+  {id:'reporter',   emoji:'&#x1F4DD;', title:'Faithful Scribe', desc:'Weekly reports for 6 weeks',
+   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Weekly report']||0)>0)n++;}return n>=6;}},
+  {id:'attender',   emoji:'&#x1F4E1;', title:'Always Present',  desc:'Attended class 4 or more weeks',
+   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Attendance']||0)>0)n++;}return n>=4;}},
+  {id:'improver',   emoji:'&#x1F4C8;', title:'Rising Star',     desc:'Score improved 3 weeks running',
+   check:function(lw,g,r,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(g,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
+  {id:'testimony',  emoji:'&#x1F64C;', title:'Testimony',       desc:'A testimony has been shared',
+   check:function(lw,g,r,fb){return !!(fb&&fb.length);}}
+];
+
+/* ── TEXT SIZE: zoom scales ALL elements including hardcoded px ── */
+var _TS_FACTORS = {small:0.85, normal:1.0, large:1.15, xlarge:1.3};
+function setTextSize(sz) {
+  var f = _TS_FACTORS[sz] || 1.0;
+  var el = document.getElementById('dash') || document.body;
+  /* zoom: Chrome/Safari/Edge (covers 95%+ of mobile) */
+  el.style.zoom = f;
+  /* transform fallback for Firefox */
+  if (typeof el.style.zoom === 'undefined' || el.style.zoom === '') {
+    el.style.transform = 'scale(' + f + ')';
+    el.style.transformOrigin = '0 0';
+    el.style.width = (100/f) + 'vw';
+  }
+  try { localStorage.setItem('gU_ts', sz); } catch(e) {}
+  /* Update button active state */
+  ['sm','nm','lg','xl'].forEach(function(id) {
+    var b = document.getElementById('ts-' + id);
+    if (!b) return;
+    var active = (
+      (sz === 'small'  && id === 'sm') ||
+      (sz === 'normal' && id === 'nm') ||
+      (sz === 'large'  && id === 'lg') ||
+      (sz === 'xlarge' && id === 'xl')
+    );
+    b.style.cssText = active
+      ? 'width:32px;height:32px;border-radius:6px;border:2px solid var(--gold);background:rgba(232,196,67,.15);color:var(--gold);font-weight:700;cursor:pointer;'
+      : 'width:32px;height:32px;border-radius:6px;border:1.5px solid var(--border);background:var(--card);color:var(--text2);font-weight:700;cursor:pointer;';
+  });
+}
+function loadTextSize() {
+  try {
+    var sz = localStorage.getItem('gU_ts') || 'normal';
+    setTextSize(sz);
+  } catch(e) {}
 }
 
 function buildDash(s) {
