@@ -2,9 +2,10 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0A0F22">
+<!-- goDs-v2026-03-21-FINAL -->
 <title>goDs University · Parent Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
 <style>
@@ -896,6 +897,94 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 
 .bdg-lock{font-size:11px;color:var(--text3);font-style:italic;}
 
+
+/* ═══ MOBILE RESPONSIVE OVERHAUL ═══ */
+@media(max-width:480px){
+  /* Topbar */
+  .tb-logo{font-size:13px;}
+  .tbb{font-size:10px;padding:3px 7px;}
+  .tb-btn{font-size:11px;padding:5px 9px;}
+  .xbtn{font-size:11px;padding:5px 8px;}
+  .theme-btn{font-size:14px;padding:4px 8px;}
+
+  /* Main content */
+  .main{padding:12px 12px 90px;}
+
+  /* Hero */
+  .hero{flex-direction:column;text-align:center;gap:10px;}
+  .h-ava{width:56px;height:56px;font-size:22px;margin:0 auto;}
+  .h-name{font-size:18px;}
+  .chips{justify-content:center;}
+
+  /* Cards */
+  .card{padding:14px 12px;}
+
+  /* Grid — single column on mobile */
+  .g2,.g4{grid-template-columns:1fr!important;}
+
+  /* Stats row */
+  #stats-row{grid-template-columns:repeat(2,1fr)!important;}
+
+  /* Family strip */
+  .fam-strip{padding:8px 10px;}
+  .fam-card{min-width:80px;padding:8px 8px;}
+  .fam-cname{font-size:11px;}
+  .fam-cscore{font-size:16px;}
+
+  /* Weekly snapshot */
+  .wg-strip,.wt-strip{flex-wrap:wrap!important;}
+  .wg-btn{font-size:11px!important;padding:5px 9px!important;}
+  .wt{font-size:11px!important;padding:5px 9px!important;}
+
+  /* Badges */
+  .bdg-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px;}
+  .bdg-card{padding:12px 8px 10px;}
+  .bdg-ic{font-size:28px;}
+  .bdg-nm{font-size:10px;}
+  .bdg-desc{font-size:10px;}
+
+  /* Reports */
+  .rsc-row{flex-wrap:wrap;}
+  .rsc-pill{font-size:10px;padding:4px 8px;}
+
+  /* Bottom nav */
+  .bot-nav{padding:8px 0 12px;}
+  .bn-l{font-size:10px;}
+
+  /* Profile */
+  .pf-grid{grid-template-columns:1fr!important;}
+
+  /* Term bar */
+  .term-bar{padding:6px 12px;}
+  .term-label{font-size:10px;}
+  .term-pct{font-size:11px;}
+
+  /* Student bar */
+  #student-bar{padding:6px 12px;}
+  #sb-name{font-size:12px;}
+
+  /* Share row */
+  .share-row{flex-wrap:wrap;gap:8px;}
+  .share-btn{font-size:11px;padding:7px 12px;}
+
+  /* Suggest/inst-note */
+  .sugg,.inst-note{padding:10px 12px;}
+  .sugg-body{font-size:13px;}
+  .inst-txt{font-size:13px;}
+
+  /* Text size buttons */
+  .ts-btn{padding:6px 10px;font-size:13px;min-width:36px;}
+
+  /* Progress bars */
+  .pr-top{flex-wrap:wrap;gap:4px;}
+  .pr-rt{font-size:11px;}
+  .pr-nm{font-size:12px;}
+}
+
+/* Prevent horizontal overflow */
+html,body{max-width:100%;overflow-x:hidden;}
+img,canvas,iframe,video{max-width:100%;}
+
 </style>
 </head>
 <body>
@@ -941,50 +1030,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
       </a>
     </div>
 
-    <div class="gs-panel">
-      <div class="gs-hdr" onclick="toggleGS()">
-        <div class="gs-hdr-l"><span class="gs-icon">&#x1F4CA;</span><span class="gs-title">Connect to Google Sheets (Live Data)</span></div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span class="gs-st gst-off" id="gs-badge">Disconnected</span>
-          <span class="gs-chev" id="gs-chev">&#x25BC;</span>
-        </div>
-      </div>
-      <div class="gs-body" id="gs-body">
-        <div class="gs-desc">Connect your workbook to always show live data. Sync anytime from inside the dashboard.</div>
-        <div class="gs-row">
-          <input class="gs-inp" id="gs-id" placeholder="Paste Google Sheet ID&hellip;" autocomplete="off"/>
-          <button class="gs-btn" id="gs-btn" onclick="syncSheets()">&#x27F3; Sync</button>
-        </div>
-        <div class="gs-msg" id="gs-msg"></div>
-        <div class="gs-sheet-status" id="gs-sheet-status"></div>
-        <div class="gs-cfg">
-          <div class="gs-cfg-title">Programme Configuration</div>
-          <div class="gs-cfg-row">
-            <span class="gs-cfg-label">Programme start date</span>
-            <input class="gs-cfg-inp" id="cfg-start" type="date" value="2026-02-07"/>
-          </div>
-          <div class="gs-cfg-row">
-            <span class="gs-cfg-label">Total weeks</span>
-            <input class="gs-cfg-inp" id="cfg-weeks" type="number" value="44" min="1" max="100" style="max-width:80px;"/>
-          </div>
-          <div class="gs-cfg-row">
-            <span class="gs-cfg-label">Minutes target / week</span>
-            <input class="gs-cfg-inp" id="cfg-mintgt" type="number" value="300" min="60" max="1000" style="max-width:90px;"/>
-          </div>
-          <div class="gs-cfg-row">
-            <span class="gs-cfg-label">Anthropic API key</span>
-            <input class="gs-cfg-inp" id="cfg-apikey" type="password" placeholder="sk-ant-&hellip; (optional)"/>
-          </div>
-          <button onclick="saveCfg()" style="margin-top:10px;padding:8px 18px;background:var(--amber);color:#0D1428;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;">Save Settings</button>
-          <span id="cfg-saved" style="margin-left:10px;font-size:12px;color:var(--green);display:none;">Saved!</span>
-        </div>
-        <div class="gs-steps" style="margin-top:10px;">
-          <div class="gs-step"><span class="gs-sn">1.</span>Google Sheet &rarr; File &rarr; Share &rarr; Publish to web &rarr; Entire Document &rarr; Web page &rarr; Publish</div>
-          <div class="gs-step"><span class="gs-sn">2.</span>Copy Sheet ID from URL: docs.google.com/spreadsheets/d/<strong style="color:var(--gold)">SHEET-ID</strong>/edit</div>
-          <div class="gs-step"><span class="gs-sn">3.</span>Paste above and click Sync.</div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
 
@@ -1110,7 +1156,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
         <div class="ai-hdr"><span style="font-size:20px">&#x1F916;</span><span class="ai-title">AI Term Summary</span></div>
         <div class="ai-body" id="ai-body">Click Generate Summary to get an AI-powered analysis of your child&rsquo;s term progress so far.</div>
         <button class="ai-gen-btn" id="ai-gen-btn" onclick="generateAI()">&#x2736; Generate Summary</button>
-        <div class="ai-key-note" id="ai-key-note" style="display:none;">No API key configured. Add one in the Connect to Google Sheets panel above.</div>
+        <div class="ai-key-note" id="ai-key-note" style="display:none;">No API key configured. Add your Anthropic API key in Settings.</div>
       </div>
       <a class="cta cta-tg" href="https://t.me/KidsInspiringNation" target="_blank">
         <span class="cta-ic">&#x2708;&#xFE0F;</span>
@@ -2183,42 +2229,55 @@ function buildBadgeGrid(s, gpa, reps, weeks) {
 /* ═══════════════════════════════════════════════════
    BADGE SYSTEM — 10 earnable badges + canvas download
    ═══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   BADGE SYSTEM — bulletproof, no innerHTML args
+   ══════════════════════════════════════════════ */
 var BADGE_DEFS = [
-  {id:'first_week', ic:'&#x1F4D6;', nm:'First Word',       desc:'Completed Week 1 reading',
-   check:function(lw,gpa,reps,fb){return !!(gpa[1]||gpa['1']);}},
-  {id:'streak3',    ic:'&#x1F525;', nm:'On Fire',          desc:'3 consecutive weeks above 40%',
-   check:function(lw,gpa,reps,fb){var s=0;for(var i=lw;i>=1;i--){var sc=wkScForCode(gpa,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=3;}},
-  {id:'streak6',    ic:'&#x26A1;',  nm:'Unstoppable',      desc:'6 consecutive active weeks',
-   check:function(lw,gpa,reps,fb){var s=0;for(var i=lw;i>=1;i--){var sc=wkScForCode(gpa,i);if(sc!=null&&sc>=.4)s++;else break;}return s>=6;}},
-  {id:'hundred',    ic:'&#x1F3C6;', nm:'Perfect Week',     desc:'Scored 100% in any week',
-   check:function(lw,gpa,reps,fb){for(var w=1;w<=lw;w++){if(wkScForCode(gpa,w)===1)return true;}return false;}},
-  {id:'mins300',    ic:'&#x231A;',  nm:'Time Keeper',      desc:'300+ minutes in a single week',
-   check:function(lw,gpa,reps,fb){for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Invested Minutes']||0)>=300)return true;}return false;}},
-  {id:'mins2000',   ic:'&#x1F5FA;', nm:'2000 Minutes',     desc:'2000+ total invested minutes',
-   check:function(lw,gpa,reps,fb){var t=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};t+=wd['Invested Minutes']||0;}return t>=2000;}},
-  {id:'reporter',   ic:'&#x1F4DD;', nm:'Faithful Scribe',  desc:'Reports submitted 6 weeks',
-   check:function(lw,gpa,reps,fb){var n=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Weekly report']||0)>0)n++;}return n>=6;}},
-  {id:'attender',   ic:'&#x1F4E1;', nm:'Always Present',   desc:'Attended class 4 or more weeks',
-   check:function(lw,gpa,reps,fb){var n=0;for(var w=1;w<=lw;w++){var wd=gpa[w]||gpa[String(w)]||{};if((wd['Attendance']||0)>0)n++;}return n>=4;}},
-  {id:'improver',   ic:'&#x1F4C8;', nm:'Rising Star',      desc:'Score improved 3 weeks running',
-   check:function(lw,gpa,reps,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(gpa,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
-  {id:'testimony',  ic:'&#x1F64C;', nm:'Testimony',        desc:'A testimony has been shared',
-   check:function(lw,gpa,reps,fb){return !!(fb&&fb.length);}}
+  {id:'first_week', emoji:'📖', title:'First Word',       desc:'Completed Week 1 reading',
+   check:function(lw,g,r,fb){return !!(g[1]||g['1']);}},
+  {id:'streak3',    emoji:'🔥', title:'On Fire',          desc:'3 consecutive weeks above 40%',
+   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=3;}},
+  {id:'streak6',    emoji:'⚡', title:'Unstoppable',      desc:'6 consecutive active weeks',
+   check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=6;}},
+  {id:'hundred',    emoji:'🏆', title:'Perfect Week',     desc:'Scored 100% in any week',
+   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){if(wkScForCode(g,w)===1)return true;}return false;}},
+  {id:'mins300',    emoji:'⏱', title:'Time Keeper',      desc:'300+ minutes in a single week',
+   check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Invested Minutes']||0)>=300)return true;}return false;}},
+  {id:'mins2000',   emoji:'🗺', title:'2000 Minutes',     desc:'2000+ total invested minutes',
+   check:function(lw,g,r,fb){var t=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};t+=d['Invested Minutes']||0;}return t>=2000;}},
+  {id:'reporter',   emoji:'📝', title:'Faithful Scribe',  desc:'Weekly reports for 6 weeks',
+   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Weekly report']||0)>0)n++;}return n>=6;}},
+  {id:'attender',   emoji:'📡', title:'Always Present',   desc:'Attended class 4 or more weeks',
+   check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Attendance']||0)>0)n++;}return n>=4;}},
+  {id:'improver',   emoji:'📈', title:'Rising Star',      desc:'Score improved 3 weeks running',
+   check:function(lw,g,r,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(g,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
+  {id:'testimony',  emoji:'🙌', title:'Testimony',        desc:'A testimony has been shared',
+   check:function(lw,g,r,fb){return !!(fb&&fb.length);}}
+];
+
+/* Rotating scriptures about children growing in wisdom */
+var BADGE_VERSES = [
+  '"And Jesus grew in wisdom and stature" — Luke 2:52',
+  '"Here am I and the children the LORD has given me" — Isa 8:18',
+  '"Train up a child in the way he should go" — Prov 22:6',
+  '"I can do all things through Christ" — Phil 4:13',
+  '"Your word is a lamp to my feet" — Psalm 119:105',
+  '"Let the word of Christ dwell in you richly" — Col 3:16',
+  '"From childhood you have known the sacred scriptures" — 2 Tim 3:15',
+  '"Grow in the grace and knowledge of our Lord" — 2 Pet 3:18'
 ];
 
 function buildBadgeGallery(s, gpa, reps, fb) {
   var el = document.getElementById('badge-gallery');
   if (!el) return;
   var wks = Object.keys(gpa).map(Number).filter(function(n){return !isNaN(n);}).sort(function(a,b){return a-b;});
-  var lw  = wks.length ? wks[wks.length-1] : 0;
+  var lw = wks.length ? wks[wks.length-1] : 0;
   if (!lw) { el.innerHTML = ''; return; }
 
-  /* Store student data for use in downloadBadge */
-  window._bdgStudent = {
-    fullName: [s.first_name, s.last_name].filter(Boolean).join(' '),
-    pathway:  s.pathway || '',
-    code:     s.code || s.god_code || ''
-  };
+  /* Store student context for download */
+  el.dataset.name    = [s.first_name, s.last_name].filter(Boolean).join(' ');
+  el.dataset.pathway = s.pathway || '';
+  el.dataset.code    = s.code || s.god_code || '';
 
   var earned = [], locked = [];
   BADGE_DEFS.forEach(function(b) {
@@ -2228,163 +2287,135 @@ function buildBadgeGallery(s, gpa, reps, fb) {
   });
   if (!earned.length && !locked.length) { el.innerHTML = ''; return; }
 
-  var out = '<div class="sh" style="margin-bottom:14px;">&#x1F3C5; Your Badges</div><div class="bdg-grid">';
+  var out = '<div class="sh" style="margin-bottom:14px;">🏅 Your Badges</div><div class="bdg-grid">';
+
   earned.forEach(function(b) {
-    /* Decode entity to actual emoji for display */
-    var ic = b.ic;
-    /* Pass only the badge id — downloadBadge looks up everything else */
     out += '<div class="bdg-card earned">'
-      + '<div class="bdg-earned-tag">EARNED</div>'
-      + '<span class="bdg-ic">' + ic + '</span>'
-      + '<div class="bdg-nm">' + b.nm + '</div>'
-      + '<div class="bdg-desc">' + b.desc + '</div>'
-      + '<button class="bdg-dl" onclick="downloadBadge(' + "'" + b.id + "'" + ')">&#x2B07; Download</button>'
-      + '</div>';
+         +   '<div class="bdg-earned-tag">EARNED</div>'
+         +   '<span class="bdg-ic">' + b.emoji + '</span>'
+         +   '<div class="bdg-nm">' + b.title + '</div>'
+         +   '<div class="bdg-desc">' + b.desc + '</div>'
+         +   '<button class="bdg-dl" data-bid="' + b.id + '" onclick="triggerBadgeDownload(this)">⬇ Download</button>'
+         + '</div>';
   });
+
   locked.slice(0, Math.min(4, locked.length)).forEach(function(b) {
     out += '<div class="bdg-card locked">'
-      + '<span class="bdg-ic" style="filter:grayscale(1)">&#x1F512;</span>'
-      + '<div class="bdg-nm">' + b.nm + '</div>'
-      + '<div class="bdg-desc">' + b.desc + '</div>'
-      + '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:6px;">Keep going...</div>'
-      + '</div>';
+         +   '<span class="bdg-ic">🔒</span>'
+         +   '<div class="bdg-nm">' + b.title + '</div>'
+         +   '<div class="bdg-desc">' + b.desc + '</div>'
+         +   '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:6px;">Keep going...</div>'
+         + '</div>';
   });
   out += '</div>';
   el.innerHTML = out;
 }
 
-function downloadBadge(id) {
-  /* Look up badge definition */
+function triggerBadgeDownload(btn) {
+  var badgeId = btn.getAttribute('data-bid');
+  var galEl   = document.getElementById('badge-gallery');
+  var fullName = galEl ? (galEl.dataset.name || '') : '';
+  var pathway  = galEl ? (galEl.dataset.pathway || '') : '';
+  var code     = galEl ? (galEl.dataset.code || '') : '';
   var b = null;
-  for (var i = 0; i < BADGE_DEFS.length; i++) { if (BADGE_DEFS[i].id === id) { b = BADGE_DEFS[i]; break; } }
+  for (var i = 0; i < BADGE_DEFS.length; i++) {
+    if (BADGE_DEFS[i].id === badgeId) { b = BADGE_DEFS[i]; break; }
+  }
   if (!b) return;
-  var nm       = b.nm;
-  var ic       = b.ic;
-  var stu      = window._bdgStudent || {};
-  var fullName = stu.fullName || '';
-  var pathway  = stu.pathway  || '';
-  var code     = stu.code     || '';
+  drawBadge(b.emoji, b.title, fullName, code, pathway);
+}
 
+function drawBadge(emoji, title, fullName, code, pathway) {
   var cv  = document.createElement('canvas');
   cv.width = 800; cv.height = 800;
   var ctx = cv.getContext('2d');
 
   /* Dark gradient background */
-  var bg = ctx.createRadialGradient(400,400,60,400,400,400);
-  bg.addColorStop(0, '#1A2540');
-  bg.addColorStop(1, '#0A0F22');
+  var bg = ctx.createRadialGradient(400,300,40,400,400,420);
+  bg.addColorStop(0,'#1A2540');
+  bg.addColorStop(1,'#0A0F22');
   ctx.fillStyle = bg;
   ctx.fillRect(0,0,800,800);
 
-  /* Outer gold ring */
-  ctx.beginPath();
-  ctx.arc(400,400,370,0,Math.PI*2);
-  ctx.strokeStyle='#E8C443';
-  ctx.lineWidth=10;
-  ctx.stroke();
-  /* Inner subtle ring */
-  ctx.beginPath();
-  ctx.arc(400,400,350,0,Math.PI*2);
-  ctx.strokeStyle='rgba(232,196,67,.25)';
-  ctx.lineWidth=2;
-  ctx.stroke();
+  /* Gold outer ring */
+  ctx.beginPath(); ctx.arc(400,400,375,0,Math.PI*2);
+  ctx.strokeStyle='#E8C443'; ctx.lineWidth=10; ctx.stroke();
+  ctx.beginPath(); ctx.arc(400,400,358,0,Math.PI*2);
+  ctx.strokeStyle='rgba(232,196,67,.25)'; ctx.lineWidth=2; ctx.stroke();
 
-  /* "goDs University" bold at top */
-  ctx.font = 'bold 52px Georgia, serif';
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#E8C443';
-  ctx.fillText('goDs University', 400, 130);
+  /* goDs University — bold top */
+  ctx.font='bold 54px Georgia,serif';
+  ctx.textAlign='center';
+  ctx.fillStyle='#E8C443';
+  ctx.fillText('goDs University', 400, 125);
 
-  /* "In Spirit · By Skills · For Service" in italic calligraphy below */
-  ctx.font = 'italic 22px Georgia, serif';
-  ctx.fillStyle = 'rgba(232,196,67,.7)';
-  ctx.fillText('\u2736 In Spirit \u00B7 By Skills \u00B7 For Service \u2736', 400, 170);
+  /* In Spirit · By Skills · For Service — italic calligraphy */
+  ctx.font='italic 22px Georgia,serif';
+  ctx.fillStyle='rgba(232,196,67,.65)';
+  ctx.fillText('✶ In Spirit · By Skills · For Service ✶', 400, 165);
 
-  /* Thin divider */
-  ctx.beginPath();
-  ctx.moveTo(160,188); ctx.lineTo(640,188);
-  ctx.strokeStyle='rgba(232,196,67,.3)';
-  ctx.lineWidth=1;
-  ctx.stroke();
+  /* Divider */
+  ctx.beginPath(); ctx.moveTo(150,182); ctx.lineTo(650,182);
+  ctx.strokeStyle='rgba(232,196,67,.3)'; ctx.lineWidth=1; ctx.stroke();
 
-  /* Emoji icon */
-  var emojiText = ic.replace(/&#x([0-9A-Fa-f]+);/g, function(_,h){return String.fromCodePoint(parseInt(h,16));})
-                    .replace(/&amp;/g,'&');
-  ctx.font = '140px serif';
-  ctx.fillText(emojiText, 400, 360);
+  /* Emoji — large centre */
+  ctx.font='140px serif';
+  ctx.fillText(emoji, 400, 360);
 
-  /* Badge name */
-  ctx.font = 'bold 46px Georgia, serif';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillText(nm, 400, 440);
+  /* Badge title */
+  ctx.font='bold 44px Georgia,serif';
+  ctx.fillStyle='#FFFFFF';
+  ctx.fillText(title, 400, 435);
 
-  /* Thin divider */
-  ctx.beginPath();
-  ctx.moveTo(200,460); ctx.lineTo(600,460);
-  ctx.strokeStyle='rgba(255,255,255,.15)';
-  ctx.lineWidth=1;
-  ctx.stroke();
+  /* Divider */
+  ctx.beginPath(); ctx.moveTo(180,455); ctx.lineTo(620,455);
+  ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1; ctx.stroke();
 
-  /* Child full name */
-  ctx.font = 'bold 32px Georgia, serif';
-  ctx.fillStyle = '#F0F4FF';
-  ctx.fillText(fullName, 400, 510);
+  /* Child name — First Last */
+  ctx.font='bold 30px Georgia,serif';
+  ctx.fillStyle='#F0F4FF';
+  ctx.fillText(fullName, 400, 500);
 
-  /* goD Code */
-  ctx.font = '18px monospace';
-  ctx.fillStyle = 'rgba(232,196,67,.8)';
-  ctx.fillText(code, 400, 540);
+  /* goD code */
+  ctx.font='600 18px monospace';
+  ctx.fillStyle='rgba(232,196,67,.85)';
+  ctx.fillText(code, 400, 530);
 
   /* Pathway */
   if (pathway) {
-    ctx.font = 'italic 20px Georgia, serif';
-    ctx.fillStyle = 'rgba(148,163,184,.85)';
-    ctx.fillText(pathway, 400, 572);
+    ctx.font='italic 20px Georgia,serif';
+    ctx.fillStyle='rgba(148,163,184,.85)';
+    ctx.fillText(pathway, 400, 560);
   }
 
-  /* Footer divider */
-  ctx.beginPath();
-  ctx.moveTo(130,600); ctx.lineTo(670,600);
-  ctx.strokeStyle='rgba(232,196,67,.2)';
-  ctx.lineWidth=1;
-  ctx.stroke();
+  /* Verse — rotates daily */
+  ctx.beginPath(); ctx.moveTo(130,585); ctx.lineTo(670,585);
+  ctx.strokeStyle='rgba(232,196,67,.2)'; ctx.lineWidth=1; ctx.stroke();
 
-  /* Rotating scriptures about children growing in wisdom */
-  var VERSES = [
-    '\u201CAnd Jesus grew in wisdom and stature\u201D \u2014 Luke 2:52',
-    '\u201CHere am I and the children the LORD has given me\u201D \u2014 Isa 8:18',
-    '\u201CTrain up a child in the way he should go\u201D \u2014 Prov 22:6',
-    '\u201CI can do all things through Christ\u201D \u2014 Phil 4:13',
-    '\u201CYour word is a lamp to my feet\u201D \u2014 Psalm 119:105',
-    '\u201CLet the word of Christ dwell in you richly\u201D \u2014 Col 3:16',
-    '\u201CFrom childhood you have known the sacred scriptures\u201D \u2014 2 Tim 3:15',
-    '\u201CBut grow in the grace and knowledge of our Lord\u201D \u2014 2 Pet 3:18'
-  ];
-  var verse = VERSES[Math.floor(Date.now() / (1000*60*60*24)) % VERSES.length];
-  ctx.font = 'italic 15px Georgia, serif';
-  ctx.fillStyle = 'rgba(148,163,184,.75)';
-  /* Word-wrap verse if too long */
+  var verse = BADGE_VERSES[Math.floor(Date.now()/(1000*60*60*24)) % BADGE_VERSES.length];
+  ctx.font='italic 15px Georgia,serif';
+  ctx.fillStyle='rgba(148,163,184,.75)';
   if (ctx.measureText(verse).width > 580) {
-    var mid = Math.floor(verse.length/2); var sp = verse.lastIndexOf(' ', mid);
-    ctx.fillText(verse.substring(0,sp), 400, 622);
-    ctx.fillText(verse.substring(sp+1), 400, 642);
+    var mid=Math.floor(verse.length/2), sp=verse.lastIndexOf(' ',mid);
+    ctx.fillText(verse.substring(0,sp), 400, 614);
+    ctx.fillText(verse.substring(sp+1), 400, 634);
   } else {
-    ctx.fillText(verse, 400, 632);
+    ctx.fillText(verse, 400, 625);
   }
 
-  /* Footer org text */
-  ctx.font = 'bold 18px Georgia, serif';
-  ctx.fillStyle = 'rgba(232,196,67,.6)';
-  ctx.fillText('KidsInspiringNation \u00B7 raising goDs, building Nations', 400, 668);
+  /* Organisation footer */
+  ctx.font='bold 17px Georgia,serif';
+  ctx.fillStyle='rgba(232,196,67,.6)';
+  ctx.fillText('KidsInspiringNation · raising goDs, building Nations', 400, 665);
 
-  ctx.font = '15px Georgia, serif';
-  ctx.fillStyle = 'rgba(148,163,184,.5)';
-  ctx.fillText('KidsInspiringNation.org', 400, 692);
+  ctx.font='14px Georgia,serif';
+  ctx.fillStyle='rgba(148,163,184,.5)';
+  ctx.fillText('KidsInspiringNation.org', 400, 688);
 
   /* Download */
-  var safeName = fullName.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
+  var safe = (fullName||'badge').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
   var a = document.createElement('a');
-  a.download = 'goDs-' + id + '-' + safeName + '.png';
+  a.download = 'goDs-' + title.replace(/\s+/g,'-') + '-' + safe + '.png';
   a.href = cv.toDataURL('image/png');
   a.click();
 }
@@ -2510,7 +2541,8 @@ function buildDash(s) {
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
   buildInstructorHighlights(code, reps);
-  try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn("badges:",e);}
+  try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn(e);}
+
 
   try{buildBadgeGrid(s,gpa,reps,weeks);}catch(e){console.warn("badges:",e);}
   buildProfile(s);
