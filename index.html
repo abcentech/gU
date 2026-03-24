@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0A0F22">
 <!-- goDs-v2026-03-21-FINAL -->
-<title>goDs University · Parent Portal</title>
+<title>goDs University · Portal v7</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
 <style>
 /* ── THEME VARS ── */
@@ -82,47 +82,12 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 .lfp a{color:var(--gold);text-decoration:none;}
 
 /* GS PANEL */
-.gs-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:14px;}
-.gs-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;}
-.gs-hdr-l{display:flex;align-items:center;gap:10px;}
-.gs-icon{font-size:20px;}
-.gs-title{font-size:14px;font-weight:700;color:var(--text);}
-.gs-st{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:800;}
 .gst-ok{background:var(--green-bg);color:var(--green);}
 .gst-off{background:var(--red-bg);color:var(--red);}
 .gst-sync{background:var(--amber-bg);color:var(--amber);}
-.gs-chev{color:var(--text3);transition:transform .25s;font-size:13px;}
-.gs-chev.open{transform:rotate(180deg);}
-.gs-body{display:none;padding:0 18px 18px;border-top:1px solid var(--border);}
-.gs-body.open{display:block;}
-.gs-desc{font-size:13px;color:var(--text2);line-height:1.75;margin:12px 0 10px;}
-.gs-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
-.gs-inp{flex:1;min-width:200px;padding:11px 14px;background:var(--bg2);border:2px solid var(--border);border-radius:10px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;outline:none;transition:border-color .25s;}
-.gs-inp:focus{border-color:var(--gold);}
-.gs-inp::placeholder{color:var(--text3);}
-.gs-btn{padding:11px 16px;background:var(--green);color:white;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif;}
-.gs-btn:hover{background:#059669;}
-.gs-btn:disabled{background:var(--text3);cursor:not-allowed;}
-.gs-msg{font-size:13px;color:var(--text3);margin-top:7px;min-height:18px;font-weight:600;}
-.gs-msg.ok{color:var(--green);}
-.gs-msg.err{color:var(--red);}
-.gs-msg.warn{color:var(--amber);}
-.gs-sheet-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-.gs-ss{padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;}
 .gss-ok{background:var(--green-bg);color:var(--green);}
 .gss-err{background:var(--red-bg);color:var(--red);}
 .gss-wait{background:rgba(128,128,128,.08);color:var(--text3);}
-.gs-steps{margin-top:10px;background:var(--bg2);border-radius:10px;padding:12px 14px;}
-.gs-step{font-size:13px;color:var(--text2);margin-bottom:7px;display:flex;gap:9px;line-height:1.55;}
-.gs-step:last-child{margin-bottom:0;}
-.gs-sn{color:var(--gold);font-weight:800;flex-shrink:0;}
-.gs-cfg{margin-top:12px;padding:12px;background:var(--amber-bg);border:1px solid rgba(245,158,11,.25);border-radius:10px;}
-.gs-cfg-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-.gs-cfg-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
-.gs-cfg-row:last-child{margin-bottom:0;}
-.gs-cfg-label{font-size:13px;color:var(--text2);min-width:140px;}
-.gs-cfg-inp{flex:1;min-width:80px;padding:7px 10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s;}
-.gs-cfg-inp:focus{border-color:var(--amber);}
 
 /* PAY BANNER */
 .pay-banner{display:flex;align-items:center;gap:12px;background:var(--green-bg);border:1.5px solid rgba(16,185,129,.28);border-radius:13px;padding:13px 16px;margin-top:14px;text-decoration:none;transition:all .22s;}
@@ -867,7 +832,7 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:rgba(128,128,128,.04);}::-webkit-scrollbar-thumb{background:rgba(128,128,128,.15);border-radius:3px;}
 
 @media print{
-  canvas,nav,.topbar,.tkr,.share-row,.msg-form,.cta,.ai-gen-btn,.term-bar,.child-switcher,.alert-banner,#onboard,.tb-r,.xbtn,.sync-btn,.theme-btn{display:none!important;}
+  canvas,nav,.topbar,.tkr,.share-row,.msg-form,.cta,.ai-gen-btn,.term-bar,.child-switcher,.alert-banner,#onboard,.tb-r,.xbtn,.sync-btn,.theme-btn{display:none!important;@page{size:A4;margin:15mm;}}
   body{background:white!important;color:#000!important;}
   .card,.inst-note,.sugg,.trend{border:1px solid #ddd!important;background:white!important;box-shadow:none!important;}
   .inst-txt,.tc-body{color:#333!important;}
@@ -985,6 +950,23 @@ canvas#sky{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
 html,body{max-width:100%;overflow-x:hidden;}
 img,canvas,iframe,video{max-width:100%;}
 
+
+.action-card{background:linear-gradient(135deg,rgba(232,196,67,.1),rgba(232,196,67,.03));border:2px solid var(--gold);border-radius:16px;padding:18px;margin-bottom:18px;}
+.action-hdr{font-family:Cinzel,serif;font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.action-body{font-size:14px;color:var(--text);line-height:1.75;font-weight:500;}
+.action-verse{font-size:12px;font-style:italic;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid rgba(232,196,67,.15);}
+.fam-summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
+.fsc{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:16px;cursor:pointer;transition:all .2s;}
+.fsc:hover{border-color:var(--gold);}
+.fsc.me{border-color:var(--gold);background:rgba(232,196,67,.05);}
+.fsc-name{font-family:Cinzel,serif;font-size:15px;font-weight:700;color:var(--text);}
+.fsc-code{font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;}
+.fsc-score{font-family:Cinzel,serif;font-size:34px;font-weight:900;}
+.fsc-meta{font-size:12px;color:var(--text3);margin-bottom:10px;}
+.msglog-item{background:var(--card2);border-radius:8px;padding:10px 14px;margin-bottom:8px;}
+.msglog-txt{font-size:13px;color:var(--text2);line-height:1.5;}
+.msglog-time{font-size:11px;color:var(--text3);margin-top:3px;}
+
 </style>
 </head>
 <body>
@@ -1095,9 +1077,12 @@ img,canvas,iframe,video{max-width:100%;}
       <div class="validation-banner" id="val-banner"><div class="vb-title">&#x26A0; Data Warnings</div><div class="vb-list" id="val-list"></div></div>
       <div class="sh">&#x2736; Term at a Glance</div>
       <div class="term-summary" id="term-summary"></div>
+      <div id="reading-plan" style="margin-bottom:14px;"></div>
       <div id="fees-home"></div>
+      <div class="action-card" id="action-card" style="display:none;"><div class="action-hdr"><span>🎯</span><span>Do This Today</span></div><div class="action-body"></div><div class="action-verse"></div></div>
       <div id="ins-panel" style="margin-bottom:20px;"></div>
       <div class="sh">&#x2736; This Week</div>
+      <div id="score-narrative"></div>
       <div class="g4 mb20" id="stats-row"></div>
       <div class="g2">
         <div class="card">
@@ -1172,6 +1157,7 @@ img,canvas,iframe,video{max-width:100%;}
       </a>
     </div>
 
+    <div class="sec" id="sec-family"><div class="sh">✶ Family Overview</div><div id="fam-sum-content"><div style="text-align:center;padding:40px;color:var(--text3)">No siblings on this account.</div></div></div>
     <div class="sec" id="sec-reports">
       <div class="sh">&#x2736; Weekly Reports &amp; Parent Guide</div>
       <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:18px;">
@@ -1198,6 +1184,7 @@ img,canvas,iframe,video{max-width:100%;}
       <div id="badge-canvas-wrap" class="badge-canvas-wrap">
         <canvas id="badge-canvas" width="600" height="600"></canvas>
       </div>
+      <div id="msg-log"></div>
       <!-- Instructor highlights pulled from latest reports -->
       <div id="instructor-highlights" style="margin-bottom:16px;"></div>
 
@@ -1209,6 +1196,7 @@ img,canvas,iframe,video{max-width:100%;}
           Has your child shown growth, completed their reading, or had a breakthrough this week?<br>
           <strong style="color:var(--teal)">Your testimony encourages other families!</strong>
         </div>
+        <div style="background:var(--card2);border-radius:10px;padding:11px 14px;margin-bottom:12px;text-align:left;"><div style="font-size:10px;letter-spacing:2px;color:var(--text3);font-weight:700;margin-bottom:6px;">EXAMPLE</div><div style="font-size:13px;color:var(--text2);line-height:1.7;font-style:italic;">My child showed real growth this week. They read every day without being reminded and explained the passage to me in their own words. We are so proud!</div></div>
         <div style="font-family:'Lora',serif;font-style:italic;font-size:13px;color:var(--text3);padding:12px 16px;margin-bottom:18px;border-top:1px solid rgba(20,184,166,.15);border-bottom:1px solid rgba(20,184,166,.15);line-height:1.8;">
           &ldquo;They triumphed over him by the blood of the Lamb and by the word of their testimony&rdquo;
           <br><span style="font-size:11px;letter-spacing:2px;margin-top:4px;display:inline-block;">REVELATION 12:11</span>
@@ -1288,6 +1276,7 @@ img,canvas,iframe,video{max-width:100%;}
 
   <nav class="bot-nav">
     <div class="bn on" onclick="navTo('home',this)"><div class="bn-i">&#x1F3E0;</div><div class="bn-l">Home</div></div>
+    <div class="bn" id="bn-fam" onclick="navTo('family',this);buildFamilySummary()" style="display:none;"><div class="bn-i">👨‍👩‍👧‍👦</div><div class="bn-l">Family</div></div>
     <div class="bn" onclick="navTo('reports',this)"><div class="bn-i">&#x1F4DD;</div><div class="bn-l">Reports</div></div>
     <div class="bn" onclick="navTo('testy',this)"><div class="bn-i">&#x1F3C5;</div><div class="bn-l">Badges</div></div>
     <div class="bn" onclick="navTo('weekly',this);buildWeekly()"><div class="bn-i">&#x1F4C5;</div><div class="bn-l">Weekly</div></div>
@@ -1301,7 +1290,8 @@ img,canvas,iframe,video{max-width:100%;}
    URL:  https://wfopidgqwycjyskpqhxh.supabase.co
    Mode: anon key (read-only, RLS enforced)
 ═══════════════════════════════════════════════════ */
-var WEEK_DATES={"1":"Feb 7","2":"Feb 14","3":"Feb 21","4":"Feb 28","5":"Mar 7","6":"Mar 14"};
+var WEEK_DATES={"1": "Feb 7", "2": "Feb 14", "3": "Feb 21", "4": "Feb 28", "5": "Mar 7", "6": "Mar 14", "7": "Mar 21", "8": "Mar 28", "9": "Apr 4", "10": "Apr 11", "11": "Apr 18", "12": "Apr 25", "13": "May 2", "14": "May 9", "15": "May 16", "16": "May 23", "17": "May 30", "18": "Jun 6", "19": "Jun 13", "20": "Jun 20", "21": "Jun 27", "22": "Jul 4", "23": "Jul 11", "24": "Jul 18", "25": "Jul 25", "26": "Aug 1", "27": "Aug 8", "28": "Aug 15", "29": "Aug 22", "30": "Aug 29", "31": "Sep 5", "32": "Sep 12", "33": "Sep 19", "34": "Sep 26", "35": "Oct 3", "36": "Oct 10", "37": "Oct 17", "38": "Oct 24", "39": "Oct 31", "40": "Nov 7", "41": "Nov 14", "42": "Nov 21", "43": "Nov 28", "44": "Dec 5"};
+var CLASS_AVGS={"1": 41.5, "2": 48.5, "3": 55.6, "4": 42.0, "5": 74.2, "6": 76.4};
 var SUPA_URL  = 'https://wfopidgqwycjyskpqhxh.supabase.co';
 var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indmb3BpZGdxd3ljanlza3BxaHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDI0NjUsImV4cCI6MjA4OTE3ODQ2NX0.eyOIpWb-xPFzn5FJKydqeVZRW3RR6qFhez0m_I5EEpk';
 var SUPABASE_CONNECTED = false;
@@ -1539,79 +1529,6 @@ function sbPost(path, body) {
   });
 }
 
-function loadFromSupabase(godCode) {
-  // 1. Student
-  return sbGet('students?god_code=eq.' + encodeURIComponent(godCode) + '&select=*')
-  .then(function(rows) {
-    if (!rows || !rows.length) throw new Error('Student not found');
-    var s = rows[0];
-    _supaConnected = true;
-
-    // 2. Parallel load
-    var sibP  = s.family_id
-      ? sbGet('students?family_id=eq.' + s.family_id + '&god_code=neq.' + encodeURIComponent(godCode) + '&select=id,god_code,first_name')
-      : Promise.resolve([]);
-    var gpaP  = sbGet('gpa_entries?student_id=eq.' + s.id + '&select=*&order=week.asc');
-    var repP  = sbGet('reports?student_id=eq.' + s.id + '&select=week,note&order=week.asc');
-    var tesP  = sbGet('testimonies?student_id=eq.' + s.id + '&select=testimony,comment,entry_date&order=entry_date.desc');
-    var cavgP = sbGet('class_averages?select=week,avg_score&order=week.asc');
-    var aiP   = sbGet('ai_summaries?student_id=eq.' + s.id + '&select=summary_text&limit=1');
-
-    return Promise.all([sibP, gpaP, repP, tesP, cavgP, aiP])
-    .then(function(res) {
-      // Merge into the DATA format the dashboard already understands
-      var gpaObj = {};
-      (res[1] || []).forEach(function(g) {
-        gpaObj[g.week] = {
-          'Weekly report'   : g.weekly_report,
-          'Time Sheet'      : g.time_sheet,
-          'Pathway'         : g.pathway,
-          'Activity'        : g.activity,
-          'Attendance'      : g.attendance,
-          'Invested Minutes': g.invested_mins,
-          _gpa_score        : parseFloat(g.gpa_score)
-        };
-      });
-
-      var repObj = {};
-      (res[2] || []).forEach(function(r) { repObj[r.week] = r.note; });
-
-      var cavgObj = {};
-      (res[4] || []).forEach(function(c) { cavgObj[c.week] = parseFloat(c.avg_score); });
-
-      // Patch CLASS_AVGS global
-      CLASS_AVGS = cavgObj;
-
-      // Inject student into DATA
-      DATA.students[godCode] = s;
-      DATA.gpa[godCode]      = gpaObj;
-      DATA.reports[godCode]  = repObj;
-      DATA.feedback[godCode] = (res[3] || []).map(function(t) {
-        return { testimony: t.testimony, comment: t.comment, date: t.entry_date };
-      });
-
-      // Siblings
-      var sibCodes = (res[0] || []).map(function(sib) {
-        DATA.students[sib.god_code] = sib;
-        return sib.god_code;
-      });
-      FAMILIES[godCode] = sibCodes;
-
-      // AI summary
-      if (res[5] && res[5][0]) {
-        var aiEl = document.getElementById('ai-body');
-        if (aiEl) {
-          aiEl.textContent = res[5][0].summary_text;
-          var aiBtn = document.getElementById('ai-gen-btn');
-          if (aiBtn) aiBtn.textContent = '\u21BA Regenerate';
-        }
-      }
-
-      cacheData();
-      return s;
-    });
-  });
-}
 
 /* Override sendMsg to also save to Supabase */
 var _origSendMsg = null;
@@ -1674,8 +1591,8 @@ function checkSupabase() {
 }
 
 /* ═══ DATA INJECTED BY BUILD SCRIPT ═══ */
-var DATA = {"students":{"gTAA":{"kin_no":"KIN2024/gU/005","god_code":"gTAA","code":"gTAA","first_name":"Talia","middle_name":"Ahmanosi","last_name":"Atsekhameh","dob":"2015-07-07","age":10,"pathway":"New Testament (NT - Custom)","whatsapp":"+2347034267470","fees_balance":"₦270,000.00"},"gTYA":{"kin_no":"KIN2024/gU/006","god_code":"gTYA","code":"gTYA","first_name":"Tyshawn","middle_name":"Ainoghena","last_name":"Atsekhameh","dob":"2018-06-03","age":7,"pathway":"Bible Basics (BB)","whatsapp":"+2347034267470","fees_balance":"₦270,000.00"},"gOFA":{"kin_no":"KIN2024/gU/009","god_code":"gOFA","code":"gOFA","first_name":"Oluwanifemi","middle_name":"Faith","last_name":"Asade","dob":"2016-06-04","age":9,"pathway":"Old Testament (OT)","whatsapp":"+2348034942968","fees_balance":"₦250,020.00"},"gOOB":{"kin_no":"KIN2024/gU/010","god_code":"gOOB","code":"gOOB","first_name":"Omomurewa","middle_name":"Olamide","last_name":"Babatunde-Idowu","dob":"2011-07-27","age":14,"pathway":"New Testament (NT - Custom)","whatsapp":"+17096935577","fees_balance":"₦270,000.00"},"gGCU":{"kin_no":"KIN2024/gU/015","god_code":"gGCU","code":"gGCU","first_name":"Great","middle_name":"Chinemerem","last_name":"Ugbor","dob":"2012-05-15","age":13,"pathway":"New Testament (NT - Custom)","whatsapp":"2348035999976","fees_balance":"₦270,000.00"},"gOEI":{"kin_no":"KIN2024/gU/017","god_code":"gOEI","code":"gOEI","first_name":"Olohi","middle_name":"Emmanuella","last_name":"Iyoko","dob":"2012-02-29","age":14,"pathway":"Old Testament (OT)","whatsapp":"+447846608671","fees_balance":"Paid"},"gTAN":{"kin_no":"KIN2024/gU/018","god_code":"gTAN","code":"gTAN","first_name":"Timilehin","middle_name":"Abraham","last_name":"Nathaniel","dob":"2014-06-24","age":11,"pathway":"Old Testament (OT)","whatsapp":"+2348037613792","fees_balance":"₦250,020.00"},"gTDN":{"kin_no":"KIN2024/gU/019","god_code":"gTDN","code":"gTDN","first_name":"Todimu","middle_name":"Daniel","last_name":"Nathaniel","dob":"2016-02-23","age":10,"pathway":"Old Testament (OT)","whatsapp":"+2348037613792","fees_balance":"₦250,020.00"},"gSDO":{"kin_no":"KIN2025/gU/025","god_code":"gSDO","code":"gSDO","first_name":"Samuel","middle_name":"Damilare","last_name":"Olabode","dob":"2011-12-12","age":14,"pathway":"Old Testament (OT)","whatsapp":"+2347038476333","fees_balance":"₦30,000.00"},"gEDA":{"kin_no":"KIN2025/gU/026","god_code":"gEDA","code":"gEDA","first_name":"Emmanuel","middle_name":"Damilare","last_name":"Aderemi","dob":"2010-09-04","age":15,"pathway":"New Testament (NT)","whatsapp":"+2349036574760","fees_balance":"₦30,000.00"},"gAJW":{"kin_no":"KIN2025/gU/027","god_code":"gAJW","code":"gAJW","first_name":"Akilahyel","middle_name":"Jason","last_name":"Wakshama","dob":"2011-06-25","age":14,"pathway":"Old Testament (OT)","whatsapp":"+2348028376242","fees_balance":"₦240,000.00"},"gJOB":{"kin_no":"KIN2025/gU/028","god_code":"gJOB","code":"gJOB","first_name":"Joshua","middle_name":"Oluwalanafunmi","last_name":"Betiku","dob":"2016-02-21","age":10,"pathway":"Bible Basics (BB)","whatsapp":"+2348029320098","fees_balance":"₦240,000.00"},"gAEM":{"kin_no":"KIN2026/gU/029","god_code":"gAEM","code":"gAEM","first_name":"Adebowale","middle_name":"Emmanuel","last_name":"Moshood","dob":"2013-07-04","age":12,"pathway":"Bible Basics (BB)","whatsapp":"+447901537144","fees_balance":"₦270,000.00"},"gASM":{"kin_no":"KIN2026/gU/030","god_code":"gASM","code":"gASM","first_name":"Ayoade","middle_name":"Samuel","last_name":"Moshood","dob":"2016-03-22","age":9,"pathway":"Bible Basics (BB)","whatsapp":"+447901537144","fees_balance":"₦270,000.00"},"gJOO":{"kin_no":"KIN2026/gU/031","god_code":"gJOO","code":"gJOO","first_name":"Jonie","middle_name":"Oseakuemhen Oyindamola","last_name":"Obiyan","dob":"2015-10-18","age":10,"pathway":"Bible Basics (BB)","whatsapp":"+2348038161303","fees_balance":"Paid"},"gASW":{"kin_no":"KIN2026/gU/032","god_code":"gASW","code":"gASW","first_name":"Adiel","middle_name":"Samuel","last_name":"Wakshama","dob":"2014-03-19","age":11,"pathway":"Bible Basics (BB)","whatsapp":"+2348028376242","fees_balance":"₦300,000.00"},"gVMO":{"kin_no":"KIN2026/gU/033","god_code":"gVMO","code":"gVMO","first_name":"Virtue","middle_name":"Mojolaoluwa","last_name":"Oluwatobi","dob":"2018-02-23","age":8,"pathway":"Bible Basics (BB)","whatsapp":"+2348038497092","fees_balance":"₦300,000.00"},"gVIO":{"kin_no":"KIN2026/gU/034","god_code":"gVIO","code":"gVIO","first_name":"Victor","middle_name":"Mojubaoluwa","last_name":"Oluwatobi","dob":"2013-07-11","age":12,"pathway":"New Testament (NT - Custom)","whatsapp":"+2348038497092","fees_balance":"₦300,000.00"},"gWOO":{"kin_no":"KIN2026/gU/035","god_code":"gWOO","code":"gWOO","first_name":"Wisdom","middle_name":"Oluwajomiloju","last_name":"Oluwatobi","dob":"2011-08-06","age":14,"pathway":"New Testament (NT - Custom)","whatsapp":"+2348038497092","fees_balance":"₦300,000.00"},"gCAO":{"kin_no":"KIN2026/gU/036","god_code":"gCAO","code":"gCAO","first_name":"Calin","middle_name":"","last_name":"Ogunsanya","dob":"","age":null,"pathway":"Bible Basics (BB)","whatsapp":"+2347062155998","fees_balance":"₦163,740.00"}},"gpa":{"gVMO":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"2":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":0.5,"Invested Minutes":0},"6":{"Activity":1.0,"Attendance":1.0}},"gTAA":{"1":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"2":{"Weekly report":1.0,"Time Sheet":0.5,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":400},"3":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":295},"4":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":240},"5":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.0,"Attendance":0.0,"Invested Minutes":240},"6":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":225}},"gOOB":{"1":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":205},"2":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":36},"3":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":67},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{"Weekly report":0.5,"Time Sheet":1.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":127},"6":{"Weekly report":1.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":105}},"gGCU":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"2":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.0,"Attendance":0.0,"Invested Minutes":131},"3":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.5,"Activity":0.0,"Attendance":0.5,"Invested Minutes":155},"4":{"Weekly report":0.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":241},"5":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":0.5,"Invested Minutes":132},"6":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":140}},"gEDA":{"1":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.0,"Attendance":0.0,"Invested Minutes":302},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":303},"3":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":302},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"5":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.0,"Attendance":0.5,"Invested Minutes":304},"6":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0}},"gVIO":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"2":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"5":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"6":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0}},"gWOO":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"2":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":0},"5":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"6":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0}},"gTDN":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":50},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":148},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":136},"4":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":166},"5":{"Weekly report":1.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":93},"6":{"Weekly report":0.5,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":278}},"gTAN":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":50},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":1.0,"Attendance":1.0,"Invested Minutes":113},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":136},"4":{"Weekly report":0.5,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":166},"5":{"Weekly report":0.5,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":146},"6":{"Weekly report":0.5,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":305}},"gOEI":{"1":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":410},"2":{"Weekly report":1.0,"Time Sheet":0.5,"Pathway":1.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":410},"3":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":410},"4":{"Weekly report":0.0,"Time Sheet":0.5,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":420},"5":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":405},"6":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":410}},"gOFA":{"1":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":166},"2":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":77},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":0.5,"Attendance":0.5,"Invested Minutes":98},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":0.5,"Activity":0.5,"Attendance":0.5,"Invested Minutes":97},"5":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":55},"6":{"Weekly report":0.0,"Activity":1.0,"Attendance":1.0}},"gAJW":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":230},"5":{"Weekly report":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"6":{"Weekly report":0.0,"Time Sheet":0.0,"Activity":1.0,"Attendance":1.0}},"gSDO":{"1":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":315},"2":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":305},"3":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"4":{"Weekly report":1.0,"Time Sheet":0.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":300},"5":{"Weekly report":1.0,"Pathway":1.0,"Activity":0.5,"Attendance":1.0,"Invested Minutes":300},"6":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":0.5,"Attendance":1.0,"Invested Minutes":300}},"gASW":{"2":{"Invested Minutes":103},"3":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":118},"4":{"Weekly report":0.5,"Time Sheet":0.5,"Pathway":1.0,"Activity":1.0,"Attendance":0.5,"Invested Minutes":79},"5":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":55},"6":{"Weekly report":1.0,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":117}},"gCAO":{"3":{"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0}},"gASM":{"3":{"Pathway":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0},"5":{"Weekly report":0.5,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":150},"6":{"Weekly report":0.5,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":150}},"gJOB":{"3":{"Pathway":1.0,"Activity":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.5,"Attendance":1.0,"Invested Minutes":0}},"gJOO":{"3":{"Pathway":1.0,"Activity":1.0,"Attendance":1.0},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":0.0,"Attendance":0.0,"Invested Minutes":0}},"gTYA":{"3":{"Pathway":1.0,"Activity":0.5,"Attendance":0.5},"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":0}},"gAEM":{"4":{"Weekly report":0.0,"Time Sheet":0.0,"Pathway":0.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":85},"5":{"Weekly report":0.5,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":130},"6":{"Weekly report":0.5,"Time Sheet":1.0,"Pathway":1.0,"Activity":1.0,"Attendance":1.0,"Invested Minutes":150}}},"reports":{"gCAO":{"1":"Good start to the class. Joined in thr car with some distractions, but otherwise very eager to join.","2":"Came in early. Paid attention. Was a little distracted because was in the car.","3":"Came in to class early, was active, had an grasp of the parable. Asked interesting questions","4":"could not attend class.Took an excuse due to the swimming competition he had","5":"Did not show up early in class due to over sleep. Participated well in responding to questions and had a grasp of the parables. However, he was constantly getting distractions from his sibling.","6":"Was present but totally unattentive. Played during the video and did not listen to all that was taught. Needs more attention to see that he is fully attentive. Needs assistance in filling his time and report sheet"},"gAEM":{"1":"Came in to an introductory class, although we're reminded by dad, showed overall enthusiasm.","2":"Participated in the class. didn't have the time to read. But otherwise enjoyed.","3":"Was a tad bit late, had a dark background, initial response to affirmation but was a little less active on.","4":"Came in to class early. Had a grasp of the parable and participated well in respondig to questions, however he needs to avoid distractions especially with his brother during class","5":"Showed up in class early and participated well in responding to questions. Had better lighting compared to previous classes","6":"Showed in in class early. Particiated well in responding to questions and class activities. Needs to be audible when respoding to questions"},"gASM":{"1":"Came in to an introductory class, although we're reminded by dad, showed overall enthusiasm.  Seems to always shadow brother","2":"Participated. Didn't have time to read the parable.","3":"Was late, not as active, however he needs to be more responsive.","4":"Came in to class early. Had a grasp pf the parable and participated well in respondig to questions, however he needs to avoid distractions and be audible when answering questions especially during class.","5":"Showed up in class early and participated well in responding to questions. Had better lighting compared to previous classes","6":"Showed in in class early. Particiated well in responding to questions and class activities. Should send time and report sheet before hand"},"gJOB":{"1":"woke up a little late but came into class with a cursory perspective","2":"Joined again after some hiatus, he was excited in the class, seems to have above average intelligence","3":"Came in late. Birthday boy, was quite interactive, fully present and active","4":"Came in a bit late. Was a little active and quite unresponsive in class","5":"Came in to class late due to oversleeping. Needs to participate more in class activities","6":"Came into class at the end of class with the excuse of waking up late. Needs help waking up early so he can attend classes"},"gJOO":{"1":"A very interesting student, participated through and asked to have games in class. seem to learn more from thst po9jt.","2":"First time in class, and at the gU, she asked interesting questions, was looking tired, and at the end of the class wanted us to do more games","3":"Came in late, was present interactive, and sometimes very inquisitve, showed her project (making a heart)","4":"Could not make it to class.Took an excuse"},"gTYA":{"1":"Came in to class like he was out of a long night, but adjusted as the class continued. Getting better each year.","3":"Came in late, was partially active, could do more to respond to the class,","4":"Came in early to class. Was active and participated well in responding to questions. Was a little distracted should avoid that in subsequent classes.","5":"Came in to class early. Participated will in responding to questions","6":"Got to class early. Had a grasp of the parable. Participated in responding to qestions. was a little distracted. Device should be charged to avoid the distraction of leaving class to get charger during class"},"gASW":{"4":"Came in late though first time in class. Has been able to catch up with the current reading. Participated well in responding to questions. Was very active during class.","5":"Came in to class early. Participated will in responding to questions","6":"Came in early to class. Needs to be more active in class activities. An amazing goD.Child"},"gVMO":{"4":"First time in class. Participated well responding to questions and engaging in class discourse.","5":"Came in to class early. Participated will in responding to questions. A remarkably intelligent goD.Child","6":"Did not read the parable for the week. Was attentive and interactive in class. Participated well in responding to questions. A remarkably intelligent goD.Child."},"gTAA":{"1":"She came in a bit late but participated","2":"She came in early, participated and was very involved. Noticed mum had not signed time sheet and also had intermittent internet disconnections","3":"She came in early, participated and was very involved. Although, she missed about 2 to 3 days this week & no reports sent. She needs to be more intentional about prioritizing God's Word.","4":"Showed up late, could not participate nor show video until finally cut out","5":"Absent without any apologies nor notification from student. Although, when Mum was called, she said she had Common Entrance Exams that day.","6":"She came in early, was fully involved, and participated very well. Nice."},"gOOB":{"1":"He came in early, participated and was very involved.","2":"Came in excited, but was slouching on the bed. He missed several days this week, 4 in total. Needs to invest more time in studying and being intentional","3":"He came in early, participated and was very involved. Still needs to invest more time in studying & being intentional","4":"Came in late, initially did not talk nor show video, but eventually became active in class","5":"Came in early, participated, but was slouching on the bed. He missed several days this week, 3 in total. Needs to invest more time in studying and being intentional.","6":"He came in early and was fully involved. There were no issues with him."},"gGCU":{"1":"Absent","2":"Was completely absent. Parents need to prioritse the class time as he quickly mentioned that he was outisde and could not speak nor show video","3":"Absent again. Mum apologized on his behalf, stating that it was due to unforeseen circumstances. We look forward to tangible imrpovements as promised","4":"Showed up on time. still struggling to read in the morning. Weekly average is still below required. Otherwise was active in class","5":"Showed up on time. Still struggling to read in the morning. Weekly average is still below required. Also observed that he was repeatedly muted at intervals, speaking to someone in the background. Otherwise was active in class.","6":"He joined on time and was fully participative and involved. He had his video muted at some point, but he remained fully engaged."},"gEDA":{"1":"Absent","2":"Showed up late, and was cut out","3":"Showed up late, participated briefly and was cut out. Although sent in his reports.","4":"Was completely absent. Parents need to prioritse getting an alternative to his internet connection, as he sent a message stating that his telegram is constantly unresponsive","5":"Showed up late & briefly, was muted all through and eventually cut out. Has not sent his Timesheet for the past 5 weeks, although typed reports. But we are concerned as it is not endorsed by any Parent. His Parents need to be more intentional about his spiritual growth.","6":"Absent without any apologies nor notification"},"gVIO":{"4":"Came in late, although this was his first class. Participated & was very involved.","5":"Absent without any apologies nor notification from student. Although, his brother said he was in basketball class since the Instructor came late at the appointed hour so they had to use the next hour, which is his scheduled gU class time. Also, did not send in any reports.","6":"He is still having issues sending in his report, but he was fully involved and participated well."},"gWOO":{"4":"Came in late, as this was his first class, participated & was very involved.","5":"Was punctual, excited and followed the pathway. Although, did not send in any reports as he said he is still yet to get a new notebook & his timesheet printed out.","6":"He is learning the rules of engagement here and was fully involved. He even stayed a few extra minutes after asking permission to leave for another class.  Report sending needs to be improved and worked on"},"gTDN":{"1":"Showing up is powerful. didn't remember reading until mom was prompted 3 days into the week.","2":"showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class","3":"Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites, also was able to show an understanding of the taught concepts","4":"Needs to do more minutes weekly  parents are yet to send signed time sheet.","5":"very active, shows up early and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters.","6":"Improved beautifully in reading this week, because exams were finished. We hope this can be sustained considerable.  Broke down during the exercise on eulogy - quite emotional but also shows how the word of God touches the reins of the most resolved"},"gTAN":{"1":"Showing up is powerful. didn't remember reading until mom was prompted 3 days into the week.","2":"showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class","3":"Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites","4":"Needs to do more minutes. parents are yet to send time sheet.","5":"quire active and measured, shows up late because of laptop issues (seems he powers it late) and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters.","6":"Was excited to meet 300 minutes for the first time, also explained by a no exam week.  He  has been commended to take bible to school and read during the morning commute"},"gOEI":{"1":"Completed and submitted all reading on time, brought her A-Game on the first day","2":"showed up late, couldnt participate till later time, but was at the final stretch fully immersed","3":"Absent - no apologies sent practice. Misssing a lot in her abscence.","4":"clashes with rehearsal and class make her show up unprepared or tired, but still pulling her wait, need to reach out to parent as reports are pending","5":"showed up late, otherwise was very participatory all through","6":"Came back on fire today. Showed up early and coordinated the first few minutes in class. She also understood the book with the ability to explain clearly verses the spoke to her."},"gOFA":{"1":"Had completed the first week reading from last year. Couldn't  be remembered to do a revision again.","2":"didnt send in weekly report, needs to pay more attention to instructions, seemed lost towards the end","3":"Showed up a bit late, but participated when asked questions, could be slow to understand and reply.","4":"time class makes her join the class in the car which could be distracting sometimes, brings her contribution to the class but can seem lost sometimes","5":"missed her reading plan, was a little out of place in the class, needs to follow up with parent for schedule","6":"She came in early today, the time shift helped. And was able to participate more actively. She is very imaginative as the eulogy about her mom was so moving."},"gAJW":{"1":"Came in ready and prepared for the new session  Always eager to ask interesting questions.","2":"fully immersed, had internet issues, asked studious questions","3":"Background is quite noisy, could barely keep a 1 min convo without muting, otherwise avtivley participating","4":"shows up well prepared, asks curious questions that show understanding","5":"Showed up right, participated and was quite respinsive, internet dropped off a few times","6":"He keep mataining a steady pace of growing in knowledge. He is able to move beyond reding to explaining the concepts to others."},"gSDO":{"1":"Joined the class for the first time and was a good addition, has had been moved from the NT to the OT. He was able to adapt quickly to the new class.","2":"internet issues, was in at  the initial few minutes, but got lost in the internet challenge, couldnt partitipate fully.","3":"Background is quite noisy, could barely keep a 1 min convo without muting , dropped off a coupleof times, but participated when he had the time.","4":"has a grasp of the reading and returns very dutirfyl answers, internet still poses a big threat to maximisng class","5":"Showed up early but missed a large part of the class as the internet kept cutting off.","6":"He is intentional about every response, going beyond the natural response to create detailed answers that shows great understanding. Beyond the internet issue, he is fitting well into thr class."}},"feedback":{}};
-var FAMILIES = {"gRLE":["gSIE","gJOE"],"gSIE":["gRLE","gJOE"],"gJOE":["gRLE","gSIE"],"gTAA":["gTYA"],"gTYA":["gTAA"],"gIIO":["gIDO"],"gIDO":["gIIO"],"gHOB":["gNBB","gIBB"],"gNBB":["gHOB","gIBB"],"gIBB":["gHOB","gNBB"],"gTAN":["gTDN"],"gTDN":["gTAN"],"gAJW":["gASW"],"gASW":["gAJW"],"gAEM":["gASM"],"gASM":["gAEM"],"gVMO":["gVIO","gWOO"],"gVIO":["gVMO","gWOO"],"gWOO":["gVMO","gVIO"]};
+var DATA = {"students": {"gTAA": {"kin_no": "KIN2024/gU/005", "god_code": "gTAA", "code": "gTAA", "first_name": "Talia", "middle_name": "Ahmanosi", "last_name": "Atsekhameh", "dob": "2015-07-07", "age": 10, "pathway": "New Testament (NT - Custom)", "whatsapp": "+2347034267470", "fees_balance": "₦270,000.00"}, "gTYA": {"kin_no": "KIN2024/gU/006", "god_code": "gTYA", "code": "gTYA", "first_name": "Tyshawn", "middle_name": "Ainoghena", "last_name": "Atsekhameh", "dob": "2018-06-03", "age": 7, "pathway": "Bible Basics (BB)", "whatsapp": "+2347034267470", "fees_balance": "₦270,000.00"}, "gOFA": {"kin_no": "KIN2024/gU/009", "god_code": "gOFA", "code": "gOFA", "first_name": "Oluwanifemi", "middle_name": "Faith", "last_name": "Asade", "dob": "2016-06-04", "age": 9, "pathway": "Old Testament (OT)", "whatsapp": "+2348034942968", "fees_balance": "₦250,020.00"}, "gOOB": {"kin_no": "KIN2024/gU/010", "god_code": "gOOB", "code": "gOOB", "first_name": "Omomurewa", "middle_name": "Olamide", "last_name": "Babatunde-Idowu", "dob": "2011-07-27", "age": 14, "pathway": "New Testament (NT - Custom)", "whatsapp": "+17096935577", "fees_balance": "₦270,000.00"}, "gGCU": {"kin_no": "KIN2024/gU/015", "god_code": "gGCU", "code": "gGCU", "first_name": "Great", "middle_name": "Chinemerem", "last_name": "Ugbor", "dob": "2012-05-15", "age": 13, "pathway": "New Testament (NT - Custom)", "whatsapp": "2348035999976", "fees_balance": "₦270,000.00"}, "gOEI": {"kin_no": "KIN2024/gU/017", "god_code": "gOEI", "code": "gOEI", "first_name": "Olohi", "middle_name": "Emmanuella", "last_name": "Iyoko", "dob": "2012-02-29", "age": 14, "pathway": "Old Testament (OT)", "whatsapp": "+447846608671", "fees_balance": "Paid"}, "gTAN": {"kin_no": "KIN2024/gU/018", "god_code": "gTAN", "code": "gTAN", "first_name": "Timilehin", "middle_name": "Abraham", "last_name": "Nathaniel", "dob": "2014-06-24", "age": 11, "pathway": "Old Testament (OT)", "whatsapp": "+2348037613792", "fees_balance": "₦250,020.00"}, "gTDN": {"kin_no": "KIN2024/gU/019", "god_code": "gTDN", "code": "gTDN", "first_name": "Todimu", "middle_name": "Daniel", "last_name": "Nathaniel", "dob": "2016-02-23", "age": 10, "pathway": "Old Testament (OT)", "whatsapp": "+2348037613792", "fees_balance": "₦250,020.00"}, "gSDO": {"kin_no": "KIN2025/gU/025", "god_code": "gSDO", "code": "gSDO", "first_name": "Samuel", "middle_name": "Damilare", "last_name": "Olabode", "dob": "2011-12-12", "age": 14, "pathway": "Old Testament (OT)", "whatsapp": "+2347038476333", "fees_balance": "₦30,000.00"}, "gEDA": {"kin_no": "KIN2025/gU/026", "god_code": "gEDA", "code": "gEDA", "first_name": "Emmanuel", "middle_name": "Damilare", "last_name": "Aderemi", "dob": "2010-09-04", "age": 15, "pathway": "New Testament (NT)", "whatsapp": "+2349036574760", "fees_balance": "₦30,000.00"}, "gAJW": {"kin_no": "KIN2025/gU/027", "god_code": "gAJW", "code": "gAJW", "first_name": "Akilahyel", "middle_name": "Jason", "last_name": "Wakshama", "dob": "2011-06-25", "age": 14, "pathway": "Old Testament (OT)", "whatsapp": "+2348028376242", "fees_balance": "₦240,000.00"}, "gJOB": {"kin_no": "KIN2025/gU/028", "god_code": "gJOB", "code": "gJOB", "first_name": "Joshua", "middle_name": "Oluwalanafunmi", "last_name": "Betiku", "dob": "2016-02-21", "age": 10, "pathway": "Bible Basics (BB)", "whatsapp": "+2348029320098", "fees_balance": "₦240,000.00"}, "gAEM": {"kin_no": "KIN2026/gU/029", "god_code": "gAEM", "code": "gAEM", "first_name": "Adebowale", "middle_name": "Emmanuel", "last_name": "Moshood", "dob": "2013-07-04", "age": 12, "pathway": "Bible Basics (BB)", "whatsapp": "+447901537144", "fees_balance": "₦270,000.00"}, "gASM": {"kin_no": "KIN2026/gU/030", "god_code": "gASM", "code": "gASM", "first_name": "Ayoade", "middle_name": "Samuel", "last_name": "Moshood", "dob": "2016-03-22", "age": 9, "pathway": "Bible Basics (BB)", "whatsapp": "+447901537144", "fees_balance": "₦270,000.00"}, "gJOO": {"kin_no": "KIN2026/gU/031", "god_code": "gJOO", "code": "gJOO", "first_name": "Jonie", "middle_name": "Oseakuemhen Oyindamola", "last_name": "Obiyan", "dob": "2015-10-18", "age": 10, "pathway": "Bible Basics (BB)", "whatsapp": "+2348038161303", "fees_balance": "Paid"}, "gASW": {"kin_no": "KIN2026/gU/032", "god_code": "gASW", "code": "gASW", "first_name": "Adiel", "middle_name": "Samuel", "last_name": "Wakshama", "dob": "2014-03-19", "age": 11, "pathway": "Bible Basics (BB)", "whatsapp": "+2348028376242", "fees_balance": "₦300,000.00"}, "gVMO": {"kin_no": "KIN2026/gU/033", "god_code": "gVMO", "code": "gVMO", "first_name": "Virtue", "middle_name": "Mojolaoluwa", "last_name": "Oluwatobi", "dob": "2018-02-23", "age": 8, "pathway": "Bible Basics (BB)", "whatsapp": "+2348038497092", "fees_balance": "₦300,000.00"}, "gVIO": {"kin_no": "KIN2026/gU/034", "god_code": "gVIO", "code": "gVIO", "first_name": "Victor", "middle_name": "Mojubaoluwa", "last_name": "Oluwatobi", "dob": "2013-07-11", "age": 12, "pathway": "New Testament (NT - Custom)", "whatsapp": "+2348038497092", "fees_balance": "₦300,000.00"}, "gWOO": {"kin_no": "KIN2026/gU/035", "god_code": "gWOO", "code": "gWOO", "first_name": "Wisdom", "middle_name": "Oluwajomiloju", "last_name": "Oluwatobi", "dob": "2011-08-06", "age": 14, "pathway": "New Testament (NT - Custom)", "whatsapp": "+2348038497092", "fees_balance": "₦300,000.00"}, "gCAO": {"kin_no": "KIN2026/gU/036", "god_code": "gCAO", "code": "gCAO", "first_name": "Calin", "middle_name": "", "last_name": "Ogunsanya", "dob": "", "age": null, "pathway": "Bible Basics (BB)", "whatsapp": "+2347062155998", "fees_balance": "₦163,740.00"}, "gJBO": {"kin_no": "KIN2024/gU/007", "code": "gJBO", "god_code": "gJBO", "code_full": "gJBO - Jemimah", "first_name": "Jemimah", "middle_name": "", "last_name": "Ogunsanya", "dob": "", "age": 0, "pathway": "Bible Basics (BB)", "whatsapp": "", "fees_balance": "", "paid": false}}, "gpa": {"gVMO": {"1": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "2": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "3": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 0.5, "Invested Minutes": 0}, "6": {"Activity": 1.0, "Attendance": 1.0}}, "gTAA": {"1": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 0}, "2": {"Weekly report": 1.0, "Time Sheet": 0.5, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 400}, "3": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 295}, "4": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 240}, "5": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 240}, "6": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 225}}, "gOOB": {"1": {"Weekly report": 0.5, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 205}, "2": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 36}, "3": {"Weekly report": 0.0, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 67}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}, "5": {"Weekly report": 0.5, "Time Sheet": 1.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 127}, "6": {"Weekly report": 1.0, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 105}}, "gGCU": {"1": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "2": {"Weekly report": 0.0, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 131}, "3": {"Weekly report": 0.0, "Time Sheet": 0.5, "Pathway": 0.5, "Activity": 0.0, "Attendance": 0.5, "Invested Minutes": 155}, "4": {"Weekly report": 0.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 241}, "5": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 0.5, "Invested Minutes": 132}, "6": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 140}}, "gEDA": {"1": {"Weekly report": 0.5, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 302}, "2": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 303}, "3": {"Weekly report": 0.5, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 302}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "5": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 0.0, "Attendance": 0.5, "Invested Minutes": 304}, "6": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}}, "gVIO": {"1": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "2": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "3": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 0}, "5": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "6": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}}, "gWOO": {"1": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "2": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "3": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 0}, "5": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}, "6": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}}, "gTDN": {"1": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 50}, "2": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 148}, "3": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 136}, "4": {"Weekly report": 0.5, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 166}, "5": {"Weekly report": 1.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 93}, "6": {"Weekly report": 0.5, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 278}}, "gTAN": {"1": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 50}, "2": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 113}, "3": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 136}, "4": {"Weekly report": 0.5, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 166}, "5": {"Weekly report": 0.5, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 146}, "6": {"Weekly report": 0.5, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 305}}, "gOEI": {"1": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 410}, "2": {"Weekly report": 1.0, "Time Sheet": 0.5, "Pathway": 1.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 410}, "3": {"Weekly report": 0.0, "Time Sheet": 0.5, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 410}, "4": {"Weekly report": 0.0, "Time Sheet": 0.5, "Pathway": 0.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 420}, "5": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 405}, "6": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 410}}, "gOFA": {"1": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 166}, "2": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 77}, "3": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 98}, "4": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 0.5, "Activity": 0.5, "Attendance": 0.5, "Invested Minutes": 97}, "5": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 55}, "6": {"Weekly report": 0.0, "Activity": 1.0, "Attendance": 1.0}}, "gAJW": {"1": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "2": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "3": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "4": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 230}, "5": {"Weekly report": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "6": {"Weekly report": 0.0, "Time Sheet": 0.0, "Activity": 1.0, "Attendance": 1.0}}, "gSDO": {"1": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 315}, "2": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 305}, "3": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "4": {"Weekly report": 1.0, "Time Sheet": 0.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 300}, "5": {"Weekly report": 1.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 1.0, "Invested Minutes": 300}, "6": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 0.5, "Attendance": 1.0, "Invested Minutes": 300}}, "gASW": {"2": {"Invested Minutes": 103}, "3": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 118}, "4": {"Weekly report": 0.5, "Time Sheet": 0.5, "Pathway": 1.0, "Activity": 1.0, "Attendance": 0.5, "Invested Minutes": 79}, "5": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 55}, "6": {"Weekly report": 1.0, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 117}}, "gCAO": {"3": {"Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}}, "gASM": {"3": {"Pathway": 1.0, "Attendance": 1.0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}, "5": {"Weekly report": 0.5, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 150}, "6": {"Weekly report": 0.5, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 150}}, "gJOB": {"3": {"Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.5, "Attendance": 1.0, "Invested Minutes": 0}}, "gJOO": {"3": {"Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 0.0, "Attendance": 0.0, "Invested Minutes": 0}}, "gTYA": {"3": {"Pathway": 1.0, "Activity": 0.5, "Attendance": 0.5}, "4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 0}}, "gAEM": {"4": {"Weekly report": 0.0, "Time Sheet": 0.0, "Pathway": 0.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 85}, "5": {"Weekly report": 0.5, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 130}, "6": {"Weekly report": 0.5, "Time Sheet": 1.0, "Pathway": 1.0, "Activity": 1.0, "Attendance": 1.0, "Invested Minutes": 150}}}, "reports": {"gCAO": {"1": "Good start to the class. Joined in thr car with some distractions, but otherwise very eager to join.", "2": "Came in early. Paid attention. Was a little distracted because was in the car.", "3": "Came in to class early, was active, had an grasp of the parable. Asked interesting questions", "4": "could not attend class.Took an excuse due to the swimming competition he had", "5": "Did not show up early in class due to over sleep. Participated well in responding to questions and had a grasp of the parables. However, he was constantly getting distractions from his sibling.", "6": "Was present but totally unattentive. Played during the video and did not listen to all that was taught. Needs more attention to see that he is fully attentive. Needs assistance in filling his time and report sheet"}, "gAEM": {"1": "Came in to an introductory class, although we're reminded by dad, showed overall enthusiasm.", "2": "Participated in the class. didn't have the time to read. But otherwise enjoyed.", "3": "Was a tad bit late, had a dark background, initial response to affirmation but was a little less active on.", "4": "Came in to class early. Had a grasp of the parable and participated well in respondig to questions, however he needs to avoid distractions especially with his brother during class", "5": "Showed up in class early and participated well in responding to questions. Had better lighting compared to previous classes", "6": "Showed in in class early. Particiated well in responding to questions and class activities. Needs to be audible when respoding to questions"}, "gASM": {"1": "Came in to an introductory class, although we're reminded by dad, showed overall enthusiasm.  Seems to always shadow brother", "2": "Participated. Didn't have time to read the parable.", "3": "Was late, not as active, however he needs to be more responsive.", "4": "Came in to class early. Had a grasp pf the parable and participated well in respondig to questions, however he needs to avoid distractions and be audible when answering questions especially during class.", "5": "Showed up in class early and participated well in responding to questions. Had better lighting compared to previous classes", "6": "Showed in in class early. Particiated well in responding to questions and class activities. Should send time and report sheet before hand"}, "gJOB": {"1": "woke up a little late but came into class with a cursory perspective", "2": "Joined again after some hiatus, he was excited in the class, seems to have above average intelligence", "3": "Came in late. Birthday boy, was quite interactive, fully present and active", "4": "Came in a bit late. Was a little active and quite unresponsive in class", "5": "Came in to class late due to oversleeping. Needs to participate more in class activities", "6": "Came into class at the end of class with the excuse of waking up late. Needs help waking up early so he can attend classes"}, "gJOO": {"1": "A very interesting student, participated through and asked to have games in class. seem to learn more from thst po9jt.", "2": "First time in class, and at the gU, she asked interesting questions, was looking tired, and at the end of the class wanted us to do more games", "3": "Came in late, was present interactive, and sometimes very inquisitve, showed her project (making a heart)", "4": "Could not make it to class.Took an excuse"}, "gTYA": {"1": "Came in to class like he was out of a long night, but adjusted as the class continued. Getting better each year.", "3": "Came in late, was partially active, could do more to respond to the class,", "4": "Came in early to class. Was active and participated well in responding to questions. Was a little distracted should avoid that in subsequent classes.", "5": "Came in to class early. Participated will in responding to questions", "6": "Got to class early. Had a grasp of the parable. Participated in responding to qestions. was a little distracted. Device should be charged to avoid the distraction of leaving class to get charger during class"}, "gASW": {"4": "Came in late though first time in class. Has been able to catch up with the current reading. Participated well in responding to questions. Was very active during class.", "5": "Came in to class early. Participated will in responding to questions", "6": "Came in early to class. Needs to be more active in class activities. An amazing goD.Child"}, "gVMO": {"4": "First time in class. Participated well responding to questions and engaging in class discourse.", "5": "Came in to class early. Participated will in responding to questions. A remarkably intelligent goD.Child", "6": "Did not read the parable for the week. Was attentive and interactive in class. Participated well in responding to questions. A remarkably intelligent goD.Child."}, "gTAA": {"1": "She came in a bit late but participated", "2": "She came in early, participated and was very involved. Noticed mum had not signed time sheet and also had intermittent internet disconnections", "3": "She came in early, participated and was very involved. Although, she missed about 2 to 3 days this week & no reports sent. She needs to be more intentional about prioritizing God's Word.", "4": "Showed up late, could not participate nor show video until finally cut out", "5": "Absent without any apologies nor notification from student. Although, when Mum was called, she said she had Common Entrance Exams that day.", "6": "She came in early, was fully involved, and participated very well. Nice."}, "gOOB": {"1": "He came in early, participated and was very involved.", "2": "Came in excited, but was slouching on the bed. He missed several days this week, 4 in total. Needs to invest more time in studying and being intentional", "3": "He came in early, participated and was very involved. Still needs to invest more time in studying & being intentional", "4": "Came in late, initially did not talk nor show video, but eventually became active in class", "5": "Came in early, participated, but was slouching on the bed. He missed several days this week, 3 in total. Needs to invest more time in studying and being intentional.", "6": "He came in early and was fully involved. There were no issues with him."}, "gGCU": {"1": "Absent", "2": "Was completely absent. Parents need to prioritse the class time as he quickly mentioned that he was outisde and could not speak nor show video", "3": "Absent again. Mum apologized on his behalf, stating that it was due to unforeseen circumstances. We look forward to tangible imrpovements as promised", "4": "Showed up on time. still struggling to read in the morning. Weekly average is still below required. Otherwise was active in class", "5": "Showed up on time. Still struggling to read in the morning. Weekly average is still below required. Also observed that he was repeatedly muted at intervals, speaking to someone in the background. Otherwise was active in class.", "6": "He joined on time and was fully participative and involved. He had his video muted at some point, but he remained fully engaged."}, "gEDA": {"1": "Absent", "2": "Showed up late, and was cut out", "3": "Showed up late, participated briefly and was cut out. Although sent in his reports.", "4": "Was completely absent. Parents need to prioritse getting an alternative to his internet connection, as he sent a message stating that his telegram is constantly unresponsive", "5": "Showed up late & briefly, was muted all through and eventually cut out. Has not sent his Timesheet for the past 5 weeks, although typed reports. But we are concerned as it is not endorsed by any Parent. His Parents need to be more intentional about his spiritual growth.", "6": "Absent without any apologies nor notification"}, "gVIO": {"4": "Came in late, although this was his first class. Participated & was very involved.", "5": "Absent without any apologies nor notification from student. Although, his brother said he was in basketball class since the Instructor came late at the appointed hour so they had to use the next hour, which is his scheduled gU class time. Also, did not send in any reports.", "6": "He is still having issues sending in his report, but he was fully involved and participated well."}, "gWOO": {"4": "Came in late, as this was his first class, participated & was very involved.", "5": "Was punctual, excited and followed the pathway. Although, did not send in any reports as he said he is still yet to get a new notebook & his timesheet printed out.", "6": "He is learning the rules of engagement here and was fully involved. He even stayed a few extra minutes after asking permission to leave for another class.  Report sending needs to be improved and worked on"}, "gTDN": {"1": "Showing up is powerful. didn't remember reading until mom was prompted 3 days into the week.", "2": "showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class", "3": "Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites, also was able to show an understanding of the taught concepts", "4": "Needs to do more minutes weekly  parents are yet to send signed time sheet.", "5": "very active, shows up early and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters.", "6": "Improved beautifully in reading this week, because exams were finished. We hope this can be sustained considerable.  Broke down during the exercise on eulogy - quite emotional but also shows how the word of God touches the reins of the most resolved"}, "gTAN": {"1": "Showing up is powerful. didn't remember reading until mom was prompted 3 days into the week.", "2": "showed up on time. still struggling to read in the morning. weekly average is still below required. Otherwise was active in class", "3": "Still struggling to do God''s word daily, needs parents to help maintain consistency. Patticipated well, and was dutiful to all asggiend dutites", "4": "Needs to do more minutes. parents are yet to send time sheet.", "5": "quire active and measured, shows up late because of laptop issues (seems he powers it late) and participate needs to invest more time weekly reading, seems to always take the excuse of an exam or feeling tired as to why he doesn't do his 10 chapters.", "6": "Was excited to meet 300 minutes for the first time, also explained by a no exam week.  He  has been commended to take bible to school and read during the morning commute"}, "gOEI": {"1": "Completed and submitted all reading on time, brought her A-Game on the first day", "2": "showed up late, couldnt participate till later time, but was at the final stretch fully immersed", "3": "Absent - no apologies sent practice. Misssing a lot in her abscence.", "4": "clashes with rehearsal and class make her show up unprepared or tired, but still pulling her wait, need to reach out to parent as reports are pending", "5": "showed up late, otherwise was very participatory all through", "6": "Came back on fire today. Showed up early and coordinated the first few minutes in class. She also understood the book with the ability to explain clearly verses the spoke to her."}, "gOFA": {"1": "Had completed the first week reading from last year. Couldn't  be remembered to do a revision again.", "2": "didnt send in weekly report, needs to pay more attention to instructions, seemed lost towards the end", "3": "Showed up a bit late, but participated when asked questions, could be slow to understand and reply.", "4": "time class makes her join the class in the car which could be distracting sometimes, brings her contribution to the class but can seem lost sometimes", "5": "missed her reading plan, was a little out of place in the class, needs to follow up with parent for schedule", "6": "She came in early today, the time shift helped. And was able to participate more actively. She is very imaginative as the eulogy about her mom was so moving."}, "gAJW": {"1": "Came in ready and prepared for the new session  Always eager to ask interesting questions.", "2": "fully immersed, had internet issues, asked studious questions", "3": "Background is quite noisy, could barely keep a 1 min convo without muting, otherwise avtivley participating", "4": "shows up well prepared, asks curious questions that show understanding", "5": "Showed up right, participated and was quite respinsive, internet dropped off a few times", "6": "He keep mataining a steady pace of growing in knowledge. He is able to move beyond reding to explaining the concepts to others."}, "gSDO": {"1": "Joined the class for the first time and was a good addition, has had been moved from the NT to the OT. He was able to adapt quickly to the new class.", "2": "internet issues, was in at  the initial few minutes, but got lost in the internet challenge, couldnt partitipate fully.", "3": "Background is quite noisy, could barely keep a 1 min convo without muting , dropped off a coupleof times, but participated when he had the time.", "4": "has a grasp of the reading and returns very dutirfyl answers, internet still poses a big threat to maximisng class", "5": "Showed up early but missed a large part of the class as the internet kept cutting off.", "6": "He is intentional about every response, going beyond the natural response to create detailed answers that shows great understanding. Beyond the internet issue, he is fitting well into thr class."}}, "feedback": {}};;
+var FAMILIES = {"gRLE": ["gSIE", "gJOE"], "gSIE": ["gRLE", "gJOE"], "gJOE": ["gRLE", "gSIE"], "gTAA": ["gTYA"], "gTYA": ["gTAA"], "gIIO": ["gIDO"], "gIDO": ["gIIO"], "gHOB": ["gNBB", "gIBB"], "gNBB": ["gHOB", "gIBB"], "gIBB": ["gHOB", "gNBB"], "gTAN": ["gTDN"], "gTDN": ["gTAN"], "gAJW": ["gASW"], "gASW": ["gAJW"], "gAEM": ["gASM"], "gASM": ["gAEM"], "gVMO": ["gVIO", "gWOO"], "gVIO": ["gVMO", "gWOO"], "gWOO": ["gVMO", "gVIO"], "gJBO": ["gCAO"], "gCAO": ["gJBO"]};
 var CLASS_AVGS = {"1":49,"2":60,"3":66,"4":46};
 
 /* ═══ CONFIG ═══ */
@@ -2175,37 +2092,6 @@ function checkReengagement(){
 }
 
 
-function buildBadgeGrid(s, gpa, reps, weeks) {
-  var el = document.getElementById('badge-grid-dl');
-  if (!el) return;
-  var allWks = weeks.map(Number).filter(function(n){return !isNaN(n);});
-  /* compute streak */
-  var streak = 0;
-  for (var si = allWks.length-1; si >= 0; si--) {
-    var sw = allWks[si];
-    var ssc = wkScForCode(gpa, sw);
-    var spct = ssc != null ? ssc*100 : 0;
-    var swd = gpa[sw] || gpa[String(sw)] || {};
-    var satt = swd['Attendance'];
-    var srep = reps[sw] || reps[String(sw)];
-    if (spct >= 40 || (satt && satt > 0) || ((!satt || satt===0) && srep)) { streak++; } else { break; }
-  }
-
-  var cards = '';
-  BADGE_DEFS.forEach(function(b) {
-    var earned = b.check(allWks, gpa, reps, streak);
-    cards += '<div class="badge-card ' + (earned ? 'earned' : 'locked') + '">';
-    if (earned) cards += '<div class="badge-earned-lbl">EARNED</div>';
-    cards += '<span class="badge-icon">' + b.icon + '</span>';
-    cards += '<div class="badge-title">' + b.title + '</div>';
-    cards += '<div class="badge-desc">' + b.desc + '</div>';
-    if (earned) {
-      cards += '<button class="badge-dl-btn" onclick="downloadBadge(' + "'" + b.id + "'" + ',this)">&#x2B73; Download</button>';
-    }
-    cards += '</div>';
-  });
-  el.innerHTML = cards;
-}
 
 
 
@@ -2365,26 +2251,45 @@ function drawBadge(emoji,title,fullName,code,pathway){
   a.href=cv.toDataURL('image/png');a.click();
 }
 
+/* ═══════════════════════════════════════════════════
+   EXACT READING PLANS — from goDs University 2026 PDFs
+   Sources: OT Word Challenge, NT Word Challenge, NT Parables (Custom)
+   ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   EXACT READING PLANS — goDs University 2026
+   OT: Term 1 (Wks 1-44) + Term 2 (Wks 45-88)
+       OT students use offset: planWk = curWk + 44
+   NT: 44 weeks, Matthew → Revelation
+   Parables / BB: 44 parables of Jesus
+   ═══════════════════════════════════════════════════ */
+var READING_PLANS = {
+  OT: [null, "Genesis 1–10", "Genesis 11–20", "Genesis 21–30", "Genesis 31–40", "Genesis 41–50", "Exodus 1–10", "Exodus 11–20", "Exodus 21–30", "Exodus 31–40", "Leviticus 1–10", "Leviticus 11–20", "Leviticus 21–27, Numbers 1–2", "Numbers 3–12", "Numbers 13–22", "Numbers 23–32", "Numbers 33–36, Deuteronomy 1–6", "Deuteronomy 7–16", "Deuteronomy 17–26", "Deuteronomy 27–34, Joshua 1–2", "Joshua 3–12", "Joshua 13–22", "Joshua 23–24, Judges 1–8", "Judges 9–18", "Judges 19–21, Ruth 1–4, 1 Samuel 1–2", "1 Samuel 3–12", "1 Samuel 13–22", "1 Samuel 23–31, 2 Samuel 1", "2 Samuel 2–11", "2 Samuel 12–21", "2 Samuel 22–24, 1 Kings 1–6", "1 Kings 7–16", "1 Kings 17–22, 2 Kings 1–4", "2 Kings 5–14", "2 Kings 15–24", "2 Kings 25, 1 Chronicles 1–8", "1 Chronicles 9–18", "1 Chronicles 19–28", "1 Chronicles 29, 2 Chronicles 1–8", "2 Chronicles 9–18", "2 Chronicles 19–28", "2 Chronicles 29–36, Ezra 1–2", "Ezra 3–10, Nehemiah 1–2", "Nehemiah 3–12", "Nehemiah 13, Esther 1–8", "Esther 9–10, Job 1–8", "Job 9–18", "Job 19–28", "Job 29–38", "Job 39–42, Ecclesiastes 1–6", "Ecclesiastes 7–12, Song of Solomon 1–4", "Song of Solomon 5–8, Isaiah 1–6", "Isaiah 7–16", "Isaiah 17–26", "Isaiah 27–36", "Isaiah 37–46", "Isaiah 47–56", "Isaiah 57–66", "Jeremiah 1–10", "Jeremiah 11–20", "Jeremiah 21–30", "Jeremiah 31–40", "Jeremiah 41–50", "Jeremiah 51–52, Lamentations 1–5, Ezekiel 1–2", "Ezekiel 3–12", "Ezekiel 13–22", "Ezekiel 23–32", "Ezekiel 33–42", "Ezekiel 43–48, Daniel 1–4", "Daniel 5–12, Hosea 1–2", "Hosea 3–12", "Hosea 13–14, Joel 1–3, Amos 1–4", "Amos 5–9, Obadiah, Jonah 1–2", "Jonah 3–4, Micah 1–7", "Nahum 1–3, Habakkuk 1–3, Zephaniah 1–2", "Zephaniah 3, Haggai 1–2, Zechariah 1–6", "Zechariah 7–14, Malachi 1–4", "Psalms 1–20", "Psalms 21–40", "Psalms 41–60", "Psalms 61–80", "Psalms 81–100", "Psalms 101–120", "Psalms 121–140", "Psalms 141–150, Proverbs 1–8", "Proverbs 9–20", "Proverbs 21–31", "Review & Celebration", "Review & Celebration"],
+
+  NT: [null,"Matthew 1–6","Matthew 7–12","Matthew 13–18","Matthew 19–24","Matthew 25–28, Mark 1–2","Mark 3–8","Mark 9–14","Mark 15–16, Luke 1–4","Luke 5–10","Luke 11–16","Luke 17–22","Luke 23–24, John 1–4","John 5–10","John 11–16","John 17–21, Acts 1","Acts 2–7","Acts 8–13","Acts 14–19","Acts 20–25","Acts 26–28, Romans 1–3","Romans 4–9","Romans 10–15","Romans 16, 1 Cor 1–5","1 Cor 6–11","1 Cor 12–16, 2 Cor 1","2 Cor 2–7","2 Cor 8–13","Galatians 1–6","Ephesians 1–6","Philippians 1–4, Col 1–2","Col 3–4, 1 Thess 1–4","1 Thess 5, 2 Thess 1–3, 1 Tim 1–2","1 Tim 3–6, 2 Tim 1–2","2 Tim 3–4, Titus 1–3, Philemon","Hebrews 1–6","Hebrews 7–12","Hebrews 13, James 1–5","1 Peter 1–5, 2 Peter 1","2 Peter 2–3, 1 John 1–4","1 John 5, 2 John, 3 John, Jude, Rev 1–2","Revelation 3–8","Revelation 9–14","Revelation 15–20","Revelation 21–22 — Review & Thanksgiving"],
+
+  PARABLES: [null,"The Sower & the Soils · Matt 13:1-23","The Wheat and the Tares · Matt 13:24-43","The Mustard Seed · Matt 13:31-32","The Leaven (Yeast) · Matt 13:33","The Hidden Treasure · Matt 13:44","The Pearl of Great Price · Matt 13:45-46","The Dragnet (The Net) · Matt 13:47-50","The Householder · Matt 13:51-52","The Growing Seed · Mark 4:26-29","The Children in the Marketplace · Matt 11:16-19","The Minas · Luke 19:11-27","The Talents · Matt 25:14-30","The Fig Tree · Matt 24:32-35","The Lost Sheep · Matt 18:10-14","The Lost Coin · Luke 15:8-10","The Prodigal Son · Luke 15:11-32","The Two Debtors · Luke 7:41-43","The Good Samaritan · Luke 10:25-37","The Great Banquet · Luke 14:15-24","The Friend at Midnight · Luke 11:5-13","The Unforgiving Servant · Matt 18:21-35","The Good Shepherd · John 10:1-18","The Vine and the Branches · John 15:1-8","The Two Sons · Matt 21:28-32","The Wise & Foolish Builders · Matt 7:24-27","The Empty House · Matt 12:43-45","The Lamp Under a Basket · Matt 5:14-16","The Speck and the Beam · Matt 7:3-5","The Unworthy Servants · Luke 17:7-10","The Persistent Widow · Luke 18:1-8","The Pharisee & Tax Collector · Luke 18:9-14","The Labourers in the Vineyard · Matt 20:1-16","The Tower Builder · Luke 14:28-30","The Warring King · Luke 14:31-33","The Strong Man's House · Matt 12:29","The Rich Fool · Luke 12:16-21","The Unjust Steward · Luke 16:1-13","The Rich Man & Lazarus · Luke 16:19-31","The Wicked Tenants · Matt 21:33-46","The Ten Virgins · Matt 25:1-13","The Wedding Feast · Matt 22:1-14","The Servant Entrusted w/ Authority · Matt 24:45-51","The Barren Fig Tree · Luke 13:6-9","The Thief in the Night · Matt 24:43-44"]
+};
+
 var BADGE_DEFS = [
-  {id:'first_week', emoji:'&#x1F4D6;', title:'First Word',      desc:'Completed Week 1 reading',
+  {id:'first_week', emoji:'📖', title:'First Word',       desc:'Completed Week 1 reading',
    check:function(lw,g,r,fb){return !!(g[1]||g['1']);}},
-  {id:'streak3',    emoji:'&#x1F525;', title:'On Fire',         desc:'3 consecutive weeks above 40%',
+  {id:'streak3',    emoji:'🔥', title:'On Fire',          desc:'3 consecutive weeks above 40%',
    check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=3;}},
-  {id:'streak6',    emoji:'&#x26A1;',  title:'Unstoppable',     desc:'6 consecutive active weeks',
+  {id:'streak6',    emoji:'⚡', title:'Unstoppable',      desc:'6 consecutive active weeks',
    check:function(lw,g,r,fb){var s=0,i=lw;while(i>=1){var sc=wkScForCode(g,i);if(sc!=null&&sc>=.4){s++;i--;}else break;}return s>=6;}},
-  {id:'hundred',    emoji:'&#x1F3C6;', title:'Perfect Week',    desc:'Scored 100% in any week',
+  {id:'hundred',    emoji:'🏆', title:'Perfect Week',     desc:'Scored 100% in any week',
    check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){if(wkScForCode(g,w)===1)return true;}return false;}},
-  {id:'mins300',    emoji:'&#x231A;',  title:'Time Keeper',     desc:'300+ minutes in a single week',
+  {id:'mins300',    emoji:'⏱', title:'Time Keeper',      desc:'300+ minutes in a single week',
    check:function(lw,g,r,fb){for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Invested Minutes']||0)>=300)return true;}return false;}},
-  {id:'mins2000',   emoji:'&#x1F5FA;', title:'2000 Minutes',    desc:'2000+ total invested minutes',
+  {id:'mins2000',   emoji:'🗺', title:'2000 Minutes',     desc:'2000+ total invested minutes',
    check:function(lw,g,r,fb){var t=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};t+=d['Invested Minutes']||0;}return t>=2000;}},
-  {id:'reporter',   emoji:'&#x1F4DD;', title:'Faithful Scribe', desc:'Weekly reports for 6 weeks',
+  {id:'reporter',   emoji:'📝', title:'Faithful Scribe',  desc:'Weekly reports for 6 weeks',
    check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Weekly report']||0)>0)n++;}return n>=6;}},
-  {id:'attender',   emoji:'&#x1F4E1;', title:'Always Present',  desc:'Attended class 4 or more weeks',
+  {id:'attender',   emoji:'📡', title:'Always Present',   desc:'Attended 4 or more weeks',
    check:function(lw,g,r,fb){var n=0;for(var w=1;w<=lw;w++){var d=g[w]||g[String(w)]||{};if((d['Attendance']||0)>0)n++;}return n>=4;}},
-  {id:'improver',   emoji:'&#x1F4C8;', title:'Rising Star',     desc:'Score improved 3 weeks running',
+  {id:'improver',   emoji:'📈', title:'Rising Star',      desc:'Score improved 3 weeks running',
    check:function(lw,g,r,fb){var prev=null,cnt=0;for(var w=1;w<=lw;w++){var sc=wkScForCode(g,w);if(sc!=null){if(prev!=null&&sc>prev)cnt++;else cnt=0;if(cnt>=2)return true;}prev=sc;}return false;}},
-  {id:'testimony',  emoji:'&#x1F64C;', title:'Testimony',       desc:'A testimony has been shared',
+  {id:'testimony',  emoji:'🙌', title:'Testimony',        desc:'A testimony has been shared',
    check:function(lw,g,r,fb){return !!(fb&&fb.length);}}
 ];
 
@@ -2422,6 +2327,259 @@ function loadTextSize() {
     var sz = localStorage.getItem('gU_ts') || 'normal';
     setTextSize(sz);
   } catch(e) {}
+}
+
+/* === 7 PARENT IMPROVEMENTS === */
+
+/* 1. DO THIS TODAY */
+function buildReadingPlan(s, curWk) {
+  var el = document.getElementById('reading-plan');
+  if (!el || !curWk) return;
+
+  var pathway = s.pathway || '';
+  var wkLabel = (typeof WEEK_DATES !== 'undefined' && WEEK_DATES[curWk])
+    ? WEEK_DATES[curWk] + ', 2026' : '2026';
+
+  var plan = null;
+  var planLabel = '';
+  var isParable = false;
+  /* OT students continue from last year's Week 44.
+     Their current "Week 1" of this term = plan index 45.
+     So we offset: planWk = curWk + 44 */
+  var planWk = curWk;
+
+  if (pathway.indexOf('Old') !== -1) {
+    plan = READING_PLANS.OT;
+    planLabel = 'Old Testament';
+    planWk = curWk + 44; /* offset: last year covered Wks 1-44 */
+  } else if (pathway.indexOf('Parable') !== -1) {
+    plan = READING_PLANS.PARABLES;
+    planLabel = 'NT Parables';
+    isParable = true;
+    planWk = curWk - 1; /* Week 1 = Introduction; parables start Week 2 */
+  } else if (pathway.indexOf('BB') !== -1 || pathway.indexOf('Bible Basics') !== -1) {
+    plan = READING_PLANS.PARABLES; /* BB follows Parables, same offset */
+    planLabel = 'Bible Basics (Parables)';
+    isParable = true;
+    planWk = curWk - 1; /* Week 1 = Introduction; parables start Week 2 */
+  } else if (pathway.indexOf('New') !== -1 || pathway.indexOf('Custom') !== -1) {
+    plan = READING_PLANS.NT;
+    planLabel = 'New Testament';
+  } else {
+    el.innerHTML = '';
+    return;
+  }
+
+  var reading = (plan && planWk >= 1 && planWk < plan.length) ? plan[planWk] : null;
+
+  /* Week 1 = Introduction for Parables and BB pathways */
+  if (isParable && planWk <= 0) {
+    el.innerHTML = '<div style="background:var(--card2);border:1px solid var(--border);'
+      + 'border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;">'
+      + '<span style="font-size:24px;">&#x1F4DC;</span>'
+      + '<div style="flex:1;min-width:0;">'
+      + '<div style="font-family:Cinzel,serif;font-size:14px;font-weight:700;color:var(--amber);">'
+      + 'Introduction to the Parables of Jesus</div>'
+      + '<div style="font-size:12px;color:var(--text2);margin-top:2px;">'
+      + 'What is a parable? Why did Jesus teach in parables? Overview of themes.</div>'
+      + '<div style="font-size:11px;color:var(--text3);margin-top:3px;">'
+      + planLabel + ' \u00B7 Week 1 \u00B7 ' + wkLabel + '</div>'
+      + '</div></div>';
+    return;
+  }
+
+  if (!reading) {
+    el.innerHTML = '<div style="background:var(--card2);border:1px solid var(--green);'
+      + 'border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;">'
+      + '<span style="font-size:22px;">&#x2705;</span>'
+      + '<div><div style="font-family:Cinzel,serif;font-size:14px;font-weight:700;color:var(--green);">'
+      + 'Reading Plan Complete!</div>'
+      + '<div style="font-size:12px;color:var(--text3);">' + planLabel + ' \u00B7 ' + wkLabel + '</div>'
+      + '</div></div>';
+    return;
+  }
+
+  var mainText = reading;
+  var refText  = '';
+  if (isParable && reading.indexOf(' \u00B7 ') !== -1) {
+    var parts = reading.split(' \u00B7 ');
+    mainText = parts[0];
+    refText  = parts[1];
+  }
+
+  var icon      = isParable ? '&#x1F4DC;' : '&#x1F4D6;';
+  var iconColor = isParable ? 'var(--amber)' : 'var(--teal)';
+
+  el.innerHTML = '<div style="background:var(--card2);border:1px solid var(--border);'
+    + 'border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;">'
+    + '<span style="font-size:24px;">' + icon + '</span>'
+    + '<div style="flex:1;min-width:0;">'
+    + '<div style="font-family:Cinzel,serif;font-size:14px;font-weight:700;color:' + iconColor + ';'
+    + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + mainText + '</div>'
+    + (refText ? '<div style="font-size:12px;color:var(--text2);margin-top:2px;">' + refText + '</div>' : '')
+    + '<div style="font-size:11px;color:var(--text3);margin-top:3px;">'
+    + planLabel + ' \u00B7 Week ' + curWk + ' \u00B7 ' + wkLabel + '</div>'
+    + '</div></div>';
+}
+
+function buildActionCard(s,gpa,reps,weeks,currentWkNum){
+  var el=document.getElementById('action-card');
+  if(!el)return;
+  if(!weeks.length){el.style.display='none';return;}
+  el.style.display='block';
+  var lw=weeks[weeks.length-1];
+  var wd=gpa[lw]||gpa[String(lw)]||{};
+  var pct=wkScForCode(gpa,lw)!=null?Math.round(wkScForCode(gpa,lw)*100):null;
+  var rep=reps[lw]||reps[String(lw)]||'';
+  var name=s.first_name||'your child';
+  var action='';
+  var nextWk=lw+1;
+  var nextDate=(typeof WEEK_DATES!=='undefined'&&WEEK_DATES[nextWk])?WEEK_DATES[nextWk]:'';
+  var noReport=!(wd["Weekly report"]>0);
+  var noSheet=!(wd["Time Sheet"]>0);
+  var absent=!(wd["Attendance"]>0);
+  var mins=wd["Invested Minutes"]||0;
+  if(pct===null){
+    action=name+' has no data for Week '+lw+'. Encourage them to complete reading and submit their time sheet.';
+  } else if(absent){
+    action=name+' missed class this week. Contact the instructor to note the absence and catch up on what was covered.';
+  } else if(noReport&&noSheet){
+    action=name+' attended but has not submitted a report or time sheet. Ask them to fill both in today.';
+  } else if(noReport){
+    action='Remind '+name+' to write their weekly reflection. Ask: What was the most interesting thing you read this week?';
+  } else if(noSheet){
+    action=name+' has not submitted a time sheet. Help them log their daily reading minutes from this week.';
+  } else if(mins>0&&mins<150){
+    action=name+' logged only '+mins+' minutes this week. Target is 300 min. Try a daily 30-minute reading time together.';
+  } else if(pct>=80){
+    action=name+' had an excellent week scoring '+pct+' percent! Celebrate with them.'+(nextDate?' Next class: '+nextDate+'.':'');
+  } else {
+    action=name+' scored '+pct+'% this week.'+(nextDate?' Next class: '+nextDate+'.':'')+(rep?' Instructor: '+rep.substring(0,80):'');
+  }
+  el.querySelector('.action-body').textContent=action;
+  el.querySelector('.action-hdr span:last-child').textContent='Do This Today - Week '+lw;
+  var ACTS=[
+    'Train up a child in the way he should go - Prov 22:6',
+    'Jesus grew in wisdom and stature - Luke 2:52',
+    'Here am I and the children the LORD gave me - Isa 8:18',
+    'From childhood you have known the scriptures - 2 Tim 3:15'
+  ];
+  el.querySelector('.action-verse').textContent=ACTS[lw%ACTS.length];
+}
+
+/* 2. READING PLAN */
+var READING_PLAN = {
+  NT: {"1": "Matt 1-6", "2": "Matt 7-12", "3": "Matt 13-18", "4": "Matt 19-24", "5": "Matt 25-28, Mark 1-2", "6": "Mark 3-8", "7": "Mark 9-14", "8": "Mark 15-16, Luke 1-4", "9": "Luke 5-10", "10": "Luke 11-16", "11": "Luke 17-22", "12": "Luke 23-24, John 1-4", "13": "John 5-10", "14": "John 11-16", "15": "John 17-21, Acts 1", "16": "Acts 2-7", "17": "Acts 8-13", "18": "Acts 14-19", "19": "Acts 20-25", "20": "Acts 26-28, Rom 1-3", "21": "Rom 4-9", "22": "Rom 10-15", "23": "Rom 16, 1 Cor 1-5", "24": "1 Cor 6-11", "25": "1 Cor 12-16, 2 Cor 1", "26": "2 Cor 2-7", "27": "2 Cor 8-13", "28": "Gal 1-6", "29": "Eph 1-6", "30": "Phil 1-4, Col 1-2", "31": "Col 3-4, 1 Thess 1-4", "32": "1 Thess 5, 2 Thess, 1 Tim 1-2", "33": "1 Tim 3-6, 2 Tim 1-2", "34": "2 Tim 3-4, Titus, Philemon", "35": "Heb 1-6", "36": "Heb 7-12", "37": "Heb 13, James 1-5", "38": "1 Pet 1-5, 2 Pet 1", "39": "2 Pet 2-3, 1 John 1-4", "40": "1 John 5, 2 John, 3 John, Jude, Rev 1-2", "41": "Rev 3-8", "42": "Rev 9-14", "43": "Rev 15-20", "44": "Rev 21-22 + Review"},
+  OT: {"1": "Genesis 1-10", "2": "Genesis 11-20", "3": "Genesis 21-30", "4": "Genesis 31-40", "5": "Genesis 41-50", "6": "Exodus 1-10", "7": "Exodus 11-20", "8": "Exodus 21-30", "9": "Exodus 31-40", "10": "Leviticus 1-10", "11": "Leviticus 11-20", "12": "Lev 21-27, Numbers 1-2", "13": "Numbers 3-12", "14": "Numbers 13-22", "15": "Numbers 23-32", "16": "Num 33-36, Deut 1-6", "17": "Deuteronomy 7-16", "18": "Deuteronomy 17-26", "19": "Deut 27-34, Joshua 1-2", "20": "Joshua 3-12", "21": "Joshua 13-22", "22": "Josh 23-24, Judges 1-8", "23": "Judges 9-18", "24": "Judg 19-21, Ruth, 1 Sam 1-2", "25": "1 Samuel 3-12", "26": "1 Samuel 13-22", "27": "1 Sam 23-31, 2 Sam 1", "28": "2 Samuel 2-11", "29": "2 Samuel 12-21", "30": "2 Sam 22-24, 1 Kings 1-6", "31": "1 Kings 7-16", "32": "1 Kgs 17-22, 2 Kgs 1-4", "33": "2 Kings 5-14", "34": "2 Kings 15-24", "35": "2 Kgs 25, 1 Chr 1-8", "36": "1 Chronicles 9-18", "37": "1 Chronicles 19-28", "38": "1 Chr 29, 2 Chr 1-8", "39": "2 Chronicles 9-18", "40": "2 Chronicles 19-28", "41": "2 Chr 29-36, Ezra 1-2", "42": "Ezra 3-10, Neh 1-2", "43": "Nehemiah 3-12", "44": "Neh 13, Esther 1-8"},
+  PARABLES: {"1": ["The Sower and the Soils", "Matt 13:1-23; Mark 4:1-20; Luke 8:4-15", "Kingdom"], "2": ["The Wheat and the Tares", "Matt 13:24-30, 36-43", "Kingdom"], "3": ["The Mustard Seed", "Matt 13:31-32; Mark 4:30-32", "Kingdom"], "4": ["The Leaven (Yeast)", "Matt 13:33; Luke 13:20-21", "Kingdom"], "5": ["The Hidden Treasure", "Matt 13:44", "Kingdom"], "6": ["The Pearl of Great Price", "Matt 13:45-46", "Kingdom"], "7": ["The Dragnet", "Matt 13:47-50", "Kingdom"], "8": ["The Householder", "Matt 13:51-52", "Kingdom"], "9": ["The Growing Seed", "Mark 4:26-29", "Kingdom"], "10": ["The Children in the Marketplace", "Matt 11:16-19; Luke 7:31-35", "Kingdom"], "11": ["The Minas", "Luke 19:11-27", "Kingdom"], "12": ["The Talents", "Matt 25:14-30", "Kingdom"], "13": ["The Fig Tree", "Matt 24:32-35; Mark 13:28-31", "Kingdom"], "14": ["The Lost Sheep", "Matt 18:10-14; Luke 15:3-7", "Father's Heart"], "15": ["The Lost Coin", "Luke 15:8-10", "Father's Heart"], "16": ["The Prodigal Son", "Luke 15:11-32", "Father's Heart"], "17": ["The Two Debtors", "Luke 7:41-43", "Father's Heart"], "18": ["The Good Samaritan", "Luke 10:25-37", "Father's Heart"], "19": ["The Great Banquet", "Luke 14:15-24; Matt 22:1-14", "Father's Heart"], "20": ["The Friend at Midnight", "Luke 11:5-13", "Father's Heart"], "21": ["The Unforgiving Servant", "Matt 18:21-35", "Father's Heart"], "22": ["The Good Shepherd", "John 10:1-18", "Father's Heart"], "23": ["The Vine and the Branches", "John 15:1-8", "Father's Heart"], "24": ["The Two Sons", "Matt 21:28-32", "Discipleship"], "25": ["The Wise and Foolish Builders", "Matt 7:24-27; Luke 6:46-49", "Discipleship"], "26": ["The Empty House", "Matt 12:43-45; Luke 11:24-26", "Discipleship"], "27": ["The Lamp Under a Basket", "Matt 5:14-16; Mark 4:21-25", "Discipleship"], "28": ["The Speck and the Beam", "Matt 7:3-5; Luke 6:41-42", "Discipleship"], "29": ["The Unworthy Servants", "Luke 17:7-10", "Discipleship"], "30": ["The Persistent Widow", "Luke 18:1-8", "Discipleship"], "31": ["The Pharisee and Tax Collector", "Luke 18:9-14", "Discipleship"], "32": ["The Labourers in the Vineyard", "Matt 20:1-16", "Discipleship"], "33": ["The Tower Builder", "Luke 14:28-30", "Discipleship"], "34": ["The Warring King", "Luke 14:31-33", "Discipleship"], "35": ["The Strong Man's House", "Matt 12:29; Mark 3:27", "Discipleship"], "36": ["The Rich Fool", "Luke 12:16-21", "Stewardship"], "37": ["The Unjust Steward", "Luke 16:1-13", "Stewardship"], "38": ["The Rich Man and Lazarus", "Luke 16:19-31", "Stewardship"], "39": ["The Wicked Tenants", "Matt 21:33-46; Mark 12:1-12", "Stewardship"], "40": ["The Ten Virgins", "Matt 25:1-13", "Readiness"], "41": ["The Wedding Feast", "Matt 22:1-14", "Readiness"], "42": ["The Servant Entrusted with Authority", "Matt 24:45-51; Luke 12:42-48", "Readiness"], "43": ["The Barren Fig Tree", "Luke 13:6-9", "Readiness"], "44": ["The Thief in the Night", "Matt 24:43-44; Luke 12:39-40", "Readiness"]}
+};
+
+
+/* 3. FAMILY SUMMARY */
+function buildFamilySummary(){
+  var el=document.getElementById('fam-sum-content');
+  if(!el||!currentStudent)return;
+  var code=currentStudent.code||currentStudent.god_code;
+  var siblings=FAMILIES[code]||[];
+  if(!siblings.length)return;
+  var all=[code].concat(siblings);
+  var out='<div class="fam-summary">';
+  for(var i=0;i<all.length;i++){
+    var c=all[i];
+    var si=DATA.students[c]||{};
+    var g=DATA.gpa[c]||{};
+    var wks=Object.keys(g).map(Number).filter(function(n){return!isNaN(n);}).sort(function(a,b){return a-b;});
+    var lw=wks.length?wks[wks.length-1]:null;
+    var pct=lw?(wkScForCode(g,lw)!=null?Math.round(wkScForCode(g,lw)*100):null):null;
+    var grade=gradeOf(pct);
+    var col=pct!=null?grade.col:'var(--text3)';
+    var isMe=(c===code);
+    var wd=lw?(g[lw]||g[String(lw)]||{}):{};
+    var mins=wd["Invested Minutes"]||0;
+    var cats=["Weekly report","Time Sheet","Pathway","Activity","Attendance"];
+    var bars='';
+    for(var j=0;j<cats.length;j++){
+      var cat=cats[j];
+      var v=wd[cat];
+      var p=v!=null?(v*100):0;
+      var bc=p>=100?'var(--green)':p>=50?'var(--amber)':'var(--red)';
+      bars+='<div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;">'
+        +'<span style="font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">'+cat.split(' ')[0]+'</span>'
+        +'<div style="flex:1;height:5px;background:var(--card2);border-radius:3px;overflow:hidden;">'
+        +'<div style="height:100%;width:'+p+'%;background:'+bc+';border-radius:3px;"></div></div>'
+        +'<span style="font-size:9px;color:'+bc+';width:22px;text-align:right;">'+p+'%</span>'
+        +'</div>';
+    }
+    var cls='fsc'+(isMe?' me':'');
+    out+='<div class="'+cls+'" onclick="switchChild(this.dataset.c)" data-c="'+c+'">'
+      +'<div class="fsc-name">'+(si.first_name||c)+' '+(si.last_name||'')+'</div>'
+      +'<div class="fsc-code">'+(si.code||si.god_code||c)+'</div>'
+      +'<div class="fsc-score" style="color:'+col+'">'+(pct!=null?pct+'%':'&#x2014;')+'</div>'
+      +'<div class="fsc-meta">Week '+(lw||'&#x2014;')+(mins?' &middot; '+mins+'min':'')+'</div>'
+      +bars
+      +'<div style="font-size:11px;text-align:center;color:var(--gold);opacity:.7;margin-top:8px;">'+(isMe?'Viewing now':'Tap to switch')+'</div>'
+      +'</div>';
+  }
+  out+='</div>';
+  el.innerHTML=out;
+  var btn=document.getElementById('bn-fam');
+  if(btn)btn.style.display='flex';
+}
+
+/* 4. SCORE NARRATIVE */
+function buildScoreNarrative(s,gpa,reps,weeks){
+  var el=document.getElementById('score-narrative');
+  if(!el||!weeks.length){if(el)el.innerHTML='';return;}
+  var lw=weeks[weeks.length-1];
+  var wd=gpa[lw]||gpa[String(lw)]||{};
+  var pct=wkScForCode(gpa,lw)!=null?Math.round(wkScForCode(gpa,lw)*100):null;
+  if(pct===null){el.innerHTML='';return;}
+  var name=s.first_name||'Your child';
+  var prev=weeks.length>1?wkScForCode(gpa,weeks[weeks.length-2]):null;
+  var trend='';
+  if(prev!=null){
+    var d=pct-Math.round(prev*100);
+    if(d>10)trend=' (up '+d+'%)';
+    else if(d<-10)trend=' (down '+Math.abs(d)+'%)';
+    else trend=' (steady)';
+  }
+  var gaps=[];
+  if(!(wd["Weekly report"]>0))gaps.push('no report');
+  if(!(wd["Time Sheet"]>0))gaps.push('no time sheet');
+  if(!(wd["Attendance"]>0))gaps.push('absent');
+  var mins=wd["Invested Minutes"]||0;
+  if(mins>0&&mins<150)gaps.push(mins+'min read');
+  var txt=name+' scored <strong style="color:var(--gold)">'+pct+'%</strong> in Week '+lw+trend+'.';
+  if(gaps.length&&pct<80){txt+=' To improve: <span style="color:var(--amber)">'+gaps.join(', ')+'</span>.';}
+  else if(pct>=80){txt+=' <span style="color:var(--green)">Excellent week!</span>';}
+  el.innerHTML='<div style="font-size:14px;color:var(--text2);line-height:1.7;padding:12px 16px;background:var(--card2);border-radius:10px;margin-bottom:14px;border-left:3px solid var(--gold);">'+txt+'</div>';
+}
+
+/* 5. MESSAGE LOG */
+function logMessage(txt){
+  try{
+    var code=currentStudent?(currentStudent.code||currentStudent.god_code):'x';
+    var key='gU_msgs_'+code;
+    var msgs=JSON.parse(localStorage.getItem(key)||'[]');
+    msgs.unshift({txt:txt.substring(0,200),ts:Date.now()});
+    localStorage.setItem(key,JSON.stringify(msgs.slice(0,10)));
+    renderMsgLog();
+  }catch(e){}
+}
+function renderMsgLog(){
+  var el=document.getElementById('msg-log');
+  if(!el||!currentStudent)return;
+  try{
+    var code=currentStudent.code||currentStudent.god_code;
+    var msgs=JSON.parse(localStorage.getItem('gU_msgs_'+code)||'[]');
+    if(!msgs.length){el.innerHTML='';return;}
+    var out='<div class="sh" style="margin-bottom:10px;">&#x1F4EC; Messages Sent</div>';
+    msgs.forEach(function(m){
+      var d=new Date(m.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+      out+='<div class="msglog-item"><div class="msglog-txt">'+m.txt+'</div><div class="msglog-time">Sent '+d+'</div></div>';
+    });
+    el.innerHTML=out;
+  }catch(e){}
 }
 
 function buildDash(s) {
@@ -2489,9 +2647,13 @@ function buildDash(s) {
   }
   /* Term progress FIX #11 */
   /* Use WEEK_DATES map if available for accuracy */
-  var startDate=new Date('2026-02-07');
-  if(CFG&&CFG.startDate)startDate=new Date(CFG.startDate);
-  var now=new Date();
+  /* Parse start date in LOCAL time to avoid UTC timezone offset issues */
+  var _sd = (CFG&&CFG.startDate) ? CFG.startDate : '2026-02-07';
+  var _sdp = _sd.split('-');
+  var startDate = new Date(parseInt(_sdp[0]), parseInt(_sdp[1])-1, parseInt(_sdp[2]));
+  /* Use local noon today to avoid midnight edge cases */
+  var _now = new Date();
+  var now = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), 12, 0, 0);
   var msPerWk=7*24*60*60*1000;
   var currentWkNum=Math.max(1,Math.min(CFG.totalWeeks,Math.floor((now-startDate)/msPerWk)+1));
   var termPct=Math.round((currentWkNum/CFG.totalWeeks)*100);
@@ -2536,19 +2698,24 @@ function buildDash(s) {
   } else if(cavgRow) cavgRow.style.display='none';
   /* Term summary FIX #15 */
   buildTermSummary(code,gpa,weeks,avgPct,totalMins,streak);
+  try{buildScoreNarrative(s,gpa,reps,weeks);}catch(e){}
+  if(pct!=null&&pct>=80&&lw){var _ck="gU_cert_"+(s.code||s.god_code)+"_"+lw;try{if(!localStorage.getItem(_ck)){localStorage.setItem(_ck,"1");setTimeout(function(){showCertificate(s.first_name||"",pct,lw);},1500);}}catch(e){}}
+  try{checkReengagement();}catch(e){}
+  try{buildFamilyStrip(s,gpa);}catch(e){}
+  try{var _si=FAMILIES[code]||[];if(_si.length){var _bn=document.getElementById("bn-fam");if(_bn)_bn.style.display="flex";}}catch(e){}
   buildLC(gpa,weeks,code);
   buildHM(gpa,weeks);
   buildCatBars(gpa,lw);
   buildMT(gpa,weeks,code);
   buildBG(gpa,weeks,streak,totalMins);
   buildIns(s,gpa,weeks,pct,avgPct,streak,latestMins,totalMins);
+  try{buildActionCard(s,gpa,reps,weeks,currentWkNum);}catch(e){}
+  try{buildReadingPlan(s,currentWkNum);}catch(e){}
   buildRep(s,gpa,reps,weeks,currentWkNum);
   buildTesty(fb);
+  try{renderMsgLog();}catch(e){}
   buildInstructorHighlights(code, reps);
   try{buildBadgeGallery(s,gpa,reps,fb);}catch(e){console.warn(e);}
-
-
-  try{buildBadgeGrid(s,gpa,reps,weeks);}catch(e){console.warn("badges:",e);}
   buildProfile(s);
   buildSchedule(currentWkNum);
   updateCfgUI();
@@ -2849,7 +3016,9 @@ function genSugg(s,w,wd,pct,prevPct,mins,weeks,gpa) {
 
 /* ═══ SHARE ═══ */
 function shareToTG(code,week) {
-  var s=DATA.students[code]||{};var gpa=getGPA(code);var reps=getReps(code);
+  /* Prefer currentStudent if code matches — avoids stale DATA lookup */
+  var s=(currentStudent&&(currentStudent.code===code||currentStudent.god_code===code))
+    ? currentStudent : (DATA.students[code]||{});var gpa=getGPA(code);var reps=getReps(code);
   var wd=gpa[week]||gpa[String(week)]||{};
   var pct=wkScForCode(gpa,week)!=null?Math.round(wkScForCode(gpa,week)*100):null;
   var fullName=[s.first_name,s.last_name].filter(Boolean).join(' ');
@@ -2865,6 +3034,7 @@ function shareToTG(code,week) {
     +(repTxt?'\nInstructor note:\n'+repTxt.substring(0,150)+(repTxt.length>150?'\u2026':'')+'\n':'')
     +'\n\u201CI can do all things through Christ who strengthens me\u201D \u2014 Phil 4:13'
     +'\n\ngoDs University Parent Portal\nhttps://abcentech.github.io/gU';
+  try{logMessage(msg.substring(0,200));}catch(e){}
   window.open('https://t.me/share/url?url=https://bit.ly/KINpro&text='+encodeURIComponent(msg),'_blank');
 }
 function copyRep(name,week,pct,mins) {
@@ -3097,7 +3267,10 @@ function wkWk(w,btn){
   var sH='<div class="sugg-hdr">&#x1F3AF; Parent Action Guide \u2014 Week '+w+'</div>';
   if(suggs.length){suggs.forEach(function(sg){sH+='<div class="sugg s-'+sg.p+'"><div class="sugg-ic">'+sg.i+'</div><div class="sugg-body">'+sg.t+'</div></div>';});}
   else{sH+='<div style="font-size:14px;color:var(--text2);padding:14px;text-align:center;font-style:italic;">Great week \u2014 keep it up!</div>';}
-  var fc=s.god_code||s.code||'',fn=s.first_name||'';
+  /* Always use currentStudent for share — most reliable source */
+  var shareStudent=currentStudent||s;
+  var fc=shareStudent.god_code||shareStudent.code||s.god_code||s.code||'';
+  var fn=shareStudent.first_name||s.first_name||'';
   var share='<div class="share-row">'
     +'<button class="share-btn share-tg" onclick="shareToTG(\''+fc+'\','+w+')">\u2708\uFE0F Share</button>'
     +'<button class="share-btn share-copy" onclick="copyRep(\''+fn+'\','+w+','+(pct||0)+','+(mins||0)+')">&#x1F4CB; Copy</button>'
@@ -3124,6 +3297,6 @@ function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'nume
     <button class="cert-btn cbtn-share" onclick="shareCertificate()">&#x2708;&#xFE0F; Share</button>
     <button class="cert-btn cbtn-close" onclick="document.getElementById('cert-modal').classList.remove('show')">Close</button>
   </div>
-</div></div>
+</div>
 </body>
 </html>
