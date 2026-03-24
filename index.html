@@ -2618,6 +2618,8 @@ function buildDash(s) {
     var wk=parseInt(w);if(!isNaN(wk))dataWeekSet.add(wk);
   });
   var weeks=[...dataWeekSet].sort(function(a,b){return a-b;});
+  /* Cap weeks at current calendar week — never show future week data */
+  weeks=weeks.filter(function(w){return w<=currentWkNum;});
   var lw=weeks.length?weeks[weeks.length-1]:null;
   var lwData=lw!=null?(gpa[lw]||gpa[String(lw)]):null;
   var pct=lwData!=null?Math.round((wkSc(lwData)||0)*100):null;
@@ -2660,7 +2662,7 @@ function buildDash(s) {
   var tf=document.getElementById('term-fill'),tp=document.getElementById('term-pct');
   if(tf)tf.style.width=termPct+'%';
   if(tp)tp.textContent='Week '+currentWkNum+' of '+CFG.totalWeeks;
-  document.getElementById('wk-badge').textContent='Wk '+(lw||'\u2014')+' \u00B7 2026';
+  document.getElementById('wk-badge').textContent='Wk '+currentWkNum+' \u00B7 2026';
   /* Hero */
   ['h-ava','pa-ava'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=s.first_name[0];});
   document.getElementById('h-name').textContent=s.first_name+' '+s.last_name;
