@@ -2618,8 +2618,6 @@ function buildDash(s) {
     var wk=parseInt(w);if(!isNaN(wk))dataWeekSet.add(wk);
   });
   var weeks=[...dataWeekSet].sort(function(a,b){return a-b;});
-  /* Cap weeks at current calendar week — never show future week data */
-  weeks=weeks.filter(function(w){return w<=currentWkNum;});
   var lw=weeks.length?weeks[weeks.length-1]:null;
   var lwData=lw!=null?(gpa[lw]||gpa[String(lw)]):null;
   var pct=lwData!=null?Math.round((wkSc(lwData)||0)*100):null;
@@ -2658,6 +2656,9 @@ function buildDash(s) {
   var now = new Date(_now.getFullYear(), _now.getMonth(), _now.getDate(), 12, 0, 0);
   var msPerWk=7*24*60*60*1000;
   var currentWkNum=Math.max(1,Math.min(CFG.totalWeeks,Math.floor((now-startDate)/msPerWk)+1));
+  /* Cap weeks array to current calendar week — prevents future sheet entries showing */
+  weeks=weeks.filter(function(w){return w<=currentWkNum;});
+  if(lw&&lw>currentWkNum){lw=weeks.length?weeks[weeks.length-1]:null;lwData=lw!=null?(gpa[lw]||gpa[String(lw)]):null;pct=lwData!=null?Math.round((wkSc(lwData)||0)*100):null;}
   var termPct=Math.round((currentWkNum/CFG.totalWeeks)*100);
   var tf=document.getElementById('term-fill'),tp=document.getElementById('term-pct');
   if(tf)tf.style.width=termPct+'%';
