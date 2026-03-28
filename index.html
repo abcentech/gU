@@ -967,6 +967,220 @@ img,canvas,iframe,video{max-width:100%;}
 .msglog-txt{font-size:13px;color:var(--text2);line-height:1.5;}
 .msglog-time{font-size:11px;color:var(--text3);margin-top:3px;}
 
+
+/* ═══════════════════════════════════════════════
+   PARENT INTRODUCTION — pre-login landing page
+   ═══════════════════════════════════════════════ */
+#intro-page{
+  display:none;position:relative;z-index:10;
+  background:var(--bg);min-height:100vh;overflow-x:hidden;
+}
+#intro-page.show{display:block;}
+
+/* Hero */
+.ip-hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:60px 24px 80px;position:relative;
+}
+.ip-eyebrow{
+  font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.ip-eyebrow::before,.ip-eyebrow::after{
+  content:'';width:32px;height:1px;background:var(--teal);opacity:.4;
+}
+.ip-crown{font-size:64px;margin-bottom:14px;
+  filter:drop-shadow(0 0 28px rgba(232,196,67,.5));
+  animation:ip-float 4s ease-in-out infinite;}
+@keyframes ip-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.ip-title{
+  font-family:Cinzel,serif;font-size:clamp(30px,6vw,64px);
+  font-weight:900;color:var(--gold);line-height:1.1;margin-bottom:6px;
+}
+.ip-subtitle{
+  font-family:Cinzel,serif;font-size:clamp(14px,2.5vw,22px);
+  font-weight:500;color:var(--text2);letter-spacing:2px;margin-bottom:18px;
+}
+.ip-tagline{
+  font-family:Lora,serif;font-style:italic;
+  font-size:clamp(15px,2vw,20px);color:var(--text2);
+  max-width:580px;margin:0 auto 14px;line-height:1.8;
+}
+.ip-verse{font-size:12px;color:var(--text3);letter-spacing:.5px;margin-bottom:40px;}
+.ip-btn-login{
+  padding:16px 48px;border-radius:50px;
+  background:var(--gold);color:var(--bg);
+  font-family:Cinzel,serif;font-size:16px;font-weight:700;
+  border:none;cursor:pointer;
+  box-shadow:0 0 40px rgba(232,196,67,.35);
+  transition:all .2s;display:inline-block;margin-bottom:16px;
+}
+.ip-btn-login:hover{transform:translateY(-3px);box-shadow:0 0 60px rgba(232,196,67,.5);}
+.ip-scroll-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  font-size:10px;letter-spacing:2px;color:var(--text3);
+}
+.ip-scroll-line{width:1px;height:36px;
+  background:linear-gradient(var(--gold),transparent);
+  animation:ip-pulse 1.5s infinite;}
+@keyframes ip-pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* Sections */
+.ip-section{
+  padding:80px 24px;max-width:860px;margin:0 auto;
+}
+.ip-section-wide{padding:80px 24px;max-width:1060px;margin:0 auto;}
+.ip-lbl{
+  font-size:10px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--teal);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.ip-lbl::after{content:'';width:40px;height:1px;background:var(--teal);opacity:.3;}
+.ip-h2{
+  font-family:Cinzel,serif;font-size:clamp(20px,3.5vw,36px);
+  font-weight:700;color:var(--text);line-height:1.25;margin-bottom:20px;
+}
+.ip-h2 em{font-style:normal;color:var(--gold);}
+.ip-body{
+  font-family:Lora,serif;font-size:16px;color:var(--text2);
+  line-height:1.9;margin-bottom:16px;
+}
+.ip-body strong{color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;}
+
+/* Bullet intro */
+.ip-bullets{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:28px;margin-top:24px;
+}
+.ip-bullet{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);
+}
+.ip-bullet:last-child{border-bottom:none;}
+.ip-bullet-dot{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  background:var(--gold-dim,rgba(232,196,67,.12));
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.ip-bullet-text{font-size:14px;color:var(--text2);line-height:1.7;}
+.ip-bullet-text strong{color:var(--text);}
+
+/* Pillars */
+.ip-pillars{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);border-radius:16px;overflow:hidden;
+  margin-top:36px;
+}
+.ip-pillar{background:var(--card);padding:24px 18px;text-align:center;}
+.ip-pillar-ic{font-size:30px;margin-bottom:10px;display:block;}
+.ip-pillar-name{
+  font-family:Cinzel,serif;font-size:12px;font-weight:700;
+  color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;
+}
+.ip-pillar-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+
+/* Steps */
+.ip-bg{background:linear-gradient(180deg,transparent,var(--card2,#1E2A42) 15%,var(--card2,#1E2A42) 85%,transparent);}
+.ip-steps{display:flex;flex-direction:column;gap:0;margin-top:36px;position:relative;}
+.ip-steps::before{
+  content:'';position:absolute;left:26px;top:0;bottom:0;width:1px;
+  background:linear-gradient(rgba(232,196,67,.3),rgba(232,196,67,.3) 85%,transparent);
+}
+.ip-step{display:flex;gap:24px;padding-bottom:40px;}
+.ip-step-num{
+  width:52px;height:52px;border-radius:50%;flex-shrink:0;
+  background:var(--card);border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:Cinzel,serif;font-size:17px;font-weight:700;color:var(--gold);
+  position:relative;z-index:1;
+}
+.ip-step-body{padding-top:10px;}
+.ip-step-title{
+  font-family:Cinzel,serif;font-size:16px;font-weight:700;
+  color:var(--text);margin-bottom:6px;
+}
+.ip-step-desc{font-size:14px;color:var(--text2);line-height:1.75;}
+.ip-step-desc strong{color:var(--text);}
+.ip-mono{
+  display:inline-block;background:rgba(232,196,67,.1);
+  border:1px solid rgba(232,196,67,.25);border-radius:6px;
+  padding:2px 10px;font-family:monospace;font-size:13px;color:var(--gold);margin-top:4px;
+}
+
+/* Features */
+.ip-feat-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:14px;margin-top:36px;
+}
+.ip-feat{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:22px;
+  transition:border-color .2s,transform .2s;
+}
+.ip-feat:hover{border-color:rgba(232,196,67,.35);transform:translateY(-2px);}
+.ip-feat-ic{font-size:28px;margin-bottom:12px;display:block;}
+.ip-feat-title{font-weight:700;font-size:15px;color:var(--text);margin-bottom:6px;}
+.ip-feat-desc{font-size:13px;color:var(--text2);line-height:1.65;}
+.ip-tag{
+  display:inline-block;margin-top:10px;padding:3px 10px;
+  border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;
+}
+.ip-tag-core{background:rgba(232,196,67,.12);color:var(--gold);}
+.ip-tag-new{background:rgba(20,184,166,.12);color:var(--teal);}
+.ip-tag-fam{background:rgba(16,185,129,.12);color:#10B981;}
+
+/* GPA grid */
+.ip-gpa-cats{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:8px;margin-top:28px;
+}
+.ip-gpa-cat{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:16px 10px;text-align:center;
+}
+.ip-gpa-cat-ic{font-size:24px;display:block;margin-bottom:8px;}
+.ip-gpa-cat-nm{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.ip-gpa-cat-sub{font-size:10px;color:var(--text3);}
+.ip-grades{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;}
+.ip-grade{border-radius:10px;padding:14px 8px;text-align:center;}
+.ip-grade.ex{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);}
+.ip-grade.gd{background:rgba(232,196,67,.1);border:1px solid rgba(232,196,67,.2);}
+.ip-grade.fr{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);}
+.ip-grade.nf{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);}
+.ip-grade-pct{font-family:Cinzel,serif;font-size:17px;font-weight:700;}
+.ip-grade-pct.c-ex{color:#10B981;}
+.ip-grade-pct.c-gd{color:var(--gold);}
+.ip-grade-pct.c-fr{color:#F59E0B;}
+.ip-grade-pct.c-nf{color:#EF4444;}
+.ip-grade-lbl{font-size:11px;color:var(--text2);margin-top:3px;}
+
+/* Login CTA at bottom of intro */
+.ip-login-cta{
+  padding:64px 24px;text-align:center;
+  border-top:1px solid var(--border);
+}
+.ip-login-cta-title{
+  font-family:Cinzel,serif;font-size:clamp(20px,4vw,34px);
+  font-weight:700;color:var(--gold);margin-bottom:10px;
+}
+.ip-login-cta-sub{
+  font-family:Lora,serif;font-style:italic;
+  font-size:17px;color:var(--text2);margin-bottom:28px;
+}
+
+@media(max-width:600px){
+  .ip-pillars{grid-template-columns:1fr;}
+  .ip-gpa-cats{grid-template-columns:repeat(3,1fr);}
+  .ip-grades{grid-template-columns:repeat(2,1fr);}
+  .ip-steps::before{display:none;}
+}
+@media(max-width:420px){
+  .ip-gpa-cats{grid-template-columns:repeat(2,1fr);}
+}
+
 </style>
 </head>
 <body>
@@ -1719,8 +1933,20 @@ window.addEventListener('load', function() {
   if (isOffline) { loadCache(); document.getElementById('offline-chip').style.display = 'flex'; }
   loadCfg();
   setTimeout(function() {
-    document.getElementById('loader').classList.add('gone');
-    document.getElementById('login').style.display = 'flex';
+    /* Show intro page if first visit, else login */
+    try {
+      var seen = localStorage.getItem('gU_intro_seen');
+      if (seen) {
+        document.getElementById('loader').classList.add('gone');
+        document.getElementById('login').style.display = 'flex';
+      } else {
+        localStorage.setItem('gU_intro_seen', '1');
+        showIntro();
+      }
+    } catch(e) {
+      document.getElementById('loader').classList.add('gone');
+      document.getElementById('login').style.display = 'flex';
+    }
     if (savedSheetId) { document.getElementById('gs-id').value = savedSheetId; setGSBadge('ok','Connected'); }
   }, 1400);
   document.getElementById('pinp').addEventListener('keydown', function(e) { if(e.key==='Enter') doLogin(); });
@@ -2582,6 +2808,18 @@ function renderMsgLog(){
   }catch(e){}
 }
 
+function showIntro() {
+  document.getElementById('intro-page').classList.add('show');
+  document.getElementById('loader').classList.add('gone');
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dash').style.display = 'none';
+}
+function showLoginFromIntro() {
+  document.getElementById('intro-page').classList.remove('show');
+  document.getElementById('login').style.display = 'flex';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 function buildDash(s) {
   s.code = s.code || s.god_code;
   /* Persistent student bar */
@@ -3287,6 +3525,196 @@ function fmtDate(d){try{return new Date(d).toLocaleDateString('en-GB',{day:'nume
 
 </script>
 
+
+
+<!-- ═══════════════ PARENT INTRODUCTION PAGE ═══════════════ -->
+<div id="intro-page">
+  <!-- HERO -->
+  <div class="ip-hero">
+    <div class="ip-eyebrow">KidsInspiringNation &middot; 2026</div>
+    <div class="ip-crown">&#x1F451;</div>
+    <div class="ip-title">goDs University</div>
+    <div class="ip-subtitle">Parent Portal &middot; v7</div>
+    <p class="ip-tagline">
+      Your real-time window into your child&rsquo;s spiritual education &mdash;
+      every score, every reading, every milestone, in your hand.
+    </p>
+    <p class="ip-verse">
+      &ldquo;And Jesus grew in wisdom and stature, and in favour with God and man.&rdquo; &mdash; Luke 2:52
+    </p>
+    <button class="ip-btn-login" onclick="showLoginFromIntro()">
+      &#x1F511; Log In to Your Child&rsquo;s Portal
+    </button>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:32px;">
+      First time? Scroll down to learn how it works &darr;
+    </p>
+    <div class="ip-scroll-hint">
+      <div class="ip-scroll-line"></div>
+      SCROLL
+    </div>
+  </div>
+
+  <!-- WHAT IS THIS -->
+  <div class="ip-section">
+    <div class="ip-lbl">&#x2736; Introduction</div>
+    <h2 class="ip-h2">Introducing the<br><em>goDs University Parent Portal</em></h2>
+    <p class="ip-body">
+      As a parent, you are the most important person in your child&rsquo;s spiritual journey.
+      The portal puts <strong>live, personalised data</strong> about your child&rsquo;s
+      progress directly into your hands &mdash; every week, automatically, for free.
+    </p>
+
+    <div class="ip-bullets">
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F4CA;</div>
+        <div class="ip-bullet-text"><strong>Live weekly scores</strong> &mdash; see your child&rsquo;s gPA this week broken into 5 categories: report, time sheet, pathway, activity and attendance.</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F4D6;</div>
+        <div class="ip-bullet-text"><strong>This week&rsquo;s reading assignment</strong> &mdash; the exact chapters your child should be reading, based on their pathway (OT, NT, Parables or Bible Basics).</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F3AF;</div>
+        <div class="ip-bullet-text"><strong>&ldquo;Do This Today&rdquo; action card</strong> &mdash; one specific, practical action for you as a parent based on your child&rsquo;s latest data.</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F4DD;</div>
+        <div class="ip-bullet-text"><strong>Instructor&rsquo;s notes</strong> &mdash; what the instructor observed about your child in class this week.</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F451;</div>
+        <div class="ip-bullet-text"><strong>Achievement certificates &amp; badges</strong> &mdash; auto-generated when your child hits milestones. Downloadable and shareable on WhatsApp.</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;&#x200D;&#x1F466;</div>
+        <div class="ip-bullet-text"><strong>Family overview</strong> &mdash; if you have multiple children in the programme, see all their scores side by side and switch between them with one tap.</div>
+      </div>
+      <div class="ip-bullet">
+        <div class="ip-bullet-dot">&#x1F4F6;</div>
+        <div class="ip-bullet-text"><strong>Works offline</strong> &mdash; the portal caches your child&rsquo;s data locally. No app to download. Works on any phone or laptop.</div>
+      </div>
+    </div>
+
+    <div class="ip-pillars">
+      <div class="ip-pillar">
+        <span class="ip-pillar-ic">&#x1F331;</span>
+        <div class="ip-pillar-name">In Spirit</div>
+        <div class="ip-pillar-desc">Track reading consistency, attendance and spiritual engagement every week</div>
+      </div>
+      <div class="ip-pillar">
+        <span class="ip-pillar-ic">&#x26A1;</span>
+        <div class="ip-pillar-name">By Skills</div>
+        <div class="ip-pillar-desc">See scores, improvements and where your child needs support</div>
+      </div>
+      <div class="ip-pillar">
+        <span class="ip-pillar-ic">&#x1F30D;</span>
+        <div class="ip-pillar-name">For Service</div>
+        <div class="ip-pillar-desc">Celebrate milestones, share testimonies and build a legacy</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="ip-bg">
+  <div class="ip-section">
+    <div class="ip-lbl">&#x2736; Getting Started</div>
+    <h2 class="ip-h2">You&rsquo;re one minute<br><em>from your child&rsquo;s data.</em></h2>
+    <div class="ip-steps">
+      <div class="ip-step">
+        <div class="ip-step-num">1</div>
+        <div class="ip-step-body">
+          <div class="ip-step-title">Open the portal &mdash; no download needed</div>
+          <div class="ip-step-desc">Visit on any browser on your phone or laptop.<br>
+          <span class="ip-mono">abcentech.github.io/gU</span></div>
+        </div>
+      </div>
+      <div class="ip-step">
+        <div class="ip-step-num">2</div>
+        <div class="ip-step-body">
+          <div class="ip-step-title">Enter your child&rsquo;s goD code</div>
+          <div class="ip-step-desc">You received this at enrolment. It looks like:
+          <br><span class="ip-mono">gOEI &nbsp; gTAA &nbsp; gWOO</span></div>
+        </div>
+      </div>
+      <div class="ip-step">
+        <div class="ip-step-num">3</div>
+        <div class="ip-step-body">
+          <div class="ip-step-title">Enter their middle name as password</div>
+          <div class="ip-step-desc">Any capitalisation works. No middle name? Use their <strong>last name in FULL CAPS.</strong>
+          <br><span class="ip-mono">Emmanuella &nbsp;&nbsp; OGUNSANYA</span></div>
+        </div>
+      </div>
+      <div class="ip-step">
+        <div class="ip-step-num">4</div>
+        <div class="ip-step-body">
+          <div class="ip-step-title">Your dashboard loads instantly</div>
+          <div class="ip-step-desc">Data updates every <strong>Saturday after class.</strong> By Sunday morning, the new week&rsquo;s scores are already there. Bookmark the page for next time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="ip-section-wide">
+    <div class="ip-lbl">&#x2736; What&rsquo;s Inside</div>
+    <h2 class="ip-h2">Everything a parent<br><em>actually needs.</em></h2>
+    <div class="ip-feat-grid">
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F3AF;</span><div class="ip-feat-title">Do This Today</div><div class="ip-feat-desc">A gold card at the top tells you one specific, practical action based on your child&rsquo;s latest data every time you log in.</div><span class="ip-tag ip-tag-core">Home Screen</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F4D6;</span><div class="ip-feat-title">This Week&rsquo;s Reading</div><div class="ip-feat-desc">Exact book and chapters for the current week based on your child&rsquo;s pathway &mdash; so you can read alongside them.</div><span class="ip-tag ip-tag-core">Home Screen</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F4CA;</span><div class="ip-feat-title">Weekly Score &amp; Breakdown</div><div class="ip-feat-desc">Five-category score with a plain-English sentence explaining what it means and what&rsquo;s pulling it down.</div><span class="ip-tag ip-tag-core">Home Screen</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F4DD;</span><div class="ip-feat-title">Instructor&rsquo;s Notes</div><div class="ip-feat-desc">What the instructor observed about your child this week &mdash; their participation, engagement and specific feedback.</div><span class="ip-tag ip-tag-core">Reports</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;&#x200D;&#x1F466;</span><div class="ip-feat-title">Family Overview</div><div class="ip-feat-desc">All siblings&rsquo; scores and category bars side by side. Switch between children with one tap.</div><span class="ip-tag ip-tag-fam">Family Tab</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F3C5;</span><div class="ip-feat-title">Badges &amp; Certificates</div><div class="ip-feat-desc">Earn badges for milestones. A gold achievement certificate appears automatically at 80%+ &mdash; downloadable and shareable.</div><span class="ip-tag ip-tag-new">Auto-generated</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F64C;</span><div class="ip-feat-title">Testimony</div><div class="ip-feat-desc">Share a testimony to the goDs University Telegram channel. Your message log is saved in the portal.</div><span class="ip-tag ip-tag-new">Testimony Tab</span></div>
+      <div class="ip-feat"><span class="ip-feat-ic">&#x1F4B3;</span><div class="ip-feat-title">Fees Status</div><div class="ip-feat-desc">See your outstanding balance at a glance with a direct Pay Now button. Green when fully paid.</div><span class="ip-tag ip-tag-core">Home Screen</span></div>
+    </div>
+  </div>
+
+  <!-- GPA -->
+  <div class="ip-bg">
+  <div class="ip-section">
+    <div class="ip-lbl">&#x2736; Understanding the Score</div>
+    <h2 class="ip-h2">What is the <em>gPA</em>?</h2>
+    <p class="ip-body">The <strong>goD Points Average</strong> is not a test mark. It measures how consistently your child shows up and engages with their spiritual curriculum. Five categories, each weighted equally at 20%.</p>
+    <div class="ip-gpa-cats">
+      <div class="ip-gpa-cat"><span class="ip-gpa-cat-ic">&#x1F4CB;</span><div class="ip-gpa-cat-nm">Weekly Report</div><div class="ip-gpa-cat-sub">Written reflection</div></div>
+      <div class="ip-gpa-cat"><span class="ip-gpa-cat-ic">&#x23F1;</span><div class="ip-gpa-cat-nm">Time Sheet</div><div class="ip-gpa-cat-sub">Minutes logged</div></div>
+      <div class="ip-gpa-cat"><span class="ip-gpa-cat-ic">&#x1F4D6;</span><div class="ip-gpa-cat-nm">Pathway</div><div class="ip-gpa-cat-sub">Chapters completed</div></div>
+      <div class="ip-gpa-cat"><span class="ip-gpa-cat-ic">&#x1F3AF;</span><div class="ip-gpa-cat-nm">Activity</div><div class="ip-gpa-cat-sub">Class participation</div></div>
+      <div class="ip-gpa-cat"><span class="ip-gpa-cat-ic">&#x1F4E1;</span><div class="ip-gpa-cat-nm">Attendance</div><div class="ip-gpa-cat-sub">Present &amp; engaged</div></div>
+    </div>
+    <div class="ip-grades">
+      <div class="ip-grade ex"><div class="ip-grade-pct c-ex">80&ndash;100%</div><div class="ip-grade-lbl">Excellent</div></div>
+      <div class="ip-grade gd"><div class="ip-grade-pct c-gd">60&ndash;79%</div><div class="ip-grade-lbl">Good</div></div>
+      <div class="ip-grade fr"><div class="ip-grade-pct c-fr">40&ndash;59%</div><div class="ip-grade-lbl">Fair</div></div>
+      <div class="ip-grade nf"><div class="ip-grade-pct c-nf">Below 40%</div><div class="ip-grade-lbl">Needs Focus</div></div>
+    </div>
+    <div style="margin-top:16px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;">
+      <p style="font-size:13px;color:var(--text2);line-height:1.75;">
+        &#x1F4A1; <strong style="color:var(--text);">Minutes are tracked separately</strong> and are not included in the gPA percentage. The target is <strong style="color:var(--teal);">300 minutes per week</strong> &mdash; about 45 minutes of reading each day.
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <!-- LOGIN CTA -->
+  <div class="ip-login-cta">
+    <div class="ip-login-cta-title">Ready to check in?</div>
+    <p class="ip-login-cta-sub">Your child&rsquo;s data is waiting.</p>
+    <button class="ip-btn-login" onclick="showLoginFromIntro()">
+      &#x1F511; Log In Now
+    </button>
+    <div style="margin-top:28px;font-size:12px;color:var(--text3);display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://t.me/KidsInspiringNation" target="_blank" style="color:var(--text3);text-decoration:none;">t.me/KidsInspiringNation</a>
+      <span>&middot;</span>
+      <a href="https://bit.ly/KINpro" target="_blank" style="color:var(--text3);text-decoration:none;">Pay Fees</a>
+      <span>&middot;</span>
+      <span>In Spirit &middot; By Skills &middot; For Service</span>
+    </div>
+  </div>
+</div>
+<!-- END INTRO PAGE -->
 
 <div class="cert-modal" id="cert-modal"><div class="cert">
   <span class="cert-crown">&#x1F451;</span>
